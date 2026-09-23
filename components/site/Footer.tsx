@@ -5,7 +5,7 @@ import { FOOTER_COLS } from "@/lib/nav";
 import { Flecha } from "@/components/ui";
 import { RelojTaller, Compartir } from "./Efectos";
 
-import { Icono } from "@/components/ui/Icono";
+import { Icono, IconoMarca } from "@/components/ui/Icono";
 export default function Footer() {
   return (
     <>
@@ -72,9 +72,7 @@ export default function Footer() {
         rel="noopener"
         aria-label="Escríbenos por WhatsApp"
       >
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.2s-.8 1-.9 1.2c-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-1.2 1.3-1.1 3 .3 5 .8 1.1 2.6 3.7 6 5.1 2.3.9 2.8.8 3.4.7.8-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3a8.2 8.2 0 1113.3 3.2 8.1 8.1 0 01-6.1 2.7z" />
-        </svg>
+        <IconoMarca n="whatsapp" tam={28} />
       </a>
     </>
   );

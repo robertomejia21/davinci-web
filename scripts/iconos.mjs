@@ -18,6 +18,13 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const FREEHAND = require("@iconify-json/streamline-freehand/icons.json");
 const PHOSPHOR = require("@iconify-json/ph/icons.json");
+const SIMPLE = require("@iconify-json/simple-icons/icons.json");
+
+/* logos de marca tal cual (Simple Icons, CC0): sin filtro de boceto,
+   porque un logo oficial no se «dibuja» */
+const MARCAS = {
+  whatsapp: "whatsapp",
+};
 
 const CONCEPTOS = {
   llamada:     ["help-headphones-customer-support", "phone-call"],
@@ -57,6 +64,13 @@ const CONCEPTOS = {
   enlace:      ["link-paperclip", "link"],
   lupa:        ["search-magnifier", "magnifying-glass"],
   play:        [null, "play"],
+  ojo:         ["view-eye-1", "eye"],
+  hecho:       ["task-clipboard-check", "check-circle"],
+  equipo:      ["business-management-team-up", "users-three"],
+  ajuste:      [null, "sliders-horizontal"],
+  calendario:  ["calendar-date", "calendar-check"],
+  precio:      ["tag-sale-price", "tag"],
+  no:          [null, "x-circle"],
 };
 
 function extraer(set, nombre, concepto) {
@@ -90,6 +104,13 @@ escribir("iconos-boceto.ts", CABEZA + [
   `export type SvgIcono = { v: string; b: string };`,
   `export const BOCETO = ${JSON.stringify(boceto)} satisfies Record<string, SvgIcono>;`,
   `export type NombreIcono = keyof typeof BOCETO;`,
+].join("\n") + "\n");
+
+const marcas = Object.fromEntries(Object.entries(MARCAS).map(([c, n]) => [c, extraer(SIMPLE, n, c)]));
+escribir("iconos-marcas.ts", CABEZA + [
+  `import type { SvgIcono } from "./iconos-boceto";`,
+  `export const MARCAS = ${JSON.stringify(marcas)} satisfies Record<string, SvgIcono>;`,
+  `export type NombreMarca = keyof typeof MARCAS;`,
 ].join("\n") + "\n");
 
 escribir("iconos-mano.ts", CABEZA + [

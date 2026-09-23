@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ventajas del sistema — North Tech ERP</title>
+<style>
+  :root{
+    --bg:#f6f8fc; --card:#ffffff; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+    --brand:#2563eb; --brand-soft:#eff6ff;
+    --ai:#7c3aed; --ai-soft:#f5f3ff;
+    --ok:#059669; --ok-soft:#ecfdf5; --warn:#d97706; --warn-soft:#fffbeb;
+    --bad:#dc2626; --bad-soft:#fef2f2;
+    --radius:18px;
+    --shadow:0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Barra superior ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50; background:rgba(255,255,255,.88);
+    backdrop-filter:blur(12px); border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:16px; padding:12px 22px;
+  }
+  .brand{font-weight:800; letter-spacing:-.02em; font-size:15px; white-space:nowrap}
+  .brand span{color:var(--brand)}
+  .demo-tag{font-size:11px; font-weight:800; color:var(--warn); background:var(--warn-soft); border:1px solid #fde68a; padding:3px 9px; border-radius:99px; white-space:nowrap}
+  .progress{flex:1; height:5px; background:var(--line); border-radius:99px; overflow:hidden}
+  .progress > i{display:block; height:100%; width:0; background:var(--brand); border-radius:99px; transition:width .35s ease}
+  .counter{font-variant-numeric:tabular-nums; color:var(--muted); font-size:13px; font-weight:700; white-space:nowrap}
+  .navbtns{display:flex; gap:8px}
+  .navbtns button{
+    border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:10px;
+    width:34px; height:34px; font-size:16px; cursor:pointer; line-height:1;
+  }
+  .navbtns button:hover:not(:disabled){border-color:var(--brand); color:var(--brand)}
+  .navbtns button:disabled{opacity:.35; cursor:not-allowed}
+  @media(max-width:640px){ .demo-tag{display:none} .topbar{padding:10px 16px; gap:10px} }
+
+  /* ---------- Láminas ---------- */
+  .deck{max-width:1120px; margin:0 auto; padding:34px 22px 90px}
+  .slide{display:none; animation:in .35s ease}
+  .slide.on{display:block}
+  @keyframes in{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+
+  .kicker{
+    display:inline-block; background:var(--brand-soft); color:var(--brand);
+    font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+    padding:5px 11px; border-radius:99px; margin-bottom:14px;
+  }
+  .kicker.ai{background:var(--ai-soft); color:var(--ai)}
+  h1{font-size:clamp(30px,4.6vw,48px); line-height:1.12; letter-spacing:-.03em; margin:0 0 14px}
+  h2{font-size:clamp(23px,3.1vw,32px); line-height:1.2; letter-spacing:-.02em; margin:0 0 10px}
+  h3{font-size:16px; margin:0 0 6px; letter-spacing:-.01em}
+  p{margin:0 0 14px; color:#334155}
+  .lead{font-size:18px; color:var(--muted); max-width:72ch}
+  .small{font-size:13.5px; color:var(--muted)}
+  strong{color:var(--ink)}
+
+  figure{margin:20px 0 0}
+  figure img{
+    width:100%; display:block; border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow); background:#fff;
+  }
+  figcaption{margin-top:10px; font-size:13px; color:var(--muted); text-align:center}
+
+  .grid{display:grid; gap:16px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:980px){.g4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow)}
+  .card .ico{font-size:22px; margin-bottom:8px; display:block}
+  .card.ai{border-color:#ddd6fe; background:linear-gradient(180deg,#fff, var(--ai-soft))}
+
+  /* Antes / Ahora */
+  .ba{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px}
+  @media(max-width:820px){.ba{grid-template-columns:1fr}}
+  .ba > div{border-radius:var(--radius); padding:18px 20px; border:1px solid var(--line); background:#fff}
+  .ba .before{background:#fafafa}
+  .ba .t{font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px}
+  .ba .before .t{color:var(--muted)}
+  .ba .after{border-color:#bbf7d0; background:var(--ok-soft)}
+  .ba .after .t{color:var(--ok)}
+  .ba ul{margin:0; padding-left:18px}
+  .ba li{margin:4px 0; font-size:14.5px; color:#334155}
+
+  .note{border-left:4px solid var(--brand); background:var(--brand-soft); border-radius:0 12px 12px 0; padding:14px 18px; margin:18px 0}
+  .note.ai{border-color:var(--ai); background:var(--ai-soft)}
+  .note.warn{border-color:var(--warn); background:var(--warn-soft)}
+  .note.ok{border-color:var(--ok); background:var(--ok-soft)}
+  .note p:last-child{margin-bottom:0}
+  .note b{display:block; margin-bottom:4px}
+
+  .tablewrap{overflow-x:auto; margin-top:18px; border-radius:var(--radius)}
+  table{width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; font-size:14.5px}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:#f8fafc; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+  tr:last-child td{border-bottom:none}
+  td.b{color:var(--muted)}
+  td.a{color:var(--ink); font-weight:600}
+
+  .pill{display:inline-block; font-size:11.5px; font-weight:800; padding:3px 9px; border-radius:99px; white-space:nowrap}
+  .p-ai{background:var(--ai-soft); color:var(--ai)}
+  .p-brand{background:var(--brand-soft); color:var(--brand)}
+
+  .flow{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:16px}
+  .flow span{background:#fff; border:1px solid var(--line); border-radius:10px; padding:7px 12px; font-size:13.5px; font-weight:700; box-shadow:var(--shadow)}
+  .flow i{color:var(--muted); font-style:normal}
+
+  .side{display:grid; grid-template-columns:260px 1fr; gap:18px; align-items:start}
+  @media(max-width:820px){.side{grid-template-columns:1fr}}
+
+  .cover{text-align:center; padding:40px 0 10px}
+  .cover .meta{color:var(--muted); font-size:14px; margin-top:22px}
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:28px}
+  @media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stats > div{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)}
+  .stats b{display:block; font-size:28px; letter-spacing:-.03em; line-height:1.1}
+  .stats small{color:var(--muted); font-size:13px}
+
+  .privacy{
+    margin-top:28px; border:1px dashed #f59e0b; background:var(--warn-soft); border-radius:var(--radius);
+    padding:18px 20px; font-size:14px; color:#78350f;
+  }
+  .privacy b{color:#78350f}
+  .footnote{font-size:12px; color:var(--muted); text-align:center; margin-top:26px}
+
+  .hint{position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,.85); color:#fff;
+        font-size:12px; padding:7px 15px; border-radius:99px; z-index:60}
+  @media print{
+    .topbar,.hint{display:none}
+    .slide{display:block !important; page-break-after:always; padding-top:12px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">North Tech · <span>Ventajas del sistema</span></div>
+  <div class="demo-tag" title="Los nombres y cifras de las capturas son ficticios">Datos de ejemplo</div>
+  <div class="progress"><i id="bar"></i></div>
+  <div class="counter"><span id="cur">1</span>/<span id="tot">16</span></div>
+  <div class="navbtns">
+    <button id="prev" aria-label="Anterior">‹</button>
+    <button id="next" aria-label="Siguiente">›</button>
+  </div>
+</div>
+
+<div class="deck">
+
+<!-- 1 · Portada ---------------------------------------------------------- -->
+<section class="slide on">
+  <div class="cover">
+    <span class="kicker">Resultados · Septiembre 2026</span>
+    <h1>De hojas de cálculo y mensajes sueltos<br>a una operación conectada</h1>
+    <p class="lead" style="margin:0 auto">Qué cambió en North Tech desde que ventas, compras, almacén y finanzas trabajan en un mismo sistema, y dónde la inteligencia artificial y el análisis de datos ya nos ahorran horas de trabajo.</p>
+    <div class="stats">
+      <div><b>1</b><small>sola fuente de información para todas las áreas</small></div>
+      <div><b>8</b><small>funciones con inteligencia artificial integrada</small></div>
+      <div><b>9</b><small>roles con permisos configurables por módulo</small></div>
+      <div><b>24/7</b><small>asistente por WhatsApp para el equipo</small></div>
+    </div>
+    <div class="meta">Usa las flechas ← → del teclado o los botones de arriba para avanzar.</div>
+  </div>
+</section>
+
+<!-- 2 · Antes vs ahora ------------------------------------------------- -->
+<section class="slide">
+  <span class="kicker">Resumen</span>
+  <h2>Antes y ahora, en una tabla</h2>
+  <p class="lead">Cada fila es un proceso que antes dependía de archivos sueltos, memoria o una llamada, y que hoy vive en el sistema.</p>
+  <div class="tablewrap">
+  <table>
+    <tr><th style="width:22%">Proceso</th><th>Antes</th><th>Con el sistema</th></tr>
+    <tr><td><strong>Cotizar</strong></td><td class="b">Plantilla de Excel por vendedor, fórmulas copiadas a mano, PDF armado aparte.</td><td class="a">Cotizador con la fórmula de Valor Real integrada, IVA 8 % / 16 %, folio único y PDF en un clic.</td></tr>
+    <tr><td><strong>Capturar requisiciones</strong></td><td class="b">Transcribir renglón por renglón la lista que manda el cliente.</td><td class="a">Se sube la foto o PDF y la IA llena las partidas.</td></tr>
+    <tr><td><strong>Aprobar descuentos grandes</strong></td><td class="b">Visto bueno por WhatsApp o de palabra, sin registro.</td><td class="a">Las cotizaciones arriba del límite se bloquean hasta que Compras las aprueba; queda quién y cuándo.</td></tr>
+    <tr><td><strong>Seguimiento a vendedores</strong></td><td class="b">Reportes que cada vendedor llenaba a su criterio.</td><td class="a">Visitas con GPS o foto, metas mensuales y métricas que se cuentan desde los registros reales.</td></tr>
+    <tr><td><strong>Compras</strong></td><td class="b">Buscar en contactos del celular quién surte qué.</td><td class="a">Proveedores etiquetados por lo que nos venden y órdenes ligadas a la cotización de origen.</td></tr>
+    <tr><td><strong>Facturas de proveedor</strong></td><td class="b">Capturar datos del PDF y buscar la clave SAT en el catálogo.</td><td class="a">La IA extrae emisor, conceptos y totales, y sugiere la clave SAT de cada concepto.</td></tr>
+    <tr><td><strong>Inventario y entregas</strong></td><td class="b">Existencias actualizadas cuando alguien se acordaba.</td><td class="a">Cada entrega (parcial o total) descuenta el stock y deja un movimiento auditable.</td></tr>
+    <tr><td><strong>Reportes para Dirección</strong></td><td class="b">Se armaban al cierre de mes juntando archivos de cada área.</td><td class="a">Indicadores del mes contra el anterior, en tiempo real, y un copiloto de IA para preguntar.</td></tr>
+  </table>
+  </div>
+</section>
+
+<!-- 3 · Panel de Dirección ---------------------------------------------- -->
+<section class="slide">
+  <span class="kicker">Análisis de datos</span>
+  <h2>Dirección ve la empresa completa, sin pedir reportes</h2>
+  <p class="lead">Al entrar, Dirección ve los indicadores del mes: leads visitados, clientes nuevos, cotizaciones, órdenes de compra, facturas y prospección. Cada uno se compara contra el mes anterior.</p>
+  <figure><img src="img/01-panel-direccion.jpg" alt="Panel principal con indicadores del mes"><figcaption>Panel principal: seis indicadores del mes con su variación contra el mes pasado.</figcaption></figure>
+  <div class="ba">
+    <div class="before"><div class="t">Antes</div><ul><li>Cada área mandaba su resumen en un formato distinto.</li><li>Los números se conocían días después del cierre.</li></ul></div>
+    <div class="after"><div class="t">Ahora</div><ul><li>Los indicadores salen directo de los registros, sin captura adicional.</li><li>Las alzas y bajas se ven el mismo día en que pasan.</li></ul></div>
+  </div>
+</section>
+
+<!-- 4 · Finanzas ------------------------------------------------------- -->
+<section class="slide">
+  <span class="kicker">Análisis de datos</span>
+  <h2>Finanzas en tiempo real</h2>
+  <p class="lead">Facturación, utilidad bruta con margen, cuentas por cobrar y por pagar, saldo neto y tasa de conversión, todo en una pantalla. La tendencia de ventas contra compras y el pipeline por vendedor se grafican solos, y todo se exporta a Excel.</p>
+  <figure><img src="img/02-radiografia-finanzas.jpg" alt="Radiografía financiera"><figcaption>Radiografía corporativa: el estado financiero consolidado en cuanto se registra un movimiento.</figcaption></figure>
+  <div class="note"><b>Qué se gana</b><p>Contabilidad deja de conciliar hojas de distintas áreas. Cuentas por cobrar y por pagar salen de las mismas facturas y pagos que registra cada área.</p></div>
+</section>
+
+<!-- 5 · CRM ----------------------------------------------------------- -->
+<section class="slide">
+  <span class="kicker">Ventas</span>
+  <h2>Un pipeline visual para cada oportunidad</h2>
+  <p class="lead">Cada cotización aparece como tarjeta en su etapa (Cotización → Negociando → Ganada) con su monto, su avance y la siguiente actividad sugerida. Arriba se ve el valor total del pipeline y las actividades pendientes del día.</p>
+  <figure><img src="img/04-crm-pipeline.jpg" alt="Pipeline del CRM"><figcaption>CRM: el embudo de ventas completo, con el monto por etapa.</figcaption></figure>
+  <div class="ba">
+    <div class="before"><div class="t">Antes</div><ul><li>Las oportunidades vivían en la cabeza (o el celular) de cada vendedor.</li><li>Si alguien faltaba, nadie sabía en qué iba su cliente.</li></ul></div>
+    <div class="after"><div class="t">Ahora</div><ul><li>Toda oportunidad queda registrada y cualquier gerente ve su estado.</li><li>El sistema propone la siguiente acción (enviar, esperar aprobación, crear orden).</li></ul></div>
+  </div>
+</section>
+
+<!-- 6 · Cotizaciones y aprobación ------------------------------------- -->
+<section class="slide">
+  <span class="kicker">Ventas</span>
+  <h2>Cotizaciones con reglas del negocio integradas</h2>
+  <p class="lead">El cotizador aplica la fórmula de la empresa, <strong>Valor Real = (Precio base + Importación + Flete) × (1 + Utilidad %)</strong>, y recalcula al instante cuando se mueve el margen. El IVA arranca en 8 % y se cambia a 16 % con un switch.</p>
+  <div class="grid g2">
+    <figure style="margin:0"><img src="img/05-cotizaciones.jpg" alt="Historial de cotizaciones"><figcaption>Historial de cotizaciones con folio, total y estatus.</figcaption></figure>
+    <figure style="margin:0"><img src="img/06-cotizaciones-por-aprobar.jpg" alt="Cotizaciones por aprobar"><figcaption>Cola de aprobación: cuánto excede el límite y cuántos días lleva esperando.</figcaption></figure>
+  </div>
+  <div class="note warn"><b>Control de montos grandes</b><p>Si una cotización supera el límite libre (sin IVA), se bloquea: no se puede enviar al cliente ni convertir en orden de venta hasta que Compras o Dirección la apruebe. Si después se modifican las partidas, vuelve a la cola. Cada aprobación guarda quién la hizo y cuándo.</p></div>
+</section>
+
+<!-- 7 · IA: panorama ---------------------------------------------------- -->
+<section class="slide">
+  <span class="kicker ai">Inteligencia artificial</span>
+  <h2>La IA trabaja dentro del flujo, no en otra ventana</h2>
+  <p class="lead">El sistema usa un modelo de IA de Google (Gemini) en ocho puntos concretos. En todos, la IA hace la captura o la búsqueda pesada y una persona revisa y confirma antes de guardar.</p>
+  <div class="grid g4" style="margin-top:20px">
+    <div class="card ai"><span class="ico">📸</span><h3>Requisición → cotización</h3><p class="small">Lee la foto o PDF de lo que pide el cliente y crea las partidas.</p></div>
+    <div class="card ai"><span class="ico">🧾</span><h3>Extractor de facturas</h3><p class="small">Saca emisor, receptor, conceptos y totales de varias facturas a la vez.</p></div>
+    <div class="card ai"><span class="ico">🔎</span><h3>Buscador SAT</h3><p class="small">Sugiere tres claves de producto/servicio SAT por concepto, con su justificación.</p></div>
+    <div class="card ai"><span class="ico">🏷️</span><h3>Clasificador SAT</h3><p class="small">Propone la clave SAT de cada producto al armar una orden.</p></div>
+    <div class="card ai"><span class="ico">🪪</span><h3>Constancia fiscal</h3><p class="small">Llena RFC, razón social y domicilio del cliente o proveedor a partir de su constancia.</p></div>
+    <div class="card ai"><span class="ico">💲</span><h3>Cotización de proveedor</h3><p class="small">Lee el precio cotizado por el proveedor y después lo compara contra lo facturado.</p></div>
+    <div class="card ai"><span class="ico">🧭</span><h3>Copiloto NORTH</h3><p class="small">Responde preguntas sobre tus cotizaciones y órdenes desde cualquier pantalla.</p></div>
+    <div class="card ai"><span class="ico">💬</span><h3>Asistente WhatsApp</h3><p class="small">El equipo consulta ventas, compras e inventario desde su WhatsApp.</p></div>
+  </div>
+  <div class="note ai"><b>Límites que pusimos a propósito</b><p>El copiloto solo contesta con los datos que el rol de esa persona ya puede ver, y tiene instrucción de no inventar indicadores. El asistente de WhatsApp no le da ningún dato a un número que no esté registrado como usuario.</p></div>
+</section>
+
+<!-- 8 · IA: requisición a cotización ------------------------------------ -->
+<section class="slide">
+  <span class="kicker ai">Inteligencia artificial</span>
+  <h2>De la foto del cliente a la cotización en segundos</h2>
+  <p class="lead">El cliente manda una lista escrita, una foto del pizarrón o un PDF. El vendedor la sube con <strong>“Subir PDF / Imagen (IA)”</strong> y el sistema crea las partidas con cantidad, descripción y unidad. El vendedor solo agrega costos y margen.</p>
+  <div class="side">
+    <figure style="margin:0"><img src="img/demo-requisicion.png" alt="Requisición de ejemplo"><figcaption>Documento de entrada (ejemplo ficticio).</figcaption></figure>
+    <figure style="margin:0"><img src="img/07-ia-cotizacion-desde-foto.jpg" alt="Partidas creadas por la IA"><figcaption>Resultado: la IA agregó las 6 partidas con sus cantidades.</figcaption></figure>
+  </div>
+  <div class="ba">
+    <div class="before"><div class="t">Antes</div><ul><li>Transcribir cada renglón a mano, con errores de dedo en cantidades.</li><li>Una lista larga tomaba varios minutos antes de siquiera empezar a cotizar.</li></ul></div>
+    <div class="after"><div class="t">Ahora</div><ul><li>La captura inicial la hace la IA en segundos.</li><li>El vendedor dedica su tiempo a precio y margen, que es donde aporta.</li></ul></div>
+  </div>
+</section>
+
+<!-- 9 · IA: SAT --------------------------------------------------------- -->
+<section class="slide">
+  <span class="kicker ai">Inteligencia artificial</span>
+  <h2>Claves SAT y datos de factura sin buscar en catálogos</h2>
+  <p class="lead">En <strong>Buscador SAT</strong> se sube una factura, ticket o cotización. La IA identifica cada concepto y propone las tres claves de producto/servicio más probables, con una explicación breve de por qué.</p>
+  <div class="side">
+    <figure style="margin:0"><img src="img/demo-factura.png" alt="Factura de ejemplo"><figcaption>Documento de entrada (factura ficticia).</figcaption></figure>
+    <figure style="margin:0"><img src="img/08-ia-buscador-sat.jpg" alt="Resultado del buscador SAT"><figcaption>La IA encontró los 4 conceptos y propone sus claves SAT con su razonamiento.</figcaption></figure>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card ai"><h3>🧾 Extractor inteligente de facturas</h3><p class="small">Contabilidad arrastra varias facturas (PDF o imagen) de clientes o proveedores y la IA extrae emisor, receptor, RFC, folio, fecha, moneda, conceptos y totales de todas en paralelo.</p></div>
+    <div class="card ai"><h3>🏷️ Clasificador en órdenes de compra</h3><p class="small">Al armar una orden, el sistema sugiere la clave SAT de cada producto a partir de su nombre, para que la factura salga bien desde el principio.</p></div>
+  </div>
+</section>
+
+<!-- 10 · IA: copiloto y constancia -------------------------------------- -->
+<section class="slide">
+  <span class="kicker ai">Inteligencia artificial</span>
+  <h2>Un copiloto que conoce tu información</h2>
+  <p class="lead"><strong>NORTH</strong> está disponible en todas las pantallas. Se le pregunta en lenguaje normal (“¿qué cotizaciones tengo pendientes?”, “¿cuál orden ya se entregó?”) y responde con los datos de tu perfil en ese momento.</p>
+  <div class="grid g2">
+    <figure style="margin:0"><img src="img/09-ia-copiloto-north.jpg" alt="Copiloto NORTH"><figcaption>Copiloto NORTH respondiendo sobre las cotizaciones del usuario.</figcaption></figure>
+    <figure style="margin:0"><img src="img/10-ia-constancia-fiscal.jpg" alt="Alta de cliente con constancia fiscal"><figcaption>Alta de cliente: se sube la Constancia de Situación Fiscal y la IA llena el formulario.</figcaption></figure>
+  </div>
+  <div class="ba">
+    <div class="before"><div class="t">Antes</div><ul><li>Para saber el estado de algo había que preguntarle a otra persona.</li><li>RFC, razón social y domicilio se copiaban de la constancia a mano.</li></ul></div>
+    <div class="after"><div class="t">Ahora</div><ul><li>La respuesta sale del propio sistema, en segundos.</li><li>Dar de alta un cliente o proveedor es subir un PDF y revisar.</li></ul></div>
+  </div>
+</section>
+
+<!-- 11 · WhatsApp ----------------------------------------------------- -->
+<section class="slide">
+  <span class="kicker ai">Inteligencia artificial · WhatsApp</span>
+  <h2>El sistema también responde por WhatsApp</h2>
+  <p class="lead">Cualquier persona con su WhatsApp registrado le escribe al número de la empresa y un asistente de IA le contesta con sus datos: estatus de sus órdenes y cotizaciones, productos bajo stock mínimo, órdenes de compra, aprobaciones pendientes o quién nos surte un material.</p>
+  <div class="grid g2">
+    <figure style="margin:0"><img src="img/18-whatsapp-agentes.jpg" alt="Agentes de WhatsApp"><figcaption>Agentes de IA por WhatsApp: ventas, compras y finanzas.</figcaption></figure>
+    <figure style="margin:0"><img src="img/19-whatsapp-avisos.jpg" alt="Avisos por WhatsApp"><figcaption>Avisos de Dirección: un comunicado semanal programado.</figcaption></figure>
+  </div>
+  <div class="grid g3" style="margin-top:18px">
+    <div class="card"><h3>🔔 Avisos automáticos</h3><p class="small">Se avisa al vendedor cuando su orden se entrega y a Compras cuando un producto baja de su mínimo.</p></div>
+    <div class="card"><h3>📅 Recordatorios de agenda</h3><p class="small">Antes de cada cita o llamada agendada, el responsable recibe un recordatorio en su WhatsApp.</p></div>
+    <div class="card"><h3>📣 Comunicados de Dirección</h3><p class="small">Avisos al personal: al momento, programados o recurrentes (por ejemplo, la junta semanal).</p></div>
+  </div>
+</section>
+
+<!-- 12 · Seguimiento de campo ----------------------------------------- -->
+<section class="slide">
+  <span class="kicker">Análisis de datos</span>
+  <h2>¿El equipo realmente sale a vender? Ahora hay datos</h2>
+  <p class="lead">Cada visita se registra con objetivo, resultado, próximo paso y evidencia (GPS o foto). El tablero compara cada meta mensual contra lo que de verdad pasó: visitas, leads, citas, cotizaciones, clientes y ventas.</p>
+  <figure><img src="img/11-campo-resumen.jpg" alt="Resumen de campo"><figcaption>Resumen de campo del mes: avance contra meta y % de visitas con evidencia.</figcaption></figure>
+  <figure><img src="img/12-campo-cumplimiento.jpg" alt="Cumplimiento por vendedor"><figcaption>Cumplimiento por vendedor. Cada número se abre para ver los registros que lo componen.</figcaption></figure>
+  <div class="note"><b>El sistema no se basa en lo que cada quien reporta</b><p>Leads, cotizaciones, clientes y ventas se cuentan desde los módulos donde realmente se crean, no desde lo que el vendedor marque. Los registros incompletos (visita sin evidencia, lead sin contacto, empresa sin RFC) se resaltan, así se detecta una carga masiva que no es prospección real.</p></div>
+</section>
+
+<!-- 13 · Agenda ------------------------------------------------------- -->
+<section class="slide">
+  <span class="kicker">Seguimiento</span>
+  <h2>Una agenda que se llena sola</h2>
+  <p class="lead">Si una visita trae fecha de próximo paso, el sistema crea la cita o tarea automáticamente y la liga a la visita. Cerrar una tarea exige capturar su resultado, así ningún compromiso con un cliente se pierde.</p>
+  <figure><img src="img/13-agenda.jpg" alt="Agenda de citas"><figcaption>Agenda: citas, llamadas y tareas con recordatorio por WhatsApp.</figcaption></figure>
+</section>
+
+<!-- 14 · Compras ------------------------------------------------------ -->
+<section class="slide">
+  <span class="kicker">Compras</span>
+  <h2>Saber quién nos surte qué, y pagar lo que se cotizó</h2>
+  <p class="lead">Cada proveedor lleva etiquetas con lo que nos vende (tornillería, ductos, empaque…). Al crear una orden de compra, la barra <strong>“¿Qué necesitas comprar?”</strong> filtra a los proveedores que surten eso.</p>
+  <div class="grid g2">
+    <figure style="margin:0"><img src="img/14-proveedores-etiquetas.jpg" alt="Directorio de proveedores con etiquetas"><figcaption>Directorio de proveedores filtrable por etiquetas.</figcaption></figure>
+    <figure style="margin:0"><img src="img/15-orden-compra.jpg" alt="Nueva orden de compra"><figcaption>Orden de compra ligada a la cotización de origen.</figcaption></figure>
+  </div>
+  <div class="ba">
+    <div class="before"><div class="t">Antes</div><ul><li>Encontrar proveedor dependía de a quién se le preguntara.</li><li>No había forma sencilla de comparar precio cotizado vs. facturado.</li></ul></div>
+    <div class="after"><div class="t">Ahora</div><ul><li>Toda orden de compra lleva el folio de la cotización de venta que la originó.</li><li>La IA lee la cotización del proveedor, y al facturar se marca en color la diferencia de precio.</li></ul></div>
+  </div>
+</section>
+
+<!-- 15 · Almacén y operación ----------------------------------------- -->
+<section class="slide">
+  <span class="kicker">Operación</span>
+  <h2>Entregas, inventario y permisos bajo control</h2>
+  <p class="lead">La orden de venta avanza de pendiente a entregada, con entregas parciales y remisión firmada. Cada entrega descuenta el stock en la misma operación que registra el movimiento, así el inventario y su historial siempre coinciden.</p>
+  <div class="grid g2">
+    <figure style="margin:0"><img src="img/16-ordenes-venta.jpg" alt="Órdenes de venta"><figcaption>Órdenes de venta con su estatus de entrega.</figcaption></figure>
+    <figure style="margin:0"><img src="img/17-inventario.jpg" alt="Inventario"><figcaption>Inventario con existencias y alertas de stock mínimo.</figcaption></figure>
+  </div>
+  <figure><img src="img/20-permisos.jpg" alt="Matriz de permisos por rol"><figcaption>Matriz de permisos: Dirección decide qué ve y qué edita cada rol, módulo por módulo.</figcaption></figure>
+  <div class="note ok"><b>Trazabilidad completa</b><p>Cada cambio de estatus (cotización → orden de venta → entrega) guarda quién lo hizo y cuándo. Los movimientos de inventario y los pagos no se pueden editar ni borrar, salvo por un administrador.</p></div>
+</section>
+
+<!-- 16 · Cierre y privacidad ---------------------------------------- -->
+<section class="slide">
+  <div class="cover">
+    <span class="kicker">En resumen</span>
+    <h1>Menos captura, más control<br>y decisiones con datos</h1>
+    <p class="lead" style="margin:0 auto">El sistema junta en un solo lugar lo que antes estaba repartido entre archivos, correos y mensajes. La inteligencia artificial se encarga de la captura repetitiva y el análisis de datos muestra, sin esperar al cierre de mes, cómo va cada área y cada persona.</p>
+    <div class="grid g3" style="margin-top:26px; text-align:left">
+      <div class="card"><span class="ico">⏱️</span><h3>Tiempo</h3><p class="small">Cotizaciones, altas de clientes y facturas que antes se capturaban a mano ahora las lee la IA.</p></div>
+      <div class="card"><span class="ico">🔒</span><h3>Control</h3><p class="small">Aprobaciones con registro, permisos por rol y trazabilidad de cotización a entrega.</p></div>
+      <div class="card"><span class="ico">📊</span><h3>Visibilidad</h3><p class="small">Indicadores en tiempo real, cumplimiento por vendedor auditable y un copiloto para preguntar.</p></div>
+    </div>
+    <div class="privacy">
+      <b>🔐 Nota de privacidad.</b> Para proteger a nuestros clientes, proveedores y colaboradores, <b>los nombres, montos, folios, correos, teléfonos y RFC que aparecen en las capturas no son reales</b>: se sustituyeron por datos ficticios antes de tomar cada imagen. Los documentos usados para demostrar la inteligencia artificial (requisición y factura) también son de ejemplo. Las pantallas y funciones sí son las del sistema en operación.
+    </div>
+  </div>
+</section>
+
+<p class="footnote">Nombres y cifras de las capturas son ficticios para proteger la privacidad de nuestros clientes.</p>
+</div>
+
+<div class="hint" id="hint">← → para navegar</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const bar = document.getElementById('bar');
+  const cur = document.getElementById('cur');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  document.getElementById('tot').textContent = slides.length;
+
+  let i = 0;
+  function show(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    cur.textContent = i + 1;
+    prev.disabled = i === 0;
+    next.disabled = i === slides.length - 1;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    try { history.replaceState(null, '', '#p' + (i + 1)); } catch (e) {}
+  }
+  prev.onclick = () => show(i - 1);
+  next.onclick = () => show(i + 1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') show(i + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'PageUp')   show(i - 1);
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End')  show(slides.length - 1);
+  });
+
+  // Permite compartir un enlace directo a una lámina (#p7).
+  const fromHash = () => { const m = /^#p(\d+)$/.exec(location.hash || ''); return m ? parseInt(m[1], 10) - 1 : 0; };
+  window.addEventListener('hashchange', () => { if (fromHash() !== i) show(fromHash()); });
+  show(fromHash());
+
+  setTimeout(() => { const h = document.getElementById('hint'); if (h) h.style.display = 'none'; }, 4500);
+</script>
+</body>
+</html>

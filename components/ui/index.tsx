@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Fila, Panel as PanelT } from "@/lib/contenido";
 
-import { conIconos } from "@/components/ui/Icono";
+import { Icono, conIconos, type NombreIcono } from "@/components/ui/Icono";
 /* ---------- iconos ---------- */
 export function Flecha({ size = 14 }: { size?: number }) {
   return (
@@ -184,11 +184,18 @@ export function Metricas({ items, naranja }: { items: Fila[]; naranja?: boolean 
   );
 }
 
-export function Escalones({ items }: { items: Fila[] }) {
+/* `fondos`: una ilustración por bloque que va detrás, semitransparente.
+   Se pasa ya renderizada (p. ej. <IconoMano />) para que los dibujos pesados
+   no entren a este módulo, que también usan componentes del navegador. */
+export function Escalones({
+  items, iconos, fondos,
+}: { items: Fila[]; iconos?: NombreIcono[]; fondos?: ReactNode[] }) {
   return (
     <div className="escalones" data-reveal>
-      {items.map(([n, d]) => (
-        <div className="escalon" key={d}>
+      {items.map(([n, d], i) => (
+        <div className={`escalon${fondos?.[i] ? " con-fondo" : ""}`} key={d}>
+          {fondos?.[i] && <span className="escalon-fondo" aria-hidden="true">{fondos[i]}</span>}
+          {iconos?.[i] && <span className="escalon-ico"><Icono n={iconos[i]} tam={22} /></span>}
           <b>{n}</b>
           <span>{d}</span>
         </div>
@@ -198,12 +205,16 @@ export function Escalones({ items }: { items: Fila[] }) {
 }
 
 /* ---------- puntos / lista ---------- */
-export function Puntos({ items, numerado }: { items: Fila[]; numerado?: boolean }) {
+export function Puntos({
+  items, numerado, iconos,
+}: { items: Fila[]; numerado?: boolean; iconos?: NombreIcono[] }) {
   return (
     <div className="pasos">
       {items.map(([t, d], i) => (
         <article className="paso" key={t} data-reveal>
-          <span className="paso-n">{numerado ? String(i + 1).padStart(2, "0") : "✳"}</span>
+          <span className="paso-n">
+            {iconos?.[i] ? <Icono n={iconos[i]} tam={22} /> : numerado ? String(i + 1).padStart(2, "0") : "✳"}
+          </span>
           <div>
             <h4>{t}</h4>
             <p dangerouslySetInnerHTML={{ __html: d }} />
@@ -221,7 +232,7 @@ export function CardLink({
   return (
     <Link className="card" href={href} data-reveal>
       {num && <span className="card-num">{num}</span>}
-      <h3>{titulo}</h3>
+      <h3 className="color-black">{titulo}</h3>
       <p>{texto}</p>
       <span className="enlace">{cta} <Flecha size={12} /></span>
     </Link>

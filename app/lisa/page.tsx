@@ -1,4 +1,4 @@
-import { PageHero, SecHead, CtaFinal, Panel, Puntos, Btn } from "@/components/ui";
+import { Miga, Chips, SecHead, CtaFinal, Panel, Puntos, Btn } from "@/components/ui";
 import { LisaShow } from "@/components/demos/chats";
 import type { Fila } from "@/lib/contenido";
 
@@ -25,23 +25,26 @@ const COMO: Fila[] = [
 export default function Lisa() {
   return (
     <>
-      <PageHero
-        miga={[{ href: "/", titulo: "Inicio" }, { titulo: "LISA" }]}
-        titulo={<><em>LISA</em>, tu agente empresarial.</>}
-        lead="Leonardo tardó 16 años en su obra maestra. La nuestra se llama igual — y trabaja para ti."
-        chips={["agente_maestro", "base_de_conocimiento", "whatsapp+voz", "accesos_por_rol"]}
-      />
-
-      <section className="sec" style={{ paddingTop: 0 }}>
+      {/* encabezado en dos columnas: el celular de LISA a la altura del título */}
+      <section className="phero">
+        <div className="rejilla" aria-hidden="true" />
         <div className="wrap">
-          <div className="split split-top">
+          <div className="split lisa-hero">
             <div>
-              <p className="lead">
+              <Miga items={[{ href: "/", titulo: "Inicio" }, { titulo: "LISA" }]} />
+              <h1 data-reveal><em>LISA</em>, tu agente empresarial.</h1>
+              <p className="lead" data-reveal>
+                Leonardo tardó 16 años en su obra maestra. La nuestra se llama igual — y trabaja para ti.
+              </p>
+              <div data-reveal>
+                <Chips items={["agente_maestro", "base_de_conocimiento", "whatsapp+voz", "accesos_por_rol"]} />
+              </div>
+              <p className="lisa-hero-texto" data-reveal>
                 LISA es la inteligencia que ve toda tu empresa — ventas, planta, caja, gente — y te la entrega en
                 una conversación. Aprende de tus datos y documentos, actúa con tus reglas, y responde a las
                 personas que tú decidas, con lo que cada quien puede ver.
               </p>
-              <div className="hero-btns" style={{ marginTop: "1.8rem" }}>
+              <div className="hero-btns" style={{ marginTop: "1.8rem" }} data-reveal>
                 <Btn href="/contacto">Quiero a LISA en mi empresa</Btn>
                 <Btn href="/demos" variante="linea" chip={false}>Verla en acción</Btn>
               </div>
@@ -75,7 +78,7 @@ export default function Lisa() {
           <div className="split split-top">
             <div>
               <SecHead label="Cómo trabaja" titulo="Ve todo. Actúa con tus reglas." />
-              <Puntos items={COMO} />
+              <Puntos items={COMO} iconos={["ojo", "hecho", "equipo", "chat"]} />
             </div>
             <div data-reveal="der">
               <blockquote className="cita" style={{ marginTop: 0 }}>

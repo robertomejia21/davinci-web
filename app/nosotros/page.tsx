@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { PageHero, SecHead, CtaFinal, Metricas, Marca } from "@/components/ui";
-import { TornilloAereo, Espiral } from "@/components/ui/arte";
 
 export const metadata = {
   title: "Nosotros",
@@ -57,18 +56,14 @@ export default function Nosotros() {
             </div>
 
             <div style={{ display: "grid", gap: "1.2rem", position: "sticky", top: 110 }}>
-              <div className="card" data-reveal="der" style={{ color: "var(--tinta-2)", padding: "1.6rem" }}>
-                <TornilloAereo />
-                <p className="mono centro muted" style={{ marginTop: ".8rem", fontSize: ".58rem" }}>
-                  Tornillo aéreo · el isotipo
-                </p>
-              </div>
-              <div className="card" data-reveal="der" style={{ color: "var(--naranja)", padding: "1.6rem" }}>
-                <Espiral />
-                <p className="mono centro muted" style={{ marginTop: ".8rem", fontSize: ".58rem" }}>
+              <figure className="aurea aurea-card" data-reveal="der">
+                <picture>
+                  <img src="/aurea.webp" alt="Espiral áurea: los estudios de proporción de Leonardo" width={900} height={887} loading="lazy" decoding="async" />
+                </picture>
+                <figcaption className="mono centro muted" style={{ marginTop: "1rem", fontSize: ".58rem" }}>
                   Estudios de proporción
-                </p>
-              </div>
+                </figcaption>
+              </figure>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@
    ============================================================ */
 import type { ReactNode } from "react";
 import { BOCETO, type NombreIcono, type SvgIcono } from "./iconos-boceto";
+import { MARCAS, type NombreMarca } from "./iconos-marcas";
 
 export type { NombreIcono };
 
@@ -45,6 +46,11 @@ export function SvgCrudo({
 /** Ícono de trazo de boceto. `tam` en px (por defecto se ajusta al texto). */
 export function Icono({ n, tam = 16, className }: { n: NombreIcono; tam?: number; className?: string }) {
   return <SvgCrudo svg={BOCETO[n]} tam={tam} filtro={tam >= 30 ? "boceto" : "boceto-s"} className={className} />;
+}
+
+/** Logo oficial de una marca (Simple Icons), sin filtro de boceto. */
+export function IconoMarca({ n, tam = 24, className }: { n: NombreMarca; tam?: number; className?: string }) {
+  return <SvgCrudo svg={MARCAS[n]} tam={tam} className={className} />;
 }
 
 const TOKEN = /:([a-z]+):/g;

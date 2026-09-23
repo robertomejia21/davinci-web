@@ -5,10 +5,9 @@ import {
 } from "@/components/ui";
 import Clientes from "@/components/site/Clientes";
 import { clientesConInfo } from "@/lib/clientes";
-import { Faq, Riel, FormContacto } from "@/components/ui/interactivos";
+import { Faq, Riel, FormContacto, AntesDespues } from "@/components/ui/interactivos";
 import { HeroCanvas } from "@/components/site/Efectos";
 import { ChatCentral, WhatsAppVenta } from "@/components/demos/chats";
-import { BocetoUI } from "@/components/ui/arte";
 import {
   INTEGRACIONES, PROBLEMA, COMPARATIVA, METODO_PASOS, FAQ_HOME, MODULOS,
 } from "@/lib/contenido";
@@ -21,6 +20,9 @@ export const metadata = {
     "Inteligencia operativa: mapeamos tu empresa y le construimos software a la medida con IA — automatizaciones, agentes inteligentes y Da Vinci Central, el centro donde preguntas y ves todo tu negocio. Avances cada semana, módulo por módulo.",
   alternates: { canonical: "/" },
 };
+
+/* un ícono por fila de la comparativa, en el mismo orden que COMPARATIVA */
+const ICONOS_CMP: NombreIcono[] = ["ajuste", "calendario", "cerebro", "llave", "precio"];
 
 const DEMOS_TEASER: [NombreIcono, string, string, string][] = [
   ["llamada", "Valentina te llama", "Cobranza y entregas con voz de persona y memoria de máquina.", "/demos/emprendimiento"],
@@ -114,8 +116,7 @@ export default function Home() {
 
           {/* el tornillo aéreo: sobresale del panel */}
           <picture className="hero-helice ">
-            <source srcSet="/helice.webp" type="image/webp" />
-            <img src="/helice.png" alt="Tornillo aéreo de Da Vinci" width={1200} height={927}/>
+            <img src="/helice.webp" alt="Tornillo aéreo de Da Vinci" width={1200} height={927}/>
           </picture>
         </div>
       </section>
@@ -130,6 +131,17 @@ export default function Home() {
 
       {/* ═══ LOGOS DE CLIENTES ═══ */}
       <section className="sec-sm" style={{ paddingBottom: 0 }}>
+        <div className="wrap">
+          <SecHead
+            centrado
+            label="Casos reales"
+            titulo={<>Empresas que ya operan con <em>Da Vinci</em>.</>}
+            lead={<>
+              Toca un logo y mira qué construimos para cada una: cómo trabajaban antes y el sistema que hoy
+              lo resuelve.<span className="flecha-logos" aria-hidden="true" />
+            </>}
+          />
+        </div>
         <Clientes items={clientes} />
       </section>
 
@@ -182,16 +194,19 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div
-              className="card"
-              data-reveal="izq"
-              style={{ color: "var(--tinta-2)", padding: "clamp(1.4rem,3vw,2.6rem)", background: "var(--blanco)" }}
-            >
-              <BocetoUI />
-              <p className="mono centro muted" style={{ marginTop: "1rem", fontSize: ".6rem" }}>
-                Boceto de una interfaz · códice nº 1
-              </p>
-            </div>
+            <figure className="ad-marco" data-reveal="izq">
+              <AntesDespues
+                antes="/before.webp"
+                despues="/after.webp"
+                altAntes="Un tablero de datos dibujado a mano en un pergamino, como un códice"
+                altDespues="El mismo tipo de información en un tablero digital en vivo"
+                etiquetaAntes="Códice"
+                etiquetaDespues="Da Vinci"
+              />
+              <figcaption className="mono centro muted">
+                Arrastra para ver del códice al código
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
@@ -231,8 +246,7 @@ export default function Home() {
             </div>
             <figure className="aurea" data-reveal="zoom">
               <picture>
-                <source srcSet="/aurea.webp" type="image/webp" />
-                <img src="/aurea.png" alt="La proporción áurea aplicada a una operación: cada área de la empresa en su espiral" width={900} height={887} loading="lazy" decoding="async" />
+                <img src="/aurea.webp" alt="La proporción áurea aplicada a una operación: cada área de la empresa en su espiral" width={900} height={887} loading="lazy" decoding="async" />
               </picture>
             </figure>
           </div>
@@ -407,6 +421,12 @@ export default function Home() {
               ["24/7", "atención en WhatsApp sin contratar un turno nocturno"],
               ["Semanas", "para el primer módulo funcionando — no meses"],
             ]}
+            iconos={["engrane", "whatsapp", "calendario"]}
+            fondos={[
+              <IconoMano n="engrane" tam={240} />,
+              <IconoMano n="celular" tam={240} />,
+              <IconoMano n="calendario" tam={240} />,
+            ]}
           />
         </div>
       </section>
@@ -418,11 +438,28 @@ export default function Home() {
           <div className="tabla-wrap" data-reveal>
             <table className="cmp">
               <thead>
-                <tr><th /><th>Software genérico</th><th>Da Vinci IA</th></tr>
+                <tr>
+                  <th />
+                  <th>Software genérico</th>
+                  <th className="cmp-dv"><Marca>Da Vinci IA</Marca></th>
+                </tr>
               </thead>
               <tbody>
-                {COMPARATIVA.map(([a, b, c]) => (
-                  <tr key={a}><th>{a}</th><td>{b}</td><td>{c}</td></tr>
+                {COMPARATIVA.map(([a, b, c], i) => (
+                  <tr key={a}>
+                    <th scope="row">
+                      <span className="cmp-ico"><Icono n={ICONOS_CMP[i]} tam={20} /></span>
+                      {a}
+                    </th>
+                    <td className="cmp-gen">
+                      <Icono n="no" tam={18} />
+                      <span><span className="sr-only">Software genérico: </span>{b}</span>
+                    </td>
+                    <td className="cmp-dv">
+                      <Icono n="hecho" tam={20} />
+                      <span><span className="sr-only">Da Vinci IA: </span>{c}</span>
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>

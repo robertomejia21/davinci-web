@@ -346,3 +346,41 @@ export function DemoTelefono() {
     </div>
   );
 }
+
+/* ============================================================
+   Antes / después: se arrastra la barra para comparar dos imágenes.
+   Un <input type="range"> invisible cubre todo el marco: da el arrastre
+   con mouse y dedo, y el control con teclado, sin código de eventos.
+   ============================================================ */
+export function AntesDespues({
+  antes, despues, altAntes, altDespues, etiquetaAntes = "Antes", etiquetaDespues = "Ahora",
+  ancho = 1536, alto = 1024,
+}: {
+  antes: string; despues: string; altAntes: string; altDespues: string;
+  etiquetaAntes?: string; etiquetaDespues?: string; ancho?: number; alto?: number;
+}) {
+  const [pos, setPos] = useState(50);
+  const [tocado, setTocado] = useState(false);
+
+  return (
+    <div
+      className="ad"
+      data-tocado={tocado}
+      style={{ ["--pos" as string]: `${pos}%`, aspectRatio: `${ancho} / ${alto}` }}
+    >
+      <img className="ad-img" src={despues} alt={altDespues} width={ancho} height={alto} loading="lazy" decoding="async" />
+      <img className="ad-img ad-antes" src={antes} alt={altAntes} width={ancho} height={alto} loading="lazy" decoding="async" />
+      <span className="ad-tag ad-tag-antes" aria-hidden="true">{etiquetaAntes}</span>
+      <span className="ad-tag ad-tag-despues" aria-hidden="true">{etiquetaDespues}</span>
+      <span className="ad-linea" aria-hidden="true">
+        <span className="ad-mango"><Flecha size={11} /><Flecha size={11} /></span>
+      </span>
+      <input
+        className="ad-rango"
+        type="range" min={0} max={100} step={0.5} value={pos}
+        aria-label={`Comparar: ${etiquetaAntes} y ${etiquetaDespues}`}
+        onChange={(e) => { setPos(Number(e.target.value)); setTocado(true); }}
+      />
+    </div>
+  );
+}

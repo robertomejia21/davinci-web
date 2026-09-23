@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sistema ML · Ventajas del sistema — DaVinci</title>
+<style>
+  :root{
+    --grafito:#2B2B2E; --grafito-2:#37373B; --grafito-3:#45454A;
+    --naranja:#F0873C; --naranja-600:#DC7124; --naranja-soft:rgba(240,135,60,.12);
+    --tinta:#1A1A1C; --texto:#43434A; --suave:#74747D;
+    --fondo:#FAF9F7; --panel:#FFFFFF; --linea:#E8E4DE; --linea-2:#F1EEE9;
+    --verde:#2E7D52; --verde-soft:#E8F3EC; --ambar:#9A6B12; --ambar-soft:#FBF1DC;
+    --sidebar:288px;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--sans);
+       font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+  /* ── Barra de progreso ─────────────────────────────────────────────── */
+  #progreso{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
+            background:linear-gradient(90deg,var(--naranja),var(--naranja-600));transition:width .15s linear}
+
+  /* ── Sidebar ───────────────────────────────────────────────────────── */
+  aside{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:var(--grafito);
+        color:#C8C6C3;display:flex;flex-direction:column;z-index:50}
+  .marca{padding:26px 24px 18px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .marca .chip{background:#fff;border-radius:12px;padding:12px 14px;display:inline-flex;align-items:center;gap:10px}
+  .marca img{height:38px;width:auto;display:block}
+  .marca .chip span{font-weight:800;font-size:19px;color:var(--grafito);letter-spacing:-.02em}
+  .marca p{margin:14px 0 0;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#8B8A88}
+
+  nav{padding:14px 12px;overflow-y:auto;flex:1}
+  nav a{display:flex;gap:12px;align-items:baseline;padding:9px 12px;margin-bottom:2px;border-radius:9px;
+        color:#B9B7B4;text-decoration:none;font-size:14.5px;border-left:3px solid transparent;transition:.15s}
+  nav a .n{font-family:var(--mono);font-size:11.5px;color:#7A7975;min-width:18px}
+  nav a:hover{background:rgba(255,255,255,.05);color:#fff}
+  nav a.activo{background:var(--naranja-soft);color:#fff;border-left-color:var(--naranja);font-weight:600}
+  nav a.activo .n{color:var(--naranja)}
+  .pie{padding:16px 24px;border-top:1px solid rgba(255,255,255,.08);font-size:11.5px;color:#777673;line-height:1.5}
+  .pie kbd{font-family:var(--mono);background:rgba(255,255,255,.09);border-radius:4px;padding:1px 5px;font-size:10.5px}
+  .pie .volver{display:block;margin-bottom:10px;color:var(--naranja);text-decoration:none;font-weight:700;font-size:12.5px}
+  .pie .volver:hover{text-decoration:underline}
+
+  .abrir-menu{display:none;position:fixed;top:12px;left:12px;z-index:70;background:var(--grafito);color:#fff;
+              border:0;border-radius:10px;padding:10px 13px;font-size:15px;cursor:pointer}
+
+  /* ── Contenido ─────────────────────────────────────────────────────── */
+  main{margin-left:var(--sidebar);padding:0 clamp(20px,5vw,72px) 120px}
+  section{padding:72px 0 8px;max-width:1080px;scroll-margin-top:0}
+  section+section{border-top:1px solid var(--linea)}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+           color:var(--naranja-600);margin:0 0 10px}
+  h1{font-size:clamp(34px,4.6vw,58px);line-height:1.05;letter-spacing:-.03em;color:var(--tinta);margin:0 0 18px;font-weight:800}
+  h2{font-size:clamp(26px,3vw,36px);line-height:1.12;letter-spacing:-.025em;color:var(--tinta);margin:0 0 14px;font-weight:750}
+  h3{font-size:19px;letter-spacing:-.01em;color:var(--tinta);margin:0 0 8px;font-weight:700}
+  h4{font-size:15px;color:var(--tinta);margin:0 0 6px;font-weight:700}
+  p{margin:0 0 14px;max-width:74ch}
+  .lead{font-size:19px;color:var(--suave);max-width:70ch}
+  a{color:var(--naranja-600)}
+  code{font-family:var(--mono);font-size:.86em;background:#F2EFEA;border:1px solid var(--linea);
+       border-radius:5px;padding:1px 5px;color:#4A4A50}
+
+  /* Portada */
+  .portada{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding-top:40px}
+  .portada .filete{width:64px;height:5px;background:var(--naranja);border-radius:3px;margin:0 0 28px}
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:24px;
+        margin-top:34px;padding-top:26px;border-top:1px solid var(--linea)}
+  .meta dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--suave)}
+  .meta dd{margin:4px 0 0;font-size:16.5px;color:var(--tinta);font-weight:650}
+
+  /* Métricas */
+  .metricas{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:14px;margin:26px 0 34px}
+  .metrica{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:20px 18px}
+  .metrica b{display:block;font-size:34px;line-height:1;color:var(--naranja-600);letter-spacing:-.03em;
+             font-variant-numeric:tabular-nums;font-weight:800}
+  .metrica span{display:block;margin-top:8px;font-size:13px;color:var(--suave);line-height:1.35}
+
+  /* Tarjetas */
+  .grid{display:grid;gap:16px;margin:0 0 26px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:22px}
+  .card.acento{border-left:3px solid var(--naranja)}
+  .card p:last-child{margin-bottom:0}
+  .card .num{font-family:var(--mono);font-size:12px;color:var(--naranja-600);letter-spacing:.1em}
+
+  /* Insignias */
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.04em;
+         text-transform:uppercase;padding:4px 9px;border-radius:999px;font-family:var(--sans)}
+  .ok{background:var(--verde-soft);color:var(--verde)}
+  .extra{background:var(--naranja-soft);color:var(--naranja-600)}
+  .pend{background:var(--ambar-soft);color:var(--ambar)}
+
+  /* Tablas */
+  table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--linea);
+        border-radius:14px;overflow:hidden;font-size:14.5px;margin:0 0 26px}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--linea-2);vertical-align:top}
+  th{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--suave);background:#FCFBF9;font-weight:700}
+  tr:last-child td{border-bottom:0}
+  td.mono,th.mono{font-family:var(--mono);font-size:13px}
+  td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* Listas */
+  ul.limpia{list-style:none;padding:0;margin:0 0 20px}
+  ul.limpia li{position:relative;padding:7px 0 7px 26px;border-bottom:1px solid var(--linea-2)}
+  ul.limpia li:last-child{border-bottom:0}
+  ul.limpia li::before{content:"";position:absolute;left:6px;top:16px;width:6px;height:6px;border-radius:50%;background:var(--naranja)}
+  ol.pasos{counter-reset:p;list-style:none;padding:0;margin:0 0 22px}
+  ol.pasos li{counter-increment:p;position:relative;padding:0 0 18px 46px}
+  ol.pasos li::before{content:counter(p);position:absolute;left:0;top:-2px;width:30px;height:30px;border-radius:50%;
+        background:var(--grafito);color:#fff;font-family:var(--mono);font-size:13px;display:flex;align-items:center;justify-content:center}
+  ol.pasos li:last-child{padding-bottom:0}
+  .checklist{columns:2;column-gap:30px}
+  @media(max-width:760px){.checklist{columns:1}}
+
+  /* Capturas */
+  figure{margin:0 0 26px}
+  figure img{width:100%;display:block;border:1px solid var(--linea);border-radius:12px;
+             box-shadow:0 14px 34px -18px rgba(30,28,25,.34);cursor:zoom-in;background:#fff}
+  figcaption{margin-top:10px;font-size:13px;color:var(--suave);display:flex;gap:8px;align-items:baseline}
+  figcaption b{color:var(--tinta);font-weight:650}
+  .real{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--naranja-600);
+        border:1px solid var(--naranja);border-radius:999px;padding:2px 7px;white-space:nowrap}
+
+  /* Nota */
+  .nota{background:#FFF;border:1px solid var(--linea);border-left:3px solid var(--grafito-3);
+        border-radius:12px;padding:18px 20px;margin:0 0 24px}
+  .nota.aviso{border-left-color:var(--naranja)}
+  .nota h4{margin-bottom:4px}
+  .nota p:last-child{margin-bottom:0}
+
+  /* Lightbox */
+  #lb{position:fixed;inset:0;background:rgba(26,26,28,.92);display:none;z-index:90;padding:28px;
+      align-items:center;justify-content:center;cursor:zoom-out}
+  #lb.on{display:flex}
+  #lb img{max-width:100%;max-height:100%;border-radius:10px;box-shadow:0 30px 80px -20px #000}
+  #lb .cerrar{position:absolute;top:18px;right:22px;color:#fff;font-size:30px;line-height:1;
+              background:none;border:0;cursor:pointer;opacity:.75}
+
+  /* Navegación inferior */
+  .navpie{display:flex;justify-content:space-between;gap:14px;margin-top:44px;padding-top:22px;border-top:1px solid var(--linea)}
+  .navpie button{background:var(--panel);border:1px solid var(--linea);border-radius:10px;padding:11px 16px;
+                 font-family:var(--sans);font-size:14px;color:var(--tinta);cursor:pointer;font-weight:600}
+  .navpie button:hover{border-color:var(--naranja);color:var(--naranja-600)}
+  .navpie button:disabled{opacity:.4;cursor:default}
+
+  @media(max-width:1000px){
+    aside{transform:translateX(-100%);transition:transform .22s ease}
+    aside.abierto{transform:none;box-shadow:0 0 0 100vmax rgba(26,26,28,.5)}
+    main{margin-left:0;padding-top:56px}
+    .abrir-menu{display:block}
+  }
+  @media print{
+    aside,.abrir-menu,#progreso,.navpie{display:none}
+    main{margin:0;padding:0}
+    section{page-break-before:always;border:0;padding:24px 0}
+    section:first-of-type{page-break-before:avoid}
+    figure img{box-shadow:none}
+  }
+
+  /* Semana 12 — enlace de regreso al índice y figuras en pareja */
+  .pie .volver{display:block;margin-bottom:10px;color:var(--naranja);text-decoration:none;font-weight:700;font-size:12.5px}
+  .pie .volver:hover{text-decoration:underline}
+  .grid.g2 figure{margin:0}
+
+  /* ── Ventajas: pares antes / ahora ─────────────────────────────────── */
+  .pares{display:flex;flex-direction:column;gap:14px;margin:0 0 26px}
+  .par{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}
+  .lado{background:var(--panel);border:1px solid var(--linea);border-radius:14px;padding:20px 22px}
+  .lado h3{font-size:17px;margin:0 0 8px}
+  .lado p{margin:0;font-size:14.8px}
+  .lado .etiqueta{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+        text-transform:uppercase;margin-bottom:9px}
+  .lado.antes{background:#F6F4F1;border-color:var(--linea);border-left:3px solid var(--grafito-3)}
+  .lado.antes .etiqueta{color:var(--suave)}
+  .lado.antes h3{color:var(--grafito-3)}
+  .lado.antes p{color:var(--suave)}
+  .lado.ahora{border-left:3px solid var(--naranja)}
+  .lado.ahora .etiqueta{color:var(--naranja-600)}
+  @media(max-width:820px){.par{grid-template-columns:1fr}}
+
+  /* Insignia de datos sustituidos en las capturas */
+  .ficticio{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+        color:var(--ambar);background:var(--ambar-soft);border:1px solid #E7D6AD;border-radius:999px;
+        padding:2px 8px;white-space:nowrap;margin-left:auto}
+  figcaption{flex-wrap:wrap}
+  .mono{font-family:var(--mono);font-size:.9em}
+</style>
+</head>
+
+<body>
+<div id="progreso"></div>
+<button class="abrir-menu" id="btnMenu" aria-label="Abrir índice">☰ Índice</button>
+
+<aside id="sidebar">
+  <div class="marca">
+    <div class="chip"><img src="/logo-davinci.png" alt="DaVinci" /><span>DaVinci</span></div>
+    <p>Sistema ML · Ventajas</p>
+  </div>
+  <nav id="nav">
+    <a href="#portada"><span class="n">00</span> Portada</a>
+    <a href="#vistazo"><span class="n">01</span> De un vistazo</a>
+    <a href="#antes-ahora"><span class="n">02</span> Antes y ahora</a>
+    <a href="#folio"><span class="n">03</span> Un folio que no se pierde</a>
+    <a href="#levantamiento"><span class="n">04</span> El levantamiento</a>
+    <a href="#ia"><span class="n">05</span> La inteligencia artificial</a>
+    <a href="#precios"><span class="n">06</span> El precio no se inventa</a>
+    <a href="#compras"><span class="n">07</span> Que el dinero no salga sin firma</a>
+    <a href="#permisos"><span class="n">08</span> Quién puede hacer qué</a>
+    <a href="#rastro"><span class="n">09</span> Todo deja rastro</a>
+    <a href="#analisis"><span class="n">10</span> Análisis de datos</a>
+    <a href="#balance"><span class="n">11</span> Lo que falta</a>
+    <a href="#privacidad"><span class="n">12</span> Nota de privacidad</a>
+  </nav>
+  <div class="pie">
+    <a class="volver" href="../index.html">← Todas las entregas</a>
+    Navega con <kbd>↑</kbd> <kbd>↓</kbd> o <kbd>J</kbd> <kbd>K</kbd>.<br />
+    Click en cualquier captura para ampliarla.
+  </div>
+</aside>
+
+<main>
+
+<!-- ── 00 Portada ───────────────────────────────────────────────────── -->
+<section id="portada" class="portada">
+  <div class="filete"></div>
+  <p class="eyebrow">ML Industrial Maintenance · Resumen de ventajas · 22 de septiembre de 2026</p>
+  <h1>Lo que cambió<br />al usar el sistema</h1>
+  <p class="lead">
+    Este documento no cuenta lo que se programó: cuenta lo que se hace distinto. Cada sección pone
+    lado a lado cómo se resolvía un trabajo antes y cómo se resuelve hoy, con capturas del sistema
+    corriendo. Se detiene especialmente en dos cosas que antes no existían de ninguna forma: los
+    <strong>seis agentes de inteligencia artificial</strong> y el <strong>análisis de datos</strong> —
+    los números que hasta ahora nadie podía sacar.
+  </p>
+  <div class="meta">
+    <div><dt>Alcance</dt><dd>De la solicitud al cobro</dd></div>
+    <div><dt>Entregas</dt><dd>7 semanas documentadas</dd></div>
+    <div><dt>Estado</dt><dd>En producción</dd></div>
+    <div><dt>Capturas</dt><dd>Sistema real, datos sustituidos</dd></div>
+  </div>
+</section>
+
+<!-- ── 01 De un vistazo ─────────────────────────────────────────────── -->
+<section id="vistazo">
+  <p class="eyebrow">01 · De un vistazo</p>
+  <h2>El tamaño de lo construido</h2>
+  <p class="lead">
+    No son pantallas sueltas: es un solo flujo que arranca cuando el cliente pide algo y termina
+    cuando la obra se cobra, con la base de datos haciendo cumplir las reglas en cada paso.
+  </p>
+
+  <div class="metricas">
+    <div class="metrica"><b>30</b><span>pantallas del sistema</span></div>
+    <div class="metrica"><b>110</b><span>migraciones de base de datos</span></div>
+    <div class="metrica"><b>84</b><span>funciones que aplican las reglas</span></div>
+    <div class="metrica"><b>11</b><span>vistas de análisis (SQL)</span></div>
+    <div class="metrica"><b>6</b><span>agentes de inteligencia artificial</span></div>
+    <div class="metrica"><b>31</b><span>pruebas automatizadas</span></div>
+  </div>
+
+  <div class="nota">
+    <h4>Por qué importa que las reglas vivan en la base de datos</h4>
+    <p>
+      Las 84 funciones y las políticas de acceso no son adornos: significan que una regla —«sin
+      autorización no sale la orden de compra», «este rol no ve costos»— se cumple aunque alguien
+      entre por otro lado. No depende de que la pantalla se acuerde de esconder un botón.
+    </p>
+  </div>
+</section>
+
+<!-- ── 02 Antes y ahora ─────────────────────────────────────────────── -->
+<section id="antes-ahora">
+  <p class="eyebrow">02 · El resumen</p>
+  <h2>Ocho cosas que se hacen distinto</h2>
+  <p class="lead">
+    El «antes» de cada par es el cuello de botella que ML describió al arrancar el proyecto, o la
+    forma en que el propio sistema funcionaba en una versión anterior. El «ahora» está en producción
+    y tiene captura más adelante.
+  </p>
+
+  <div class="pares">
+
+    <div class="par">
+      <div class="lado antes">
+        <span class="etiqueta">Antes</span>
+        <h3>Contestar una licitación</h3>
+        <p>
+          Sacar el número exigía cruzar a mano Ingeniería, Compras y proyección. Ese cruce era
+          el cuello de botella, y en licitaciones el que contesta primero es el que gana — aunque
+          después ajuste precio.
+        </p>
+      </div>
+      <div class="lado ahora">
+        <span class="etiqueta">Ahora</span>
+        <h3>El número sale del catálogo</h3>
+        <p>
+          El levantamiento llega estructurado, el catálogo de precios ya está cargado y un agente
+          propone las partidas y las cantidades. El importe lo calcula el sistema desde las recetas
+          del catálogo, no una persona con una hoja aparte.
+        </p>
+      </div>
+    </div>
+
+    <div class="par">
+      <div class="lado antes">
+        <span class="etiqueta">Antes</span>
+        <h3>Saber en qué va cada trabajo</h3>
+        <p>
+          Había que preguntar. Nadie tenía a la vista cuántos folios estaban parados, en qué etapa,
+          ni cuántos días llevaban esperando.
+        </p>
+      </div>
+      <div class="lado ahora">
+        <span class="etiqueta">Ahora</span>
+        <h3>Un tablero con semáforo</h3>
+        <p>
+          Catorce etapas en columnas, cada folio en la suya, y un semáforo que se pone rojo a los
+          seis días entre el folio creado y la cotización enviada: el punto exacto donde se pierde
+          una licitación.
+        </p>
+      </div>
+    </div>
+
+    <div class="par">
+      <div class="lado antes">
+        <span class="etiqueta">Antes</span>
+        <h3>El levantamiento en campo</h3>
+        <p>
+          Lo que se preguntaba en la visita dependía de quién fuera. Las fotos llegaban sueltas y
+          faltaba el dato justo cuando ya no se podía volver a la planta.
+        </p>
+      </div>
+      <div class="lado ahora">
+        <span class="etiqueta">Ahora</span>
+        <h3>Un formulario que no deja avanzar</h3>
+        <p>
+          Formulario base por tipo de trabajo, con campos obligatorios y foto por pregunta. La IA
+          agrega las preguntas específicas del caso y revisa que la foto sea evidencia de lo que se
+          pidió. Sale en PDF.
+        </p>
+      </div>
+    </div>
+
+    <div class="par">
+      <div class="lado antes">
+        <span class="etiqueta">Antes</span>
+        <h3>De dónde salía el precio</h3>
+        <p>
+          De los análisis de precio unitario de OPUS y del criterio de quien cotizaba. Reconstruir
+          por qué un trabajo costó lo que costó era un ejercicio de memoria.
+        </p>
+      </div>
+      <div class="lado ahora">
+        <span class="etiqueta">Ahora</span>
+        <h3>Una base de conocimiento</h3>
+        <p>
+          Cada concepto tiene su receta: materiales, horas-hombre, herramienta y maquinaria. El costo
+          se recalcula desde ahí y queda auditable. Los PDF de OPUS se importan con un agente en lugar
+          de capturarse a mano.
+        </p>
+      </div>
+    </div>
+
+    <div class="par">
+      <div class="lado antes">
+        <span class="etiqueta">Antes</span>
+        <h3>Autorizar una compra</h3>
+        <p>
+          La firma iba en papel y el aviso de que algo esperaba autorización dependía de que alguien
+          lo mencionara.
+        </p>
+      </div>
+      <div class="lado ahora">
+        <span class="etiqueta">Ahora</span>
+        <h3>Umbral, firma y aviso</h3>
+        <p>
+          Arriba del umbral configurado la orden se detiene hasta que quien puede firmar, firma — y
+          queda registrado quién y cuándo. Llega un aviso al celular en cuanto hay algo esperando.
+        </p>
+      </div>
+    </div>
+
+    <div class="par">
+      <div class="lado antes">
+        <span class="etiqueta">Antes</span>
+        <h3>Abrirle un permiso a alguien</h3>
+        <p>
+          Los permisos estaban escritos dentro del código. Habilitarle una operación a un área era
+          pedir un cambio y esperar un despliegue.
+        </p>
+      </div>
+      <div class="lado ahora">
+        <span class="etiqueta">Ahora</span>
+        <h3>Una casilla que surte efecto</h3>
+        <p>
+          Administración palomea la actividad en una pantalla y aplica en el momento, sin desplegar
+          nada. La base de datos obedece la misma tabla que la pantalla.
+        </p>
+      </div>
+    </div>
+
+    <div class="par">
+      <div class="lado antes">
+        <span class="etiqueta">Antes</span>
+        <h3>Corregir un dato</h3>
+        <p>
+          Se corregía y ya. No quedaba quién lo cambió, ni qué decía antes, ni por qué.
+        </p>
+      </div>
+      <div class="lado ahora">
+        <span class="etiqueta">Ahora</span>
+        <h3>Corregir con nombre y motivo</h3>
+        <p>
+          Editar una solicitud ya registrada está permitido, pero exige motivo y deja el antes → después
+          en una bitácora consultable.
+        </p>
+      </div>
+    </div>
+
+    <div class="par">
+      <div class="lado antes">
+        <span class="etiqueta">Antes</span>
+        <h3>Medir</h3>
+        <p>
+          No había con qué. Cuántas horas tarda una cotización, cuántas licitaciones se pierden, cuánto
+          cuesta realmente un proyecto contra lo cotizado: eran preguntas sin respuesta.
+        </p>
+      </div>
+      <div class="lado ahora">
+        <span class="etiqueta">Ahora</span>
+        <h3>Once vistas de análisis</h3>
+        <p>
+          Velocidad comercial, tiempo de cotización, respuesta de Compras, embudo acumulado, conversión
+          y costo contra cotizado. Calculado en la base de datos, no a mano.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── 03 Un folio que no se pierde ─────────────────────────────────── -->
+<section id="folio">
+  <p class="eyebrow">03 · Operación</p>
+  <h2>Un folio que no se pierde</h2>
+  <p class="lead">
+    Todo lo que ML hace para un cliente entra como un folio y vive en un solo expediente: la solicitud,
+    la cita, el levantamiento, las requisiciones, la cotización, la orden de compra y el cobro. Nada de
+    eso vive en hilos de correo separados.
+  </p>
+
+  <figure>
+    <img src="./img/folios-tablero.png" alt="Tablero de folios por etapa, con semáforo de días" />
+    <figcaption>
+      <b>Tablero por etapas.</b> Cada columna es una etapa del flujo y cada tarjeta un trabajo. El punto
+      de color a la izquierda del número es el semáforo: verde hasta dos días, ámbar de tres a cinco,
+      rojo a partir de seis — el momento en que la licitación empieza a perderse sola.
+      <span class="ficticio">Datos sustituidos</span>
+    </figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <div class="card acento">
+      <h4>Lo que resuelve</h4>
+      <p>
+        La pregunta «¿en qué va el de la planta tal?» se contesta mirando, no preguntando. Y la columna
+        donde se acumulan las tarjetas señala sola dónde está el tapón.
+      </p>
+    </div>
+    <div class="card">
+      <h4>El detalle que se pidió en campo</h4>
+      <p>
+        Cada columna se desplaza por su cuenta y tiene altura máxima: una etapa con treinta folios ya no
+        estira la página ni deja a las demás en una franja vacía.
+      </p>
+    </div>
+  </div>
+
+  <figure>
+    <img src="./img/folio-detalle.png" alt="Ficha de un folio con el paso a paso de etapas y el historial de eventos" />
+    <figcaption>
+      <b>La ficha del folio.</b> Arriba, las etapas cumplidas con el tiempo que tomó cada una. A la derecha,
+      el historial: quién movió qué y cuándo. Abajo, la etapa actual explicada en español y el botón de lo
+      único que toca hacer ahora.
+      <span class="ficticio">Datos sustituidos</span>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ── 04 El levantamiento ──────────────────────────────────────────── -->
+<section id="levantamiento">
+  <p class="eyebrow">04 · Campo</p>
+  <h2>El levantamiento dejó de ser una libreta</h2>
+  <p class="lead">
+    La visita a planta es donde se gana o se pierde la cotización: si falta un dato, o se adivina o se
+    vuelve. El formulario de campo se lleva en el teléfono, marca sus obligatorios y no deja terminar
+    la visita a medias.
+  </p>
+
+  <figure>
+    <img src="./img/folio-levantamiento.png" alt="Formulario de levantamiento con preguntas obligatorias, foto por campo y botón de generar con IA" />
+    <figcaption>
+      <b>Formulario de levantamiento.</b> Cada pregunta admite texto y foto. Arriba, el contador de
+      obligatorios pendientes, el botón <em>Generar / regenerar con IA</em> que agrega las preguntas
+      específicas del caso, y la descarga en PDF para mandarlo o archivarlo.
+      <span class="ficticio">Datos sustituidos</span>
+    </figcaption>
+  </figure>
+
+  <ul class="limpia">
+    <li><b>El formulario base nunca se pierde.</b> Lo siembra la base de datos al crear el folio; la IA solo agrega encima. Si la IA no responde, la visita se hace igual.</li>
+    <li><b>La foto se revisa.</b> Si la pregunta pide una medida, el agente de visión revisa que se vea la cinta o el número, no solo el objeto.</li>
+    <li><b>Es un aviso, no un candado.</b> Si el agente dice que la foto no corresponde, el sistema pregunta; la última palabra es de la persona en planta.</li>
+    <li><b>Sale en PDF.</b> El mismo levantamiento se manda al cliente o se guarda como soporte de la cotización.</li>
+  </ul>
+</section>
+
+<!-- ── 05 La inteligencia artificial ────────────────────────────────── -->
+<section id="ia">
+  <p class="eyebrow">05 · Inteligencia artificial</p>
+  <h2>Seis agentes, un solo principio</h2>
+  <p class="lead">
+    La IA del sistema no es un chat pegado a un costado. Son seis agentes con una tarea concreta cada
+    uno, metidos en el punto del flujo donde hacen falta, y todos obedecen la misma regla:
+    <strong>el agente propone, la persona dispone</strong>.
+  </p>
+
+  <figure>
+    <img src="./img/ia-agentes.png" alt="Pantalla de agentes IA con los seis agentes, su estado y su consumo" />
+    <figcaption>
+      <b>Pantalla de Agentes IA.</b> Los seis agentes con su descripción, si están trabajando o en espera,
+      y lo que consumió cada uno: tokens, costo de la última ejecución y acumulado histórico. Arriba a la
+      derecha, los precios por modelo, editables cuando el proveedor los cambie.
+      <span class="ficticio">Datos sustituidos</span>
+    </figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <div class="card acento">
+      <span class="num">Agente 1</span>
+      <h3>Estimador</h3>
+      <p>
+        Lee el levantamiento y propone las partidas del catálogo y sus cantidades. <b>Nunca fija precios:</b>
+        recibe el catálogo sin importes y el costo lo calcula el servidor desde las recetas. Si no responde
+        a tiempo, el cotizador abre en modo manual sobre el mismo catálogo.
+      </p>
+    </div>
+    <div class="card acento">
+      <span class="num">Agente 2</span>
+      <h3>Planificador de obra</h3>
+      <p>
+        Toma la cotización aprobada, ordena las partidas, sugiere cuadrilla y parte cada partida en
+        sub-etapas de obra para armar el programa. Las horas-hombre no las inventa: salen de la receta
+        del concepto y el servidor las reparte entre las sub-etapas.
+      </p>
+    </div>
+    <div class="card acento">
+      <span class="num">Agente 3</span>
+      <h3>Asesor de levantamiento</h3>
+      <p>
+        Al abrir el levantamiento, lee lo que ya se contestó y agrega preguntas de seguimiento específicas
+        —si el servicio es soldadura y el material dice «tubería», pregunta diámetro y cédula—. No repite
+        lo genérico y no borra nada de lo ya capturado en campo.
+      </p>
+    </div>
+    <div class="card acento">
+      <span class="num">Agente 4</span>
+      <h3>Validador de evidencia</h3>
+      <p>
+        Visión por computadora sobre cada foto que se sube al checklist: ¿esta imagen es evidencia de
+        <em>esta</em> pregunta en concreto? Una foto de un estante no responde «profundidad del entrepaño»;
+        hace falta ver la medida.
+      </p>
+    </div>
+    <div class="card acento">
+      <span class="num">Agente 5</span>
+      <h3>Importador OPUS</h3>
+      <p>
+        Lee el PDF de Análisis de Precio Unitario tal como sale de OPUS y extrae tarjeta por tarjeta el
+        desglose de insumos para poblar el cotizador. Un PDF de treinta páginas lo parte solo en fragmentos
+        traslapados que procesa en paralelo, para que ninguna tarjeta se pierda en el corte.
+      </p>
+    </div>
+    <div class="card acento">
+      <span class="num">Agente 6</span>
+      <h3>Asistente de Obra</h3>
+      <p>
+        Contesta por WhatsApp preguntas sobre el avance de un folio y manda el checklist o el PDF de
+        levantamiento. Solo lee datos reales del sistema: no improvisa estados ni fechas.
+      </p>
+    </div>
+  </div>
+
+  <h3>Las tres reglas que hacen que se pueda confiar</h3>
+  <ol class="pasos">
+    <li>
+      <b>La IA nunca fija un precio.</b> Propone el qué y el cuánto; el importe lo calcula el servidor de
+      forma determinista desde la base de conocimiento. Dos cotizaciones del mismo trabajo dan el mismo
+      número, y ese número se puede explicar renglón por renglón.
+    </li>
+    <li>
+      <b>Nada se envía sin aprobación humana.</b> Todo lo que propone un agente entra como borrador. La
+      cotización sale cuando alguien la aprueba, y esa aprobación queda registrada.
+    </li>
+    <li>
+      <b>Si la IA falla, el trabajo sigue.</b> Cada agente tiene un tiempo límite y una salida: el cotizador
+      abre en manual, el levantamiento se queda con su formulario base, la foto se sube igual. Ningún agente
+      puede detener la operación.
+    </li>
+  </ol>
+
+  <div class="nota aviso">
+    <h4>Y cuánto cuesta</h4>
+    <p>
+      Cada llamada a un modelo registra sus tokens y su costo, y la pantalla de Agentes IA lo muestra por
+      ejecución y acumulado. El gasto en IA es un número que se consulta, no una sorpresa en la tarjeta:
+      los precios por modelo se editan ahí mismo cuando el proveedor los cambia.
+    </p>
+  </div>
+</section>
+
+<!-- ── 06 El precio no se inventa ───────────────────────────────────── -->
+<section id="precios">
+  <p class="eyebrow">06 · Costos</p>
+  <h2>El precio no lo inventa nadie</h2>
+  <p class="lead">
+    La base de conocimiento es el corazón del cotizador: cada concepto trae su receta —qué materiales,
+    cuántas horas de cada categoría, qué herramienta y qué maquinaria lleva por unidad— y de ahí sale el
+    costo unitario. Subir el precio del acero se hace una vez y se refleja en todo lo que lo usa.
+  </p>
+
+  <figure>
+    <img src="./img/kb-catalogo.png" alt="Base de conocimiento con los conceptos y su costo unitario calculado" />
+    <figcaption>
+      <b>Base de conocimiento.</b> Conceptos con su unidad, su tipo de trabajo y su costo calculado. Las
+      pestañas de arriba son los insumos que alimentan las recetas: auxiliares, materiales, mano de obra,
+      maquinaria y herramientas. El subtítulo lo dice sin rodeos: la IA nunca inventa precios.
+      <span class="ficticio">Datos sustituidos</span>
+    </figcaption>
+  </figure>
+
+  <ul class="limpia">
+    <li><b>Auditable.</b> De cualquier importe se puede bajar hasta el insumo que lo produjo.</li>
+    <li><b>Con fecha.</b> Cada precio guarda cuándo se actualizó, para saber si se está cotizando con datos viejos.</li>
+    <li><b>Reutilizable.</b> Lo que se aprendió en un trabajo queda disponible para el siguiente, aunque lo cotice otra persona.</li>
+  </ul>
+</section>
+
+<!-- ── 07 Compras ───────────────────────────────────────────────────── -->
+<section id="compras">
+  <p class="eyebrow">07 · Compras</p>
+  <h2>Que el dinero no salga sin firma</h2>
+  <p class="lead">
+    Compras es donde el sistema deja de ser un tablero y empieza a mover dinero. Por eso es la parte con
+    más candados: umbral de autorización, firma registrada, impuestos por proveedor y aviso al celular
+    cuando algo espera.
+  </p>
+
+  <figure>
+    <img src="./img/compras.png" alt="Pantalla de compras con las órdenes agrupadas por proyecto y su estado de autorización" />
+    <figcaption>
+      <b>Órdenes de compra.</b> Agrupadas por proyecto, con su monto, su estado de autorización, si ya se
+      surtieron y cuánto tiempo llevan en curso. Las compras internas de ML —las que no cuelgan de ningún
+      proyecto— tienen su propio bloque arriba.
+      <span class="ficticio">Datos sustituidos · importes alterados</span>
+    </figcaption>
+  </figure>
+
+  <ul class="limpia">
+    <li><b>El umbral decide.</b> Debajo del monto configurado la orden fluye; arriba se detiene hasta que firme quien puede.</li>
+    <li><b>La firma tiene nombre.</b> Queda quién autorizó y a qué hora, y eso sale impreso en la orden.</li>
+    <li><b>El aviso llega al teléfono.</b> No hay que estar mirando la pantalla para enterarse de que algo espera autorización.</li>
+    <li><b>El folio de la orden es el que ML ya usaba.</b> El formato <span class="mono">ML-F-COM-06-01</span> se respetó tal cual, en vez de obligar a aprender uno nuevo.</li>
+  </ul>
+</section>
+
+<!-- ── 08 Permisos ──────────────────────────────────────────────────── -->
+<section id="permisos">
+  <p class="eyebrow">08 · Control</p>
+  <h2>Quién puede hacer qué</h2>
+  <p class="lead">
+    El cambio más silencioso y el que más tiempo ahorra: los permisos dejaron de estar escritos dentro
+    del código. Hoy son una pantalla de casillas que Administración maneja, y la base de datos obedece
+    esa misma tabla.
+  </p>
+
+  <figure>
+    <img src="./img/permisos-matriz.png" alt="Pantalla de roles y permisos con las actividades de cada subrol" />
+    <figcaption>
+      <b>Roles y permisos.</b> Cada actividad se describe en español y dice hasta dónde llega: «agendar
+      citas mientras el folio no haya pasado de Cita agendada», «registrar cobros sin exceder el saldo
+      pendiente». Abajo, la visibilidad de cada módulo por rol.
+      <span class="ficticio">Datos sustituidos</span>
+    </figcaption>
+  </figure>
+
+  <div class="grid g2">
+    <div class="card acento">
+      <h4>Lo que cambió en la práctica</h4>
+      <p>
+        Abrirle una operación a Cuentas por cobrar pasó de ser un cambio de código con despliegue a ser
+        una casilla que surte efecto en el momento.
+      </p>
+    </div>
+    <div class="card">
+      <h4>Y lo que no se puede tocar</h4>
+      <p>
+        Las autorizaciones de compra y el control del propio sistema de permisos quedan fuera de esa
+        tabla a propósito: un permiso no puede usarse para abrirse más permisos.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 09 Rastro ────────────────────────────────────────────────────── -->
+<section id="rastro">
+  <p class="eyebrow">09 · Auditoría</p>
+  <h2>Todo cambio deja rastro</h2>
+  <p class="lead">
+    Corregir está permitido —en la operación real siempre hace falta—. Lo que no está permitido es
+    corregir en silencio.
+  </p>
+
+  <figure>
+    <img src="./img/logs.png" alt="Bitácora de auditoría con el detalle de cada cambio, su motivo y su autor" />
+    <figcaption>
+      <b>Bitácora de auditoría.</b> Cada renglón dice qué se tocó, el antes → después de cada campo, el
+      motivo que se capturó, quién lo hizo y cuándo. Se filtra por módulo, acción y rango de fechas.
+      <span class="ficticio">Datos sustituidos</span>
+    </figcaption>
+  </figure>
+
+  <p>
+    Esto es lo que vuelve discutible un número sin necesidad de reconstruir la historia de memoria: si un
+    folio cambió de empresa, si una solicitud cambió de prioridad, si un número de folio se reutilizó
+    después de una cancelación, ahí está con su razón.
+  </p>
+</section>
+
+<!-- ── 10 Análisis de datos ─────────────────────────────────────────── -->
+<section id="analisis">
+  <p class="eyebrow">10 · Análisis de datos</p>
+  <h2>Los números que antes no existían</h2>
+  <p class="lead">
+    Esta es la ventaja que menos se nota el primer día y más pesa al tercer mes. Toda la operación pasa
+    por el sistema, así que la operación se puede medir — y se mide en la base de datos, con vistas SQL,
+    no con alguien vaciando a mano una hoja de cálculo.
+  </p>
+
+  <figure>
+    <img src="./img/analitica-dashboard.png" alt="Dashboard con los KPIs, el embudo acumulado y los widgets de licitaciones y costos" />
+    <figcaption>
+      <b>Dashboard.</b> Siete indicadores arriba, el embudo acumulado de la solicitud al cierre a la
+      izquierda, el estado de los proyectos en ejecución a la derecha, y abajo las licitaciones con su
+      fecha límite encima.
+      <span class="ficticio">Datos sustituidos · importes alterados</span>
+    </figcaption>
+  </figure>
+
+  <table>
+    <thead><tr><th>Indicador</th><th>La pregunta que contesta</th></tr></thead>
+    <tbody>
+      <tr><td><b>Velocidad comercial</b></td><td>¿Cuántas horas pasan entre que el cliente pide y la visita queda hecha?</td></tr>
+      <tr><td><b>Tiempo de cotización</b></td><td>¿Y entre la visita y la cotización enviada? Aquí es donde se pierde una licitación.</td></tr>
+      <tr><td><b>Respuesta de Compras</b></td><td>¿Cuánto tarda Compras en generar la orden, y cuánto en conseguir precios de proveedor?</td></tr>
+      <tr><td><b>Embudo acumulado</b></td><td>¿En qué etapa se caen los folios? El escalón que más baja es el problema.</td></tr>
+      <tr><td><b>Conversión</b></td><td>De todo lo que se terminó, ¿qué porcentaje se ganó?</td></tr>
+      <tr><td><b>Costo contra cotizado</b></td><td>¿El proyecto en ejecución va dentro de lo que se cotizó o ya se lo comió?</td></tr>
+      <tr><td><b>Cotizaciones con IA</b></td><td>¿Qué parte de lo que se cotiza salió con apoyo del estimador y qué parte a mano?</td></tr>
+    </tbody>
+  </table>
+
+  <figure>
+    <img src="./img/folios-resultados.png" alt="Pestaña de terminados y resultados con adjudicados, perdidos, cancelados y conversión" />
+    <figcaption>
+      <b>Terminados y resultados.</b> Adjudicados, cerrados, perdidos, cancelados y el porcentaje de
+      conversión, con el motivo registrado de cada cierre. Saber por qué se cancela algo es tan útil como
+      saber cuánto se ganó.
+      <span class="ficticio">Datos sustituidos · importes alterados</span>
+    </figcaption>
+  </figure>
+
+  <div class="nota">
+    <h4>Sobre los números de estas capturas</h4>
+    <p>
+      La base de producción se limpió el 3 de septiembre de 2026 para arrancar en firme, así que los
+      indicadores llevan pocas semanas acumulando. Por eso, por ejemplo, «Cotizaciones con IA» aparece en
+      cero: las cotizaciones de este arranque se hicieron a mano. El valor del tablero no es lo que dice
+      hoy, sino que a partir de ahora la pregunta tiene respuesta.
+    </p>
+  </div>
+</section>
+
+<!-- ── 11 Balance ───────────────────────────────────────────────────── -->
+<section id="balance">
+  <p class="eyebrow">11 · Honestidad</p>
+  <h2>Lo que todavía no está</h2>
+  <p class="lead">
+    Un documento de ventajas que no dice qué falta sirve de poco a la hora de decidir.
+  </p>
+
+  <ul class="limpia">
+    <li><b>Los agentes llevan pocas corridas.</b> El estimador y el planificador están construidos y probados, pero en la base nueva casi no se han usado todavía. La pantalla de Agentes IA muestra el conteo real, sin maquillaje.</li>
+    <li><b>La ejecución de obra es lo más joven.</b> El módulo de proyectos —avance diario, horas reales, costo contra cotizado— es lo último que se abrió: hoy no hay proyectos en ejecución que lo alimenten.</li>
+    <li><b>El asistente de WhatsApp depende de una conexión externa.</b> En la captura aparece desconectado; se vuelve a vincular escaneando un código.</li>
+    <li><b>Quedan pendientes conocidos.</b> Están listados en las entregas semanales, que no se editan: cada una queda congelada como el registro de lo que se acordó ese día.</li>
+  </ul>
+</section>
+
+<!-- ── 12 Privacidad ────────────────────────────────────────────────── -->
+<section id="privacidad">
+  <p class="eyebrow">12 · Nota de privacidad</p>
+  <h2>Los nombres y los números de estas capturas no son reales</h2>
+
+  <div class="nota aviso">
+    <h4>Qué se sustituyó y cómo</h4>
+    <p>
+      Todas las imágenes de este documento son capturas del sistema real corriendo — no son maquetas —,
+      pero <strong>ningún nombre de cliente, proveedor o persona que aparece en ellas es real, y ningún
+      importe corresponde a una operación real</strong>.
+    </p>
+    <p>
+      La sustitución se hizo dentro del navegador, antes de disparar la captura: los nombres de empresas,
+      razones sociales, domicilios, nombres de personas, RFC, teléfonos, correos, referencias de folio del
+      cliente e importes se reemplazaron por valores inventados. Las capturas nacieron ya con los datos
+      ficticios; no existe una versión sin censurar de estas imágenes.
+    </p>
+    <p>
+      Lo que sí es real es la estructura: las pantallas, los campos, los estados, los textos del sistema y
+      la forma del flujo. Se conservan los conteos operativos agregados —cuántos folios hay en cada etapa,
+      cuántas horas promedio tarda una cotización— porque no identifican a nadie.
+    </p>
+    <p>
+      Esto se hace para poder mostrar el sistema sin exponer la información comercial de los clientes de
+      ML ni la de sus proveedores.
+    </p>
+  </div>
+
+  <div class="navpie">
+    <button id="ant">← Anterior</button>
+    <button id="sig">Siguiente →</button>
+  </div>
+</section>
+
+</main>
+
+<div id="lb"><button class="cerrar" aria-label="Cerrar">×</button><img src="" alt="" /></div>
+
+<script>
+  const secciones = Array.from(document.querySelectorAll('main section'));
+  const enlaces = Array.from(document.querySelectorAll('#nav a'));
+
+  // Índice activo: la última sección cuyo inicio ya pasó la línea de lectura.
+  // (Se calcula con el scroll y no con proporciones de intersección: las
+  // secciones son muy altas y una sección larga nunca "domina" la pantalla.)
+  let actual = -1;
+  const marcar = (i) => {
+    if (i === actual) return;
+    actual = i;
+    enlaces.forEach((a, k) => a.classList.toggle('activo', k === i));
+  };
+  const LINEA = 140; // px desde el borde superior
+  const calcularActiva = () => {
+    let i = 0;
+    secciones.forEach((s, k) => { if (s.getBoundingClientRect().top <= LINEA) i = k; });
+    // Al final del documento siempre gana la última sección.
+    if (innerHeight + scrollY >= document.body.scrollHeight - 4) i = secciones.length - 1;
+    marcar(i);
+  };
+
+  // Barra de progreso
+  const progreso = document.getElementById('progreso');
+  const pintarProgreso = () => {
+    const max = document.body.scrollHeight - innerHeight;
+    progreso.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+  };
+
+  const alScroll = () => { calcularActiva(); pintarProgreso(); };
+  addEventListener('scroll', alScroll, { passive: true });
+  addEventListener('resize', alScroll);
+  alScroll();
+
+  // Navegación por teclado y botones
+  const irA = (i) => {
+    const n = Math.max(0, Math.min(secciones.length - 1, i));
+    secciones[n].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  document.getElementById('ant').onclick = () => irA(actual - 1);
+  document.getElementById('sig').onclick = () => irA(actual + 1);
+  addEventListener('keydown', (e) => {
+    if (e.target.matches('input, textarea')) return;
+    if (['ArrowDown', 'PageDown', 'j'].includes(e.key)) { e.preventDefault(); irA(actual + 1); }
+    if (['ArrowUp', 'PageUp', 'k'].includes(e.key)) { e.preventDefault(); irA(actual - 1); }
+    if (e.key === 'Home') { e.preventDefault(); irA(0); }
+    if (e.key === 'End') { e.preventDefault(); irA(secciones.length - 1); }
+    if (e.key === 'Escape') cerrarLb();
+  });
+
+  // Menú en pantallas angostas
+  const sidebar = document.getElementById('sidebar');
+  document.getElementById('btnMenu').onclick = () => sidebar.classList.toggle('abierto');
+  enlaces.forEach((a) => a.addEventListener('click', () => sidebar.classList.remove('abierto')));
+
+  // Lightbox de capturas
+  const lb = document.getElementById('lb');
+  const lbImg = lb.querySelector('img');
+  const cerrarLb = () => { lb.classList.remove('on'); document.body.style.overflow = ''; };
+  document.querySelectorAll('figure img').forEach((img) => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('on');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  lb.addEventListener('click', cerrarLb);
+</script>
+</body>
+</html>
+

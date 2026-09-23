@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Del Excel al sistema · Qué cambió</title>
+<link rel="icon" href="../img/logo-davinci.png">
+<meta name="robots" content="noindex, nofollow">
+<style>
+/* ===========================================================================
+   Ventajas del sistema — DaVinci
+   ---------------------------------------------------------------------------
+   Misma paleta que el resto de la presentación: los dos colores salen del
+   logo y todo lo demás es neutro. La saturación se reserva para lo que
+   significa algo — aquí, para separar el ANTES del AHORA.
+
+   A diferencia de las entregas semanales, esta página NO es un carrusel de
+   láminas: se lee de corrido. Una entrega se acompaña; esto se manda por un
+   enlace y alguien lo hojea solo.
+   =========================================================================== */
+:root{
+  --naranja:#F58634;
+  --naranja-hondo:#D96F1E;
+  --naranja-tenue:#FDF1E7;
+  --carbon:#373435;
+  --tinta:#22201F;
+  --gris:#6B6663;
+  --tenue:#9A938F;
+  --linea:#E5E0DA;
+  --papel:#FFFFFF;
+  --fondo:#FAF8F5;
+  --verde:#3D7A18;
+  --verde-fondo:#EFF6E7;
+  --rojo:#B3261E;
+  --rojo-fondo:#FCEDEC;
+  --menu:250px;
+  --sans:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Cascadia Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);background:var(--fondo);color:var(--tinta);
+  font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+[hidden]{display:none!important}
+
+/* --- Índice lateral ------------------------------------------------------ */
+#menu{
+  position:fixed;top:0;left:0;bottom:0;width:var(--menu);
+  background:var(--carbon);color:#EDE9E6;display:flex;flex-direction:column;z-index:50;
+}
+#marca{
+  display:flex;align-items:center;gap:11px;
+  padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.10);
+}
+#marca img{width:34px;height:auto;display:block}
+#marca .n{font-size:16px;font-weight:700;line-height:1.15}
+#marca .n b{color:var(--naranja)}
+#marca .s{font-size:10px;color:#A8A2A0;letter-spacing:.07em;text-transform:uppercase}
+#lista{flex:1;overflow-y:auto;padding:12px 0 18px}
+#lista::-webkit-scrollbar{width:6px}
+#lista::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:3px}
+.grupo{
+  padding:15px 18px 5px;font-size:9.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:#8C8582;font-weight:600;
+}
+.enlace{
+  display:flex;align-items:baseline;gap:9px;width:100%;
+  padding:6px 18px;border:0;background:none;cursor:pointer;
+  font:inherit;font-size:13px;color:#CFC9C5;text-align:left;
+  border-left:3px solid transparent;line-height:1.35;text-decoration:none;
+}
+.enlace:hover{background:rgba(255,255,255,.055);color:#fff}
+.enlace .num{font-family:var(--mono);font-size:10px;color:#7E7774;min-width:15px}
+.enlace[aria-current="true"]{
+  background:rgba(245,134,52,.14);color:#fff;font-weight:600;border-left-color:var(--naranja);
+}
+#pie-menu{
+  padding:12px 18px;border-top:1px solid rgba(255,255,255,.10);
+  font-size:10.5px;color:#8C8582;line-height:1.5;
+}
+
+/* --- Cuerpo -------------------------------------------------------------- */
+main{margin-left:var(--menu);padding:0 0 80px}
+.envoltorio{max-width:860px;margin:0 auto;padding-inline:32px}
+section{padding-block:46px;scroll-margin-top:20px}
+section+section{border-top:1px solid var(--linea)}
+
+.eyebrow{
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--naranja-hondo);margin-bottom:9px;
+}
+h1{font-size:33px;line-height:1.18;letter-spacing:-.02em;font-weight:700;margin-bottom:14px}
+h2{font-size:19px;line-height:1.3;font-weight:700;margin:30px 0 11px}
+h3{font-size:15px;font-weight:700;margin:20px 0 7px}
+p{margin-bottom:13px}
+p.entrada{font-size:17.5px;line-height:1.55;color:var(--gris)}
+ul,ol{margin:0 0 14px 20px}
+li{margin-bottom:7px}
+strong{font-weight:600}
+code{font-family:var(--mono);font-size:.88em;background:#F0ECE6;padding:1px 5px;border-radius:3px}
+
+/* --- Portada ------------------------------------------------------------- */
+#portada{background:var(--carbon);color:#EDE9E6;padding-block:64px;border:0}
+#portada h1{color:#fff;font-size:40px;max-width:19ch}
+#portada .entrada{color:#BDB6B2;max-width:60ch}
+#portada .eyebrow{color:var(--naranja)}
+#portada .sello{
+  display:inline-block;margin-top:22px;padding:7px 13px;border-radius:999px;
+  background:rgba(245,134,52,.15);border:1px solid rgba(245,134,52,.4);
+  color:#F8A868;font-size:12px;font-weight:600;
+}
+
+/* --- Antes / Ahora ------------------------------------------------------- */
+.par{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 6px}
+.caja{border-radius:8px;padding:15px 17px;border:1px solid var(--linea);background:var(--papel)}
+.caja .t{
+  font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  margin-bottom:7px;
+}
+.caja p{font-size:14.5px;line-height:1.55;margin:0}
+.caja p+p{margin-top:8px}
+.antes{background:var(--rojo-fondo);border-color:#F2D6D3}
+.antes .t{color:var(--rojo)}
+.ahora{background:var(--verde-fondo);border-color:#D8E6C8}
+.ahora .t{color:var(--verde)}
+
+/* --- Capturas ------------------------------------------------------------ */
+.marco{
+  margin:22px 0 8px;border-radius:9px;overflow:hidden;
+  border:1px solid var(--linea);background:var(--papel);
+  box-shadow:0 1px 3px rgba(0,0,0,.05),0 8px 26px rgba(0,0,0,.055);
+}
+.barra{
+  display:flex;align-items:center;gap:6px;padding:8px 12px;
+  background:#F2EEE9;border-bottom:1px solid var(--linea);
+}
+.barra i{width:9px;height:9px;border-radius:50%;background:#D6D0C9;display:block}
+.barra span{margin-left:7px;font-family:var(--mono);font-size:11px;color:var(--tenue)}
+.marco img{display:block;width:100%;height:auto;cursor:zoom-in}
+.pie-img{font-size:12.5px;color:var(--gris);line-height:1.5;margin:0 0 4px}
+.pie-img b{color:var(--tinta);font-weight:600}
+
+/* --- Notas --------------------------------------------------------------- */
+.nota{
+  border-left:3px solid var(--naranja);background:var(--naranja-tenue);
+  padding:14px 17px;border-radius:0 7px 7px 0;margin:20px 0;
+}
+.nota .t{font-weight:700;margin-bottom:5px;font-size:14.5px}
+.nota p{font-size:14.5px;margin:0}
+.nota p+p{margin-top:8px}
+.nota.seca{border-left-color:var(--gris);background:#F2EFEA}
+.nota.seca .t{color:var(--carbon)}
+
+/* --- Tabla de hallazgos -------------------------------------------------- */
+.tabla-caja{overflow-x:auto;margin:20px 0;border:1px solid var(--linea);border-radius:8px;background:var(--papel)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:620px}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--linea);vertical-align:top}
+th{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);
+  font-weight:700;background:#F7F4F0;
+}
+tbody tr:last-child td{border-bottom:0}
+td.clave{font-family:var(--mono);font-size:11.5px;color:var(--naranja-hondo);font-weight:700;white-space:nowrap}
+td.antes-c{color:var(--gris)}
+
+/* --- Sí / No ------------------------------------------------------------- */
+.lista-si-no{list-style:none;margin:14px 0 4px}
+.lista-si-no li{
+  display:flex;gap:10px;align-items:flex-start;font-size:14.5px;
+  padding:9px 0;border-bottom:1px solid var(--linea);margin:0;
+}
+.lista-si-no li:last-child{border-bottom:0}
+.marca{
+  flex:0 0 auto;width:19px;height:19px;border-radius:50%;margin-top:3px;
+  display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;
+}
+.si{background:var(--verde)}
+.no{background:#B9B2AC}
+
+/* --- Aviso final --------------------------------------------------------- */
+#privacidad{background:#F2EFEA;border-top:2px solid var(--carbon)}
+#privacidad .envoltorio{max-width:760px}
+
+/* --- Lupa ---------------------------------------------------------------- */
+#lupa{
+  position:fixed;inset:0;background:rgba(20,18,17,.9);z-index:100;
+  display:grid;place-items:center;padding:26px;cursor:zoom-out;
+}
+#lupa img{max-width:100%;max-height:92vh;border-radius:6px;display:block}
+#lupa .cerrar{
+  position:absolute;top:16px;right:20px;color:#fff;font-size:13px;
+  background:rgba(255,255,255,.13);border:0;border-radius:6px;padding:7px 13px;
+  cursor:pointer;font-family:inherit;
+}
+
+/* --- Angosto ------------------------------------------------------------- */
+@media (max-width:900px){
+  :root{--menu:0px}
+  #menu{
+    position:static;width:auto;flex-direction:row;align-items:center;
+    justify-content:space-between;gap:12px;padding-right:14px;
+  }
+  #marca{border-bottom:0;padding:13px 16px}
+  #lista{display:none}
+  #pie-menu{display:none}
+  main{margin-left:0}
+  .envoltorio{padding-inline:20px}
+  h1{font-size:27px}
+  #portada h1{font-size:30px}
+  .par{grid-template-columns:1fr}
+  section{padding-block:34px}
+}
+</style>
+</head>
+<body>
+
+<nav id="menu">
+  <div id="marca">
+    <img src="../img/logo-davinci.png" alt="">
+    <div>
+      <div class="n">Da<b>Vinci</b></div>
+      <div class="s">Qué cambió</div>
+    </div>
+  </div>
+  <div id="lista"></div>
+  <div id="pie-menu">
+    Las cifras de las capturas están veladas a propósito.
+  </div>
+</nav>
+
+<main>
+
+<!-- ====================================================================== -->
+<section id="portada" data-titulo="Portada" data-grupo="Inicio">
+  <div class="envoltorio">
+    <div class="eyebrow">Del Excel al sistema</div>
+    <h1>Lo que cambió al dejar la hoja de cálculo</h1>
+    <p class="entrada">
+      Una comercializadora de producto agrícola fresco —compra a agricultores en
+      México, empaca en Mexicali, vende en Estados Unidos— llevaba su operación
+      completa en Excel: costos, márgenes, compromisos con clientes y
+      proyecciones. Esto es lo que cambió al reemplazarlo, hallazgo por hallazgo.
+    </p>
+    <span class="sello">Doce fugas encontradas · doce corregidas por diseño</span>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="partida" data-titulo="El punto de partida" data-grupo="Inicio">
+  <div class="envoltorio">
+    <div class="eyebrow">El punto de partida</div>
+    <h1>El Excel no estaba mal pensado. Estaba mal sostenido.</h1>
+    <p class="entrada">
+      Conviene decirlo antes que nada, porque explica por qué el proyecto era
+      viable: el modelo conceptual del libro era correcto. Quien lo armó entendía
+      su negocio. Lo que no aguantaba era la <strong>estructura</strong> — y una
+      hoja de cálculo no avisa cuando se rompe.
+    </p>
+    <p>
+      La revisión del archivo encontró doce fugas. Ninguna era un error de
+      aritmética: todas eran consecuencias de lo que una celda no puede hacer.
+      Una celda no tiene fecha, así que un precio nuevo borra al anterior. Una
+      celda no sabe de unidades, así que cajas de un tipo se restan contra cajas
+      de otro. Una fórmula copiada a mano en once columnas se desincroniza en la
+      doceava y nadie lo nota.
+    </p>
+    <div class="nota">
+      <p class="t">El síntoma que lo resume</p>
+      <p>
+        El modelo devolvía un retorno de la inversión de menos de un mes. No por
+        un error de fórmula: era la suma de tener la mano de obra en cero, la
+        merma desconectada, la renta sin cobrar y la depreciación sin calcular.
+        Un número así no resiste la revisión de un socio ni de un banco — y era
+        el número que estaba a punto de circular.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="kilogramo" data-titulo="Un solo idioma" data-grupo="Los cambios">
+  <div class="envoltorio">
+    <div class="eyebrow">Unidades</div>
+    <h1>Un solo idioma: el kilogramo</h1>
+    <p class="entrada">
+      Tres actores hablan de la misma mercancía en tres unidades. El agricultor
+      cuenta cajas de campo. El cliente cuenta cajas de presentación final —doce
+      bolsas de ocho onzas, veinticuatro piezas—. El negocio se mide en kilos.
+      Mientras la conversión vivió en celdas sueltas, las tres versiones se
+      contradecían.
+    </p>
+
+    <div class="par">
+      <div class="caja antes">
+        <div class="t">Antes</div>
+        <p>Los mismos once productos aparecían con tres nomenclaturas distintas
+        según la hoja. Sin una clave única, el módulo de costos y el financiero
+        no se podían cruzar.</p>
+        <p>Dos hojas daban conversiones distintas para la misma caja: la misma
+        cifra en libras, redondeada diferente. Sobre el volumen mensual de un
+        solo producto, esa diferencia mueve dinero real.</p>
+      </div>
+      <div class="caja ahora">
+        <div class="t">Ahora</div>
+        <p>El kilogramo es la única unidad que se almacena. Libras, cajas de
+        campo y presentación final se <strong>derivan</strong> con factores
+        guardados en la base, cada uno con su vigencia.</p>
+        <p>La misma cantidad nunca se guarda en dos unidades. Es la regla que
+        hace imposible que dos pantallas se contradigan.</p>
+      </div>
+    </div>
+
+    <h2>El error que solo se ve cuando hay un sistema</h2>
+    <p>
+      Al implementarlo apareció una fuga que la revisión original no había
+      detectado: la columna «cajas por semana» no decía de qué caja hablaba. En
+      un lado eran cajas del cliente y en otro cajas del agricultor, y se estaban
+      restando entre sí. Son unidades distintas, con pesos distintos, y una
+      además ya trae descontada la merma.
+    </p>
+    <p>
+      Hoy los dos lados se convierten a kilos antes de compararse, y la merma se
+      descuenta del lado que corresponde. La regla del negocio quedó explícita:
+      <strong>la merma reduce los kilos vendibles, no los comprados</strong> —al
+      agricultor se le paga sobre el bruto.
+    </p>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="vigencia" data-titulo="Precios con vigencia" data-grupo="Los cambios">
+  <div class="envoltorio">
+    <div class="eyebrow">Costos</div>
+    <h1>Cada precio es un renglón con fecha, no una celda</h1>
+    <p class="entrada">
+      Esta es la razón principal del proyecto. Un precio en una celda solo puede
+      decir cuánto vale hoy. No puede decir cuánto valía en marzo — y sin eso,
+      corregir un costo reescribe el pasado.
+    </p>
+
+    <div class="par">
+      <div class="caja antes">
+        <div class="t">Antes</div>
+        <p>Un mismo producto aparecía con un precio de compra en su hoja y con
+        otro en el modelo mensual, sin ninguna fecha que los separara. Una
+        tercera hoja los llamaba «actual» y «nuevo», sin decir desde cuándo.</p>
+        <p>Nadie podía afirmar cuál era el bueno, y el resumen del mes pasado
+        cambiaba si alguien corregía una celda hoy.</p>
+      </div>
+      <div class="caja ahora">
+        <div class="t">Ahora</div>
+        <p>Cada tarifa lleva <code>vigencia desde</code> y <code>vigencia
+        hasta</code>. Capturar una nueva no borra la anterior: la cierra.</p>
+        <p>Consultar un costo siempre es «el vigente a la fecha X». Por eso el
+        resumen de marzo no cambia cuando alguien corrige algo en mayo.</p>
+      </div>
+    </div>
+
+    <div class="marco">
+      <div class="barra"><i></i><i></i><i></i><span>/costos</span></div>
+      <img src="img/costos-indice.png" alt="Índice de las trece tablas de costos, cada una con sus renglones vigentes" loading="lazy">
+    </div>
+    <p class="pie-img">
+      Trece tablas de tarifas, cada una versionada. <b>La columna de la derecha
+      separa lo vigente hoy del histórico completo:</b> nada se pierde al cambiar
+      un precio. El aviso ámbar señala las tablas que todavía no tienen nada
+      capturado, y todo margen que dependa de ellas sale marcado como incompleto
+      en vez de fingir un número.
+    </p>
+
+    <div class="nota">
+      <p class="t">La consecuencia que no se ve en la captura</p>
+      <p>
+        La base de datos impide por construcción que dos renglones de la misma
+        serie se traslapen en el tiempo. No es una validación del formulario que
+        alguien pueda rodear: es una restricción del motor. Un histórico con
+        huecos o con dos precios válidos el mismo día no se puede escribir.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="margen" data-titulo="El margen defendible" data-grupo="Los cambios">
+  <div class="envoltorio">
+    <div class="eyebrow">Márgenes</div>
+    <h1>Un margen que resiste una revisión</h1>
+    <p class="entrada">
+      Cuatro de las doce fugas inflaban el resultado. Ninguna era visible en la
+      hoja: había que leer las fórmulas una por una para encontrarlas.
+    </p>
+
+    <h3>La merma se calculaba y no se usaba</h3>
+    <p>
+      Las hojas de producto descontaban la merma correctamente. El modelo
+      mensual, en el renglón rotulado «volumen neto vendible», apuntaba al
+      volumen <strong>bruto</strong>. El ingreso quedaba sobrestimado en el
+      porcentaje completo de la merma, y eso inflaba el resultado operativo
+      alrededor de un veinte por ciento.
+    </p>
+
+    <h3>El empaque no incluía mano de obra</h3>
+    <p>
+      De todos los conceptos de empaque, solo estaba lleno el material. Mano de
+      obra, energía, agua, cámara de frío y control de calidad estaban en blanco.
+      Es lo más delicado del archivo: <strong>toda la tesis del negocio es el
+      arbitraje de mano de obra</strong>, y la mano de obra por kilo no estaba
+      costeada. Lo que se ponga ahí sale directo del margen.
+    </p>
+
+    <h3>Los indirectos se repartían en partes iguales</h3>
+    <p>
+      La fórmula dividía el gasto general entre doce columnas, sin mirar volumen
+      ni ingreso. Una de esas columnas era un producto de relleno con cero kilos
+      y cero venta: absorbía cerca del ocho por ciento de los gastos generales
+      del negocio. Hoy el prorrateo es por ingreso o por kilo, y un producto sin
+      base absorbe cero por construcción.
+    </p>
+
+    <h3>Las palancas de escenario no movían el costo principal</h3>
+    <p>
+      El libro tenía una palanca de «incremento en costos». Movía flete, empaque
+      e indirectos — pero el precio de compra al productor estaba capturado a
+      mano en todos los productos reales, así que la palanca <strong>no tocaba el
+      sesenta y dos por ciento de la estructura de costo</strong>. Y el resumen
+      ejecutivo aplicaba una fórmula distinta, con lo que las dos mitades del
+      archivo se contradecían.
+    </p>
+
+    <div class="marco">
+      <div class="barra"><i></i><i></i><i></i><span>/costeo</span></div>
+      <img src="img/margenes.png" alt="Tabla de márgenes con cada componente de costo en su columna, con las cifras veladas" loading="lazy">
+    </div>
+    <p class="pie-img">
+      Compra, flete, empaque, exportación y el costo total, columna por columna,
+      hasta el margen. <b>Las cifras van veladas en esta página;</b> lo que
+      importa aquí es la forma. Abajo, la leyenda distingue con subrayado
+      continuo el dato capturado y con punteado el que todavía depende de algo
+      sin capturar: el sistema dice de qué pie cojea cada número en lugar de
+      presentarlos todos con la misma confianza.
+    </p>
+
+    <div class="nota">
+      <p class="t">Lo que hace defendible el número nuevo</p>
+      <p>
+        Al corregir las fugas el resultado <em>baja</em>, y alguien iba a
+        preguntar por qué. El sistema incluye una reconciliación que parte de la
+        configuración original del Excel y aplica una corrección a la vez,
+        midiendo cuánto mueve cada una. No es una función del producto: es el
+        documento que permite defender el cambio frente a quien ya había visto el
+        número anterior.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="cobertura" data-titulo="Cobertura semanal" data-grupo="Los cambios">
+  <div class="envoltorio">
+    <div class="eyebrow">Planeación</div>
+    <h1>Comprometer volumen viendo lo que ya está cubierto</h1>
+    <p class="entrada">
+      Una retícula de semanas por producto contesta una sola pregunta: ¿lo que
+      tengo asignado alcanza para lo que me comprometí a entregar? Es trivial de
+      enunciar y no de calcular, porque los dos lados vienen en unidades
+      distintas y hablan de kilos distintos.
+    </p>
+
+    <div class="par">
+      <div class="caja antes">
+        <div class="t">Antes</div>
+        <p>El volumen anual se calculaba como cajas semanales por cuatro. Cuatro
+        por doce son cuarenta y ocho semanas, pero el compromiso con el cliente
+        son cincuenta y dos: el año se subestimaba cerca de un ocho por
+        ciento.</p>
+        <p>Y la comparación entre lo comprometido y lo asignado restaba cajas
+        contra cajas de distinto tipo.</p>
+      </div>
+      <div class="caja ahora">
+        <div class="t">Ahora</div>
+        <p>Las semanas por año son un parámetro con vigencia, no una constante
+        enterrada en una fórmula.</p>
+        <p>Los dos lados se convierten a kilos antes de compararse. Cada celda
+        dice si está cubierta, dentro de la tolerancia del contrato o por debajo
+        — y un aviso capturado a mano gana sobre el cálculo.</p>
+      </div>
+    </div>
+
+    <div class="marco">
+      <div class="barra"><i></i><i></i><i></i><span>/cobertura</span></div>
+      <img src="img/cobertura.png" alt="Retícula de cobertura semanal por producto, con las cajas comprometidas veladas" loading="lazy">
+    </div>
+    <p class="pie-img">
+      Ocho semanas hacia adelante. <b>La barra tiene dos capas:</b> la clara es
+      lo comprometido y la oscura lo que ya está asignado. El aviso rojo de
+      arriba cuenta las celdas descubiertas antes de que alguien se comprometa a
+      más volumen. La columna de cajas comprometidas va velada en esta página.
+    </p>
+
+    <div class="nota seca">
+      <p class="t">El detalle que la hoja no podía tener</p>
+      <p>
+        Si un agricultor avisa por teléfono que en tres semanas no va a tener
+        producto, ese aviso se captura y la celda se pone en rojo <em>desde
+        hoy</em>, aunque los números todavía cuadren. Lo que alguien sabe vale
+        más que lo que la fórmula calcula, y el sistema le da preferencia.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="productores" data-titulo="Padrón de productores" data-grupo="Los cambios">
+  <div class="envoltorio">
+    <div class="eyebrow">Abasto</div>
+    <h1>El padrón dejó de ser una lista de teléfonos</h1>
+    <p class="entrada">
+      A quién se le compra es una decisión con consecuencias de costo: la zona de
+      origen determina el flete, la distancia al cruce determina la merma, y
+      tener o no empacadora determina si el producto pasa por Mexicali.
+    </p>
+
+    <div class="marco">
+      <div class="barra"><i></i><i></i><i></i><span>/productores</span></div>
+      <img src="img/productores-mapa.png" alt="Mapa de productores por zona de origen, con nombres ficticios" loading="lazy">
+    </div>
+    <p class="pie-img">
+      Cada productor con su zona, sus cultivos, su distancia al cruce y su
+      capacidad. <b>Los nombres que aparecen aquí son ficticios y el sistema los
+      marca como tales:</b> son datos de demostración, rotulados «FICTICIO» en la
+      propia base para que nadie los confunda nunca con un padrón real.
+    </p>
+
+    <h2>Evaluación congelada</h2>
+    <p>
+      Los productores se califican con una ponderación configurable. Lo
+      importante no es el puntaje sino cómo se guarda: <strong>la evaluación se
+      congela junto con los pesos que se usaron</strong>. Si mañana la dirección
+      cambia la ponderación, las evaluaciones pasadas no se reescriben. Una
+      calificación de junio sigue diciendo lo que decía en junio, con el criterio
+      de junio.
+    </p>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="ia" data-titulo="Análisis e IA" data-grupo="Sobre la tecnología">
+  <div class="envoltorio">
+    <div class="eyebrow">Sobre la tecnología</div>
+    <h1>Análisis de datos</h1>
+    <p class="entrada">
+      Conviene ser explícito, porque hoy todo se anuncia como IA y en este
+      sistema decir eso sería falso. No hay ningún modelo de lenguaje, ninguna
+      red neuronal y ningún modelo predictivo entrenado. Tampoco hay una
+      dependencia de ningún proveedor de inteligencia artificial.
+    </p>
+
+    <h2>Qué hay, entonces</h2>
+    <ul class="lista-si-no">
+      <li><span class="marca si">✓</span><div><strong>Un motor de cálculo determinista.</strong>
+      Toda la aritmética de dinero corre en funciones puras, con decimales
+      exactos —nunca con números de punto flotante— y cada regla de negocio tiene
+      su prueba automatizada. El mismo dato de entrada da el mismo resultado
+      siempre.</div></li>
+
+      <li><span class="marca si">✓</span><div><strong>Simulación de escenarios.</strong>
+      Palancas independientes para precio de venta, precio de compra y costos,
+      que recalculan la cartera completa sin guardar nada. Responden «qué pasa
+      si», no «qué va a pasar».</div></li>
+
+      <li><span class="marca si">✓</span><div><strong>Proyección de cobertura.</strong>
+      Ocho semanas hacia adelante, cruzando compromisos contra asignaciones. Es
+      aritmética sobre datos capturados, no un pronóstico.</div></li>
+
+      <li><span class="marca si">✓</span><div><strong>Prorrateo y reconciliación.</strong>
+      Reparto de gastos indirectos por ingreso o por kilo, y una escalera que
+      explica renglón por renglón la diferencia contra el modelo anterior.</div></li>
+
+      <li><span class="marca si">✓</span><div><strong>Calificación ponderada de proveedores.</strong>
+      Pesos configurables por la dirección y evaluación congelada al momento de
+      emitirla. Es un modelo de decisión explícito, auditable y explicable — no
+      aprende de los datos ni cambia solo.</div></li>
+
+      
+    </ul>
+
+    <h2>Por qué se diseñó así</h2>
+    <p>
+      Porque el resultado tiene que ser defendible ante un socio, un banco o una
+      auditoría. Un número que sale de un modelo probabilístico no se puede
+      explicar renglón por renglón, y este negocio ya tuvo el problema de
+      presentar cifras que no resistían una revisión. La exigencia aquí era la
+      contraria: que cada cifra se pueda rastrear hasta el dato capturado que la
+      produjo, con la fecha en que estaba vigente y el nombre de quien la
+      capturó.
+    </p>
+    <p>
+      Hay lugares donde la predicción aportaría —pronóstico de demanda por
+      temporada, detección de precios atípicos, sugerencia de asignación entre
+      productores—. Son extensiones naturales una vez que hay historia capturada,
+      y hoy no están construidas. Decirlo claro vale más que insinuar lo
+      contrario.
+    </p>
+
+    <div class="nota">
+      <p class="t">Lo que sí es infraestructura seria</p>
+      <p>
+        Bitácora de quién cambió qué y cuándo, permisos por rol que separan a
+        quien mueve costos de quien mueve precios de venta, aislamiento entre
+        empresas, y una batería de pruebas automatizadas que corre en cada cambio
+        — incluidas pruebas que vigilan que nadie vuelva a introducir los errores
+        ya corregidos.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="tabla" data-titulo="Las doce fugas" data-grupo="Resumen">
+  <div class="envoltorio">
+    <div class="eyebrow">Resumen</div>
+    <h1>Las doce fugas, una por renglón</h1>
+    <p class="entrada">
+      Once se encontraron revisando el archivo. La última apareció al
+      implementar, que es cuando los supuestos se topan con el código.
+    </p>
+
+    <div class="tabla-caja">
+      <table>
+        <thead>
+          <tr><th>Clave</th><th>En la hoja de cálculo</th><th>En el sistema</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="clave">H1</td><td class="antes-c">La merma se calculaba y el estado de resultados usaba el volumen bruto.</td><td>Reduce los kilos vendibles; al agricultor se le paga sobre el bruto.</td></tr>
+          <tr><td class="clave">H2</td><td class="antes-c">La palanca de costos no tocaba el 62 % de la estructura.</td><td>Palanca propia para compra, venta y costos, aplicada a todo.</td></tr>
+          <tr><td class="clave">H3</td><td class="antes-c">El empaque solo tenía material; la mano de obra estaba en blanco.</td><td>Un renglón por concepto: material, mano de obra, energía, agua, frío, calidad.</td></tr>
+          <tr><td class="clave">H4</td><td class="antes-c">El flete era una constante única para todos los orígenes.</td><td>Tarifa por zona, tramo y destino, con las rutas reales conectadas.</td></tr>
+          <tr><td class="clave">H5</td><td class="antes-c">Los indirectos se dividían en partes iguales entre doce columnas.</td><td>Prorrateo por ingreso o por kilo; sin base, absorbe cero.</td></tr>
+          <tr><td class="clave">H6</td><td class="antes-c">El año tenía 48 semanas por multiplicar por cuatro.</td><td>Semanas por año es un parámetro con vigencia.</td></tr>
+          <tr><td class="clave">H7</td><td class="antes-c">Tres nomenclaturas para los mismos once productos.</td><td>Clave única por producto, con alias para cada nombre comercial.</td></tr>
+          <tr><td class="clave">H8</td><td class="antes-c">Dos precios distintos para el mismo producto, sin fecha que los separara.</td><td>Precios versionados: consultar es siempre «el vigente a la fecha X».</td></tr>
+          <tr><td class="clave">H9</td><td class="antes-c">Conversiones kilo/caja distintas entre hojas.</td><td>El kilo es canónico; las cajas se derivan con factores versionados.</td></tr>
+          <tr><td class="clave">H10</td><td class="antes-c">Inversión contemplada, pero renta y depreciación en cero.</td><td>Gasto recurrente capturado por concepto, con vigencia.</td></tr>
+          <tr><td class="clave">H11</td><td class="antes-c">Un retorno de inversión que no resistía una revisión externa.</td><td>Consecuencia corregida al resolver las anteriores.</td></tr>
+          <tr><td class="clave">H12</td><td class="antes-c">«Cajas por semana» sin decir de qué caja hablaba.</td><td>Ambos lados en kilos antes de compararse, con la merma del lado correcto.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<section id="privacidad" data-titulo="Nota sobre los datos" data-grupo="Resumen">
+  <div class="envoltorio">
+    <div class="eyebrow">Nota sobre los datos</div>
+    <h1>Nada de lo que se ve aquí es un dato real</h1>
+    <p>
+      Las capturas de pantalla de esta página provienen del sistema en
+      funcionamiento, pero <strong>toda la información sensible fue retirada
+      antes de publicarlas</strong>:
+    </p>
+    <ul>
+      <li><strong>Las cifras van veladas.</strong> Precios de compra y de venta,
+      volúmenes, márgenes e ingresos están tapados de forma irreversible en las
+      imágenes. No se difuminaron: se destruyeron los pixeles.</li>
+      <li><strong>Los nombres de clientes finales no aparecen.</strong> Ninguna
+      captura muestra a quién se le vende.</li>
+      <li><strong>Los nombres de productores son inventados.</strong> El propio
+      sistema los marca como «FICTICIO» en la base de datos: son datos de
+      demostración, no un padrón real.</li>
+      <li><strong>Los nombres de usuario están retirados</strong> de la barra
+      superior de cada pantalla.</li>
+      <li><strong>Las magnitudes del texto son proporciones, no montos.</strong>
+      Donde se menciona un porcentaje, describe la estructura del modelo sin
+      revelar el tamaño del negocio.</li>
+    </ul>
+    <p>
+      Los porcentajes y los hallazgos descritos sí son reales: salen de la
+      revisión del archivo original. Lo que no se publica es ninguna cantidad que
+      permita reconstruir la operación, los precios o la cartera de clientes de
+      la empresa.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<div id="lupa" hidden>
+  <button class="cerrar" type="button">Cerrar ✕</button>
+  <img src="" alt="">
+</div>
+
+<script>
+(function () {
+  'use strict'
+
+  /* --- El índice se construye desde las secciones -------------------------
+     Escribirlo a mano garantiza que un día alguien agregue una sección y
+     olvide el enlace. Así no puede desfasarse. */
+  var secciones = Array.prototype.slice.call(document.querySelectorAll('main section'))
+  var lista = document.getElementById('lista')
+  var grupoPrevio = null
+
+  secciones.forEach(function (sec, i) {
+    if (sec.dataset.grupo !== grupoPrevio) {
+      var g = document.createElement('div')
+      g.className = 'grupo'
+      g.textContent = sec.dataset.grupo
+      lista.appendChild(g)
+      grupoPrevio = sec.dataset.grupo
+    }
+    var a = document.createElement('a')
+    a.className = 'enlace'
+    a.href = '#' + sec.id
+    a.innerHTML = '<span class="num">' + String(i + 1).padStart(2, '0') +
+      '</span><span>' + sec.dataset.titulo + '</span>'
+    lista.appendChild(a)
+  })
+
+  var enlaces = Array.prototype.slice.call(lista.querySelectorAll('.enlace'))
+
+  /* --- Cuál se está leyendo ---------------------------------------------- */
+  if ('IntersectionObserver' in window) {
+    var visibles = new Map()
+    var observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) { visibles.set(e.target.id, e.intersectionRatio) })
+
+      var mejor = null
+      var mejorRatio = 0
+      visibles.forEach(function (ratio, id) {
+        if (ratio > mejorRatio) { mejorRatio = ratio; mejor = id }
+      })
+
+      enlaces.forEach(function (a) {
+        a.setAttribute('aria-current', a.hash === '#' + mejor ? 'true' : 'false')
+      })
+    }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] })
+
+    secciones.forEach(function (s) { observador.observe(s) })
+  }
+
+  /* --- Lupa --------------------------------------------------------------
+     El alt de la captura viaja a la imagen ampliada: quien use lector de
+     pantalla no debería perder la descripción al ampliar. */
+  var lupa = document.getElementById('lupa')
+  var lupaImg = lupa.querySelector('img')
+
+  document.querySelectorAll('.marco img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      lupaImg.src = img.src
+      lupaImg.alt = img.alt
+      lupa.hidden = false
+      document.body.style.overflow = 'hidden'
+      lupa.querySelector('.cerrar').focus()
+    })
+  })
+
+  function cerrarLupa() {
+    lupa.hidden = true
+    lupaImg.src = ''
+    document.body.style.overflow = ''
+  }
+
+  lupa.addEventListener('click', cerrarLupa)
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !lupa.hidden) cerrarLupa()
+  })
+})()
+</script>
+</body>
+</html>

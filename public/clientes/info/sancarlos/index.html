@@ -1,0 +1,1814 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>San Carlos Tour · Ventajas del sistema</title>
+    <link rel="icon" href="img/logo-davinci.png" />
+    <style>
+      /* Paleta tomada del logo Da Vinci: naranja y gris grafito. */
+      :root {
+        --naranja: #f0873a;
+        --naranja-suave: #fbe3cf;
+        --naranja-tenue: #fef6f0;
+        --grafito: #3b3a3c;
+        --grafito-claro: #55545a;
+        --texto: #24232b;
+        --texto-suave: #6b6a72;
+        --linea: #e7e5e4;
+        --fondo: #ffffff;
+        --fondo-alt: #faf9f8;
+        --radio: 16px;
+        --sombra: 0 1px 2px rgba(35, 34, 40, 0.06),
+          0 12px 32px -12px rgba(35, 34, 40, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--fondo);
+        color: var(--texto);
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Navegación ── */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 14px 32px;
+        background: rgba(255, 255, 255, 0.93);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--linea);
+      }
+      .nav img {
+        height: 34px;
+      }
+      .nav .marca {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--grafito);
+      }
+      .nav .marca span {
+        color: var(--naranja);
+      }
+      .nav .sufijo {
+        margin-left: auto;
+        font-size: 14px;
+        color: var(--texto-suave);
+      }
+      /* ── Estructura ── */
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .portada {
+        padding: 76px 0 44px;
+      }
+
+      .etiqueta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--naranja);
+        background: var(--naranja-tenue);
+        border: 1px solid var(--naranja-suave);
+        padding: 5px 12px;
+        border-radius: 999px;
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        font-size: clamp(34px, 5vw, 54px);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin: 0 0 22px;
+        font-weight: 700;
+      }
+      h1 em {
+        font-style: normal;
+        color: var(--naranja);
+      }
+      .entrada {
+        font-size: 18px;
+        color: var(--texto-suave);
+        max-width: 66ch;
+        margin: 0 0 16px;
+      }
+      .entrada b {
+        color: var(--grafito);
+      }
+
+      /* ── Cifras de portada ── */
+      .cifras {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 18px;
+        margin: 40px 0 8px;
+      }
+      .cifra {
+        border: 1px solid var(--linea);
+        border-radius: 14px;
+        padding: 20px 22px;
+        background: var(--fondo-alt);
+      }
+      .cifra b {
+        display: block;
+        font-size: 30px;
+        letter-spacing: -0.03em;
+        color: var(--grafito);
+        line-height: 1.1;
+      }
+      .cifra span {
+        font-size: 14px;
+        color: var(--texto-suave);
+      }
+
+      /* ── Índice ── */
+      .indice {
+        border-top: 1px solid var(--linea);
+        border-bottom: 1px solid var(--linea);
+        padding: 26px 0;
+        margin: 48px 0 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 10px 32px;
+      }
+      .indice a {
+        font-size: 14px;
+        color: var(--texto-suave);
+        text-decoration: none;
+        display: flex;
+        gap: 10px;
+      }
+      .indice a b {
+        color: var(--naranja);
+        font-variant-numeric: tabular-nums;
+      }
+      .indice a:hover {
+        color: var(--texto);
+      }
+
+      /* ── Bandas de sección ── */
+      .banda {
+        margin-top: 80px;
+      }
+      .banda.destacada {
+        background: var(--fondo-alt);
+        border-top: 1px solid var(--linea);
+        border-bottom: 1px solid var(--linea);
+        padding: 8px 0 32px;
+      }
+      .banda-cabeza {
+        padding: 54px 0 12px;
+        max-width: 74ch;
+      }
+      .banda-cabeza h2 {
+        font-size: clamp(26px, 3.4vw, 36px);
+        letter-spacing: -0.028em;
+        margin: 0 0 14px;
+        line-height: 1.18;
+      }
+      .banda-cabeza p {
+        color: var(--texto-suave);
+        margin: 0 0 12px;
+        font-size: 17px;
+      }
+      .banda-cabeza p b {
+        color: var(--grafito);
+      }
+
+      /* ── Bloque de ventaja ── */
+      .ventaja {
+        padding: 46px 0;
+        border-top: 1px solid var(--linea);
+      }
+      .ventaja > .cabeza {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 26px;
+      }
+      .ventaja .num {
+        flex: none;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: var(--grafito);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+        margin-top: 4px;
+        font-variant-numeric: tabular-nums;
+      }
+      .ventaja h3 {
+        font-size: 24px;
+        letter-spacing: -0.022em;
+        margin: 0 0 6px;
+      }
+      .ventaja .sub {
+        margin: 0;
+        color: var(--texto-suave);
+        font-size: 16px;
+        max-width: 68ch;
+      }
+
+      /* ── Comparativa antes / ahora ── */
+      .comparativa {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 28px;
+      }
+      .col {
+        border: 1px solid var(--linea);
+        border-radius: 14px;
+        padding: 20px 22px 22px;
+        background: var(--fondo);
+      }
+      .col.antes {
+        background: var(--fondo-alt);
+      }
+      .col.ahora {
+        border-color: var(--naranja-suave);
+        background: var(--naranja-tenue);
+      }
+      .col h4 {
+        margin: 0 0 12px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .col.antes h4 {
+        color: var(--texto-suave);
+      }
+      .col.ahora h4 {
+        color: var(--naranja);
+      }
+      .col h4::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.55;
+      }
+      .col ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .col li {
+        font-size: 15px;
+        margin-bottom: 9px;
+        color: var(--grafito-claro);
+      }
+      .col.antes li {
+        color: var(--texto-suave);
+      }
+      .col li:last-child {
+        margin-bottom: 0;
+      }
+      .col li b {
+        color: var(--texto);
+      }
+
+      /* ── Capturas ── */
+      figure {
+        margin: 0;
+      }
+      .captura {
+        border: 1px solid var(--linea);
+        border-radius: var(--radio);
+        overflow: hidden;
+        box-shadow: var(--sombra);
+        background: var(--fondo);
+        cursor: zoom-in;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .captura:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 2px 4px rgba(35, 34, 40, 0.08),
+          0 22px 44px -14px rgba(35, 34, 40, 0.26);
+      }
+      .captura img {
+        display: block;
+        width: 100%;
+      }
+      figcaption {
+        font-size: 13px;
+        color: var(--texto-suave);
+        margin-top: 12px;
+        max-width: 80ch;
+      }
+      figcaption b {
+        color: var(--grafito);
+      }
+      .par {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+      }
+
+      /* ── Aviso ── */
+      .aviso {
+        border-left: 4px solid var(--naranja);
+        background: var(--naranja-tenue);
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin-top: 30px;
+      }
+      .aviso h4 {
+        margin: 0 0 8px;
+        font-size: 15px;
+        color: var(--grafito);
+      }
+      .aviso p {
+        margin: 0;
+        color: var(--grafito-claro);
+        font-size: 15px;
+      }
+
+      /* ── Chips ── */
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 22px 0 28px;
+      }
+      .chips span {
+        font-size: 13px;
+        color: var(--grafito-claro);
+        background: var(--fondo);
+        border: 1px solid var(--linea);
+        border-radius: 999px;
+        padding: 5px 13px;
+      }
+      .chips span b {
+        color: var(--naranja);
+        font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+        font-size: 12px;
+      }
+
+      /* ── Cierre ── */
+      .cierre {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 34px 0 0;
+      }
+      .cierre div {
+        border: 1px solid var(--linea);
+        border-radius: 14px;
+        padding: 22px 24px;
+        background: var(--fondo);
+      }
+      .cierre h4 {
+        margin: 0 0 8px;
+        font-size: 17px;
+        letter-spacing: -0.015em;
+      }
+      .cierre p {
+        margin: 0;
+        font-size: 15px;
+        color: var(--texto-suave);
+      }
+
+      /* ── Nota de privacidad ── */
+      .privacidad {
+        margin: 60px 0 0;
+        border: 1px solid var(--linea);
+        border-radius: var(--radio);
+        background: var(--fondo-alt);
+        padding: 30px 32px;
+      }
+      .privacidad h3 {
+        margin: 0 0 14px;
+        font-size: 19px;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .privacidad h3 svg {
+        flex: none;
+        color: var(--naranja);
+      }
+      .privacidad p {
+        margin: 0 0 12px;
+        font-size: 15px;
+        color: var(--grafito-claro);
+        max-width: 86ch;
+      }
+      .privacidad p:last-child {
+        margin-bottom: 0;
+      }
+
+      footer {
+        border-top: 1px solid var(--linea);
+        background: var(--fondo-alt);
+        text-align: center;
+        padding: 44px 32px;
+        color: var(--texto-suave);
+        font-size: 14px;
+        margin-top: 80px;
+      }
+      footer img {
+        height: 30px;
+        margin-bottom: 10px;
+      }
+      footer p {
+        margin: 3px 0;
+      }
+
+      /* ── Visor de capturas ── */
+      .visor {
+        position: fixed;
+        inset: 0;
+        background: rgba(24, 23, 27, 0.94);
+        display: none;
+        place-items: center;
+        z-index: 100;
+        padding: 28px;
+        cursor: zoom-out;
+      }
+      .visor.abierto {
+        display: grid;
+      }
+      .visor img {
+        max-width: 100%;
+        max-height: 92vh;
+        border-radius: 10px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      }
+      .visor .cerrar {
+        position: absolute;
+        top: 22px;
+        right: 28px;
+        color: #fff;
+        font-size: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        line-height: 1;
+      }
+
+      @media (max-width: 860px) {
+        .comparativa,
+        .par {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .nav {
+          padding: 12px 18px;
+          gap: 12px;
+        }
+        .nav .sufijo {
+          display: none;
+        }
+        main {
+          padding: 0 18px;
+        }
+        .portada {
+          padding: 48px 0 32px;
+        }
+        .ventaja {
+          padding: 36px 0;
+        }
+        .privacidad {
+          padding: 24px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <img src="img/logo-davinci.png" alt="Da Vinci" />
+      <span class="marca">Da<span>Vinci</span></span>
+      <span class="sufijo">San Carlos Tour Plus · Ventajas del sistema</span>
+    </nav>
+
+    <main>
+      <!-- ══════════ Portada ══════════ -->
+      <header class="portada">
+        <div class="etiqueta">Antes y después</div>
+        <h1>Lo que cambió desde que<br />el sistema <em>entró a operar</em></h1>
+        <p class="entrada">
+          Esta no es la lista de lo que el sistema <b>puede</b> hacer, sino de
+          lo que dejó de hacerse a mano. Cada punto compara cómo se trabajaba
+          antes —libreta, pizarrón, llamada telefónica, memoria del encargado—
+          contra cómo se resuelve hoy, con la pantalla real que lo resuelve.
+        </p>
+        <p class="entrada">
+          La segunda mitad está dedicada por completo a lo que el sistema hace
+          con los datos una vez capturados: <b>inteligencia artificial</b> y
+          <b>análisis</b>. Es la parte que no existía de ninguna forma antes, ni
+          en papel ni en hojas de cálculo.
+        </p>
+
+        <figure style="margin-top: 38px">
+          <div class="captura">
+            <img
+              src="img/dashboard.png"
+              alt="Tablero general del sistema: órdenes activas, requisiciones pendientes, productos bajo mínimo y unidades de la flotilla"
+            />
+          </div>
+          <figcaption>
+            El tablero que ve cualquiera al entrar.
+            <b>Nombre de chofer difuminado.</b> Lo que antes había que ir a
+            preguntar a cuatro personas distintas —cuántas unidades hay en
+            taller, qué falta surtir, qué se está agotando— está resuelto antes
+            de dar el primer clic.
+          </figcaption>
+        </figure>
+
+        <div class="cifras">
+          <div class="cifra">
+            <b>12</b><span>agentes de IA atendiendo por WhatsApp</span>
+          </div>
+          <div class="cifra">
+            <b>6</b><span>tableros de inteligencia y análisis</span>
+          </div>
+          <div class="cifra">
+            <b>1</b><span>expediente por unidad y por persona</span>
+          </div>
+          <div class="cifra">
+            <b>0</b><span>libretas de papel en el flujo diario</span>
+          </div>
+        </div>
+
+        <nav class="indice">
+          <a href="#orden"><b>01</b> La orden de servicio</a>
+          <a href="#kiosko"><b>02</b> Recepción de la unidad</a>
+          <a href="#almacen"><b>03</b> Refacciones y almacén</a>
+          <a href="#caseta"><b>04</b> Control de acceso</a>
+          <a href="#preventivo"><b>05</b> Mantenimiento preventivo</a>
+          <a href="#permisos"><b>06</b> Permisos y responsabilidad</a>
+          <a href="#servicios"><b>07</b> Viajes y clientes</a>
+          <a href="#predictivo"><b>08</b> Mantenimiento predictivo</a>
+          <a href="#combustible"><b>09</b> Anomalías de combustible</a>
+          <a href="#gps"><b>10</b> El GPS dentro del sistema</a>
+          <a href="#alertas"><b>11</b> Centro de alertas</a>
+          <a href="#reportes"><b>12</b> Reportes en lenguaje natural</a>
+          <a href="#agentes"><b>13</b> Los doce agentes de IA</a>
+          <a href="#ejecutivo"><b>14</b> Resumen ejecutivo semanal</a>
+          <a href="#desempeno"><b>15</b> Desempeño medido</a>
+        </nav>
+      </header>
+
+      <!-- ══════════ Parte uno: operación diaria ══════════ -->
+      <section class="banda">
+        <div class="banda-cabeza">
+          <div class="etiqueta">Parte uno</div>
+          <h2>De la libreta al sistema</h2>
+          <p>
+            Lo que antes dependía de que alguien se acordara, lo escribiera o
+            contestara el teléfono. Siete puntos de la operación diaria que
+            cambiaron de soporte.
+          </p>
+        </div>
+
+        <!-- 01 -->
+        <article class="ventaja" id="orden">
+          <div class="cabeza">
+            <span class="num">01</span>
+            <div>
+              <h3>La orden de servicio</h3>
+              <p class="sub">
+                El documento central del taller: qué unidad entró, a qué, quién
+                la está atendiendo y qué se le hizo.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  La orden vivía en una libreta o en un pizarrón, y solo la
+                  entendía quien la escribió.
+                </li>
+                <li>
+                  Nadie podía decir con certeza
+                  <b>cuántas unidades estaban adentro</b> ni desde cuándo.
+                </li>
+                <li>
+                  Si el mecánico terminaba su turno sin acabar, el siguiente
+                  empezaba preguntando.
+                </li>
+                <li>
+                  El historial de una unidad era la memoria del jefe de taller.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Orden digital con unidad, mecánico asignado, motivo, prioridad
+                  y kilometraje.
+                </li>
+                <li>
+                  Registra <b>vida de llantas y balatas</b>, que después alimenta
+                  las alertas de correctivo.
+                </li>
+                <li>
+                  <b>Transferencia entre mecánicos</b>: el turno que entra recibe
+                  la orden con lo que ya se hizo.
+                </li>
+                <li>
+                  Reparaciones de contingencia con evidencia fotográfica y
+                  requisiciones ligadas a la misma orden.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/orden-abierta.png"
+                alt="Orden de servicio abierta con detalle, estado, transferencia entre mecánicos y requisiciones"
+              />
+            </div>
+            <figcaption>
+              Una orden abierta.
+              <b>Todo lo que antes se preguntaba de viva voz</b> —quién la trae,
+              a qué, en qué va— está en la misma pantalla, y el historial queda
+              ligado a la unidad de forma permanente.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 02 -->
+        <article class="ventaja" id="kiosko">
+          <div class="cabeza">
+            <span class="num">02</span>
+            <div>
+              <h3>Recepción de la unidad</h3>
+              <p class="sub">
+                El momento en que el chofer deja la unidad, que es donde más
+                información se perdía.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  El chofer dejaba la unidad y
+                  <b>le contaba la falla a quien estuviera</b>.
+                </li>
+                <li>
+                  Si el mecánico estaba ocupado, el recado se perdía en el
+                  camino.
+                </li>
+                <li>
+                  La descripción original de la falla casi nunca llegaba completa
+                  a quien iba a repararla.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  El chofer registra su unidad <b>él mismo</b> en la tablet del
+                  taller, en menos de un minuto.
+                </li>
+                <li>
+                  Deja escrito con sus palabras a qué viene; el mecánico completa
+                  el resto de la orden cuando se desocupa.
+                </li>
+                <li>
+                  Solo aparecen las unidades que ya pasaron por la caseta y no
+                  traen otra orden abierta: no se duplican.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/kiosko-taller.png"
+                alt="Kiosco de registro rápido de taller para que el chofer deje su unidad"
+              />
+            </div>
+            <figcaption>
+              El kiosco de taller.
+              <b>La falla la describe quien la sintió manejando</b>, no quien la
+              escuchó de segunda mano.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 03 -->
+        <article class="ventaja" id="almacen">
+          <div class="cabeza">
+            <span class="num">03</span>
+            <div>
+              <h3>Refacciones y almacén</h3>
+              <p class="sub">
+                De la pieza que sale del almacén a lo que realmente costó
+                reparar cada unidad.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  Vale de papel, o de plano nada: la pieza salía y se anotaba
+                  después —si se anotaba—.
+                </li>
+                <li>
+                  El inventario real solo lo sabía el almacenista,
+                  <b>y de memoria</b>.
+                </li>
+                <li>
+                  Nadie podía responder cuánto costó reparar una unidad en el
+                  año.
+                </li>
+                <li>
+                  Las refacciones agotadas se descubrían cuando el taller ya
+                  estaba detenido.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  La requisición nace <b>desde la orden de servicio</b>: siempre
+                  se sabe para qué unidad es la pieza.
+                </li>
+                <li>
+                  Despacho con folio y estado: pendiente, lista para entregar,
+                  surtida.
+                </li>
+                <li>
+                  El inventario se descuenta solo al surtir, y el costo se
+                  acumula en la unidad.
+                </li>
+                <li>
+                  Los productos bajo mínimo saltan como alerta antes de
+                  agotarse.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/despacho-almacen.png"
+                alt="Despacho de almacén con requisiciones del taller por revisar y surtir"
+              />
+            </div>
+            <figcaption>
+              Despacho de almacén. Cada renglón amarra
+              <b>folio, orden y unidad</b>: el costo de una reparación deja de
+              ser una estimación.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 04 -->
+        <article class="ventaja" id="caseta">
+          <div class="cabeza">
+            <span class="num">04</span>
+            <div>
+              <h3>Control de acceso</h3>
+              <p class="sub">
+                Quién entra, quién sale, a qué hora y con qué unidad.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>Libreta en la puerta, con la letra del guardia en turno.</li>
+                <li>
+                  Entradas sin salida y salidas sin entrada: la libreta no
+                  cuadraba.
+                </li>
+                <li>
+                  Para saber si una unidad estaba adentro había que
+                  <b>ir a verla</b>.
+                </li>
+                <li>
+                  Las discusiones sobre a qué hora salió alguien no tenían cómo
+                  resolverse.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Bitácora electrónica con guardia, motivo y hora exacta de cada
+                  movimiento.
+                </li>
+                <li>
+                  <b>QR de unidad y QR de persona</b>: el guardia escanea en
+                  lugar de escribir.
+                </li>
+                <li>
+                  La entrada marca la unidad “en taller” sola, sin que nadie más
+                  lo capture.
+                </li>
+                <li>
+                  Salidas a prueba: el mecánico saca la unidad a probarla
+                  <b>sin que deje de contar como en taller</b>.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/caseta.png"
+                alt="Caseta de vigilancia con registro de entrada y bitácora de últimos movimientos"
+              />
+            </div>
+            <figcaption>
+              Caseta de vigilancia.
+              <b>Nombres de choferes y guardias difuminados.</b> La bitácora es
+              una sola para toda la planta, y es la misma que el taller consulta
+              para saber qué tiene adentro.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 05 -->
+        <article class="ventaja" id="preventivo">
+          <div class="cabeza">
+            <span class="num">05</span>
+            <div>
+              <h3>Mantenimiento preventivo</h3>
+              <p class="sub">
+                El programa que evita que la unidad se rompa en ruta —si alguien
+                lo persigue—.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>Calendario pegado en la pared y buena voluntad.</li>
+                <li>El aviso al chofer era una llamada, unidad por unidad.</li>
+                <li>
+                  Si el chofer no llegaba,
+                  <b>nadie registraba que no llegó</b>: la falta se perdía.
+                </li>
+                <li>Reagendar significaba tachar y volver a escribir.</li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Cada unidad tiene su fecha y su ciclo; el calendario se
+                  proyecta solo hacia adelante.
+                </li>
+                <li>
+                  El aviso lo manda <b>un agente de IA por WhatsApp</b>, no una
+                  persona marcando teléfonos.
+                </li>
+                <li>
+                  La asistencia se marca —asistió o no asistió— y
+                  <b>cuenta para el ranking del chofer</b>.
+                </li>
+                <li>
+                  Reagenda con arrastre de fecha, y Servicio Motor o A/C
+                  programados por kilometraje.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/preventivo.png"
+                alt="Agenda de taller: calendario mensual de mantenimientos preventivos y citas de correctivo"
+              />
+            </div>
+            <figcaption>
+              La agenda del taller. Lo importante no es el calendario, sino que
+              <b>la falta a una cita quede registrada</b> y tenga consecuencia.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 06 -->
+        <article class="ventaja" id="permisos">
+          <div class="cabeza">
+            <span class="num">06</span>
+            <div>
+              <h3>Permisos y responsabilidad</h3>
+              <p class="sub">
+                Quién puede ver qué, quién puede modificar qué, y quién hizo cada
+                cosa.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>O todos veían todo, o había que pedir permiso por teléfono.</li>
+                <li>
+                  Al dar de baja a alguien,
+                  <b>nadie se acordaba de cerrarle los accesos</b>.
+                </li>
+                <li>
+                  Un dato mal capturado no tenía autor: se corregía y ya.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  El <b>Perfil y el Puesto de Recursos Humanos</b> definen el
+                  acceso: no hay una lista aparte que mantener.
+                </li>
+                <li>
+                  Módulo por módulo se decide: sin acceso, lectura o escritura.
+                </li>
+                <li>
+                  Baja en RRHH significa acceso cerrado el mismo día, sin
+                  intervención de nadie.
+                </li>
+                <li>
+                  Cada movimiento queda con <b>nombre y hora</b>. El “yo creía”
+                  dejó de ser un argumento.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/permisos.png"
+                alt="Pantalla de permisos por perfil y puesto, módulo por módulo"
+              />
+            </div>
+            <figcaption>
+              Permisos por perfil y puesto.
+              <b>El organigrama de Recursos Humanos es el que manda</b>; el
+              sistema solo lo obedece.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 07 -->
+        <article class="ventaja" id="servicios">
+          <div class="cabeza">
+            <span class="num">07</span>
+            <div>
+              <h3>Viajes y clientes</h3>
+              <p class="sub">
+                La solicitud del cliente, desde que la pide hasta que se cobra.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  El viaje se pedía por teléfono o por un mensaje suelto, y se
+                  apuntaba donde se pudiera.
+                </li>
+                <li>
+                  Si quien lo tomó no llegaba al día siguiente,
+                  <b>el viaje se perdía</b>.
+                </li>
+                <li>Lo que quedó por cobrar solo se sabía al cierre de mes.</li>
+                <li>
+                  El cliente llamaba para preguntar si su unidad ya iba en
+                  camino.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  El cliente lo pide desde <b>su propio portal</b>, o se captura
+                  internamente; en ambos casos nace con folio.
+                </li>
+                <li>
+                  Estados claros: generado, aceptado, cotizado, chofer asignado,
+                  en proceso, por cobrar, cerrado.
+                </li>
+                <li>
+                  Cada viaje tiene un responsable con nombre, y lo pendiente de
+                  cobro está siempre a la vista.
+                </li>
+                <li>
+                  <b>Mapa en vivo</b> de los servicios en curso, con la unidad
+                  asignada.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/servicios.png"
+                alt="Listado de servicios con folio, estado, responsable y chofer asignado"
+              />
+            </div>
+            <figcaption>
+              Servicios de punta a punta.
+              <b
+                >Razón social del cliente, contacto, teléfono, direcciones y
+                nombre del chofer difuminados</b
+              >
+              en esta captura.
+            </figcaption>
+          </figure>
+        </article>
+      </section>
+
+      <!-- ══════════ Parte dos: IA y análisis ══════════ -->
+      <section class="banda destacada" id="ia">
+        <div class="banda-cabeza">
+          <div class="etiqueta">
+            Parte dos · Inteligencia artificial y análisis de datos
+          </div>
+          <h2>
+            El sistema no solo guarda los datos: los lee y regresa conclusiones
+          </h2>
+          <p>
+            Capturar es la mitad. La otra mitad es que alguien cruce esa
+            información y diga qué hacer con ella — y eso antes no existía en
+            ninguna forma: ni en papel, ni en hojas de cálculo, ni en la cabeza
+            de nadie, porque son cruces que una persona no alcanza a hacer todos
+            los días sobre una flotilla completa.
+          </p>
+          <p>
+            Los agentes y los reportes corren sobre
+            <b>Claude, de Anthropic</b>, conectado a la base de datos real de la
+            operación. Y algo importante: la IA <b>no inventa números</b>. En los
+            reportes únicamente elige qué consultar dentro de un catálogo cerrado
+            de fuentes y campos; la consulta la ejecuta el sistema y se valida
+            antes de correr. Si el modelo pide algo que no existe, la petición
+            falla, en vez de convertirse en un dato falso.
+          </p>
+        </div>
+
+        <!-- 08 -->
+        <article class="ventaja" id="predictivo">
+          <div class="cabeza">
+            <span class="num">08</span>
+            <div>
+              <h3>Mantenimiento predictivo</h3>
+              <p class="sub">
+                Cuándo le toca servicio a cada unidad según el ritmo real al que
+                se usa, no según el calendario.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>Servicio por calendario: todas las unidades igual.</li>
+                <li>
+                  Una unidad que hace 300 km al día y otra que hace 40 recibían
+                  <b>el mismo trato</b>.
+                </li>
+                <li>
+                  Resultado: a unas se les gastaba de más en mantenimiento, y
+                  otras se rompían en carretera antes de su fecha.
+                </li>
+                <li>Anticipar un servicio dependía del ojo del jefe de taller.</li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Calcula el <b>ritmo real de uso</b> —kilómetros por día— de
+                  cada unidad, tomando la mejor fuente disponible: el histórico
+                  de odómetro del GPS y, si no lo hay, los kilometrajes
+                  capturados en las órdenes de servicio.
+                </li>
+                <li>
+                  Proyecta <b>la fecha</b> en que esa unidad va a cruzar su
+                  umbral de servicio.
+                </li>
+                <li>
+                  Clasifica la flotilla: ya pasó el umbral, le toca esta semana,
+                  le toca este mes, al corriente, sin programa.
+                </li>
+                <li>
+                  Se recalcula solo y se exporta para repartir el trabajo del
+                  taller.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/predictivo.png"
+                alt="Mantenimiento predictivo: proyección de servicio por unidad según su ritmo real de uso"
+              />
+            </div>
+            <figcaption>
+              Mantenimiento predictivo.
+              <b>Nombres de socios difuminados.</b> La columna “Origen” dice de
+              dónde salió cada proyección: el sistema es explícito cuando
+              todavía no tiene lecturas suficientes, en lugar de inventar una
+              fecha.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 09 -->
+        <article class="ventaja" id="combustible">
+          <div class="cabeza">
+            <span class="num">09</span>
+            <div>
+              <h3>Detección de anomalías en combustible</h3>
+              <p class="sub">
+                Cada carga, contra los kilómetros que debería haber justificado.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>Se pagaban los tickets y se confiaba.</li>
+                <li>
+                  Una fuga, un odómetro descompuesto o una carga que no cuadraba
+                  <b>se descubría meses después, o nunca</b>.
+                </li>
+                <li>
+                  El rendimiento de la flotilla era una cifra global de fin de
+                  mes, sin causa ni renglón que revisar.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Rendimiento <b>tanque a tanque</b>: los kilómetros recorridos
+                  entre dos cargas, divididos entre los litros de la segunda.
+                </li>
+                <li>
+                  Cada carga se marca <b>coherente o incoherente</b>, y dice por
+                  qué. Cuando la unidad trae GPS, el contraste es contra los
+                  kilómetros que reportó el rastreador.
+                </li>
+                <li>
+                  El sensor de nivel del tanque
+                  <b>detecta cargas que nunca se capturaron</b>: litros que
+                  entraron sin ticket.
+                </li>
+                <li>
+                  No acusa a nadie: señala el renglón que hay que ir a revisar
+                  —fuga, robo, captura mal hecha u odómetro roto—.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/combustible.png"
+                alt="Combustible y rendimiento: cargas detectadas por sensor, coherencia y costo estimado"
+              />
+            </div>
+            <figcaption>
+              Combustible y rendimiento.
+              <b>Nombres de socios difuminados.</b> Las “cargas detectadas por el
+              sensor” son litros que el sistema vio entrar al tanque sin que
+              existiera un ticket capturado.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 10 -->
+        <article class="ventaja" id="gps">
+          <div class="cabeza">
+            <span class="num">10</span>
+            <div>
+              <h3>El GPS, dentro del sistema</h3>
+              <p class="sub">
+                La flota completa sin tener que abrir otra plataforma.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  El GPS vivía aparte: había que entrar a otra plataforma y
+                  <b>cruzar a mano</b> contra la lista de unidades.
+                </li>
+                <li>
+                  Una unidad que dejó de reportar podía pasar semanas sin que
+                  nadie lo notara.
+                </li>
+                <li>El kilometraje del rastreador no servía para nada más.</li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Ubicación, odómetro, horas de motor, voltaje de batería, señal
+                  y sensores <b>en la misma pantalla</b> que el resto del
+                  expediente de la unidad.
+                </li>
+                <li>
+                  Emparejamiento automático por VIN entre el rastreador y la
+                  unidad del sistema; las que no empatan quedan señaladas.
+                </li>
+                <li>
+                  El odómetro del GPS
+                  <b>alimenta al mantenimiento predictivo</b> y al cálculo de
+                  rendimiento de combustible.
+                </li>
+                <li>
+                  Las unidades que dejan de reportar saltan como alerta crítica.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/monitoreo.png"
+                alt="Monitoreo de la flota: estado, velocidad, odómetro, horas motor y señal por unidad"
+              />
+            </div>
+            <figcaption>
+              Monitoreo de flota. El valor no es ver el mapa: es que
+              <b>ese kilometraje se convierta en una fecha de servicio</b> sin
+              que nadie lo transcriba.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 11 -->
+        <article class="ventaja" id="alertas">
+          <div class="cabeza">
+            <span class="num">11</span>
+            <div>
+              <h3>Centro de alertas</h3>
+              <p class="sub">
+                Todo lo que necesita atención hoy, en un solo lugar y ordenado
+                por gravedad.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  Las pólizas y las licencias vencidas se descubrían
+                  <b>cuando ya habían vencido</b>, a veces en una revisión de
+                  carretera.
+                </li>
+                <li>
+                  Los huecos de captura —un VIN faltante, una vigencia vacía— no
+                  los veía nadie.
+                </li>
+                <li>Cada área vigilaba lo suyo y nadie veía el conjunto.</li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Un solo tablero con severidad
+                  <b>crítica, alta, media e informativa</b>.
+                </li>
+                <li>
+                  Junta tres cosas que se descubrían tarde:
+                  <b>operación</b> (unidades sin reportar, batería baja del
+                  rastreador, llantas o balatas al límite, refacciones agotadas),
+                  <b>vencimientos</b> (pólizas y licencias) y
+                  <b>calidad de datos</b>.
+                </li>
+                <li>
+                  Cada alerta trae la lista concreta de a quién le falta qué,
+                  para poder repartir el trabajo de captura.
+                </li>
+                <li>Explica el porqué en una línea, no solo el número.</li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/alertas.png"
+                alt="Centro de alertas con operación, vencimientos y datos por capturar"
+              />
+            </div>
+            <figcaption>
+              Centro de alertas. La sección de
+              <b>calidad de datos</b> es poco común y muy útil: vigila los huecos
+              de captura que le restan valor al resto del sistema.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 12 -->
+        <article class="ventaja" id="reportes">
+          <div class="cabeza">
+            <span class="num">12</span>
+            <div>
+              <h3>Reportes en lenguaje natural</h3>
+              <p class="sub">
+                Preguntarle al sistema con las propias palabras, sin depender de
+                quien sabe hacer tablas dinámicas.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  Pedirle a alguien que exportara a una hoja de cálculo y lo
+                  cruzara a mano.
+                </li>
+                <li>
+                  Días de espera por una pregunta que se contesta en una línea.
+                </li>
+                <li>
+                  En la práctica,
+                  <b>muchas preguntas simplemente no se hacían</b> porque
+                  costaban demasiado trabajo.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Se escribe la pregunta tal cual: <i
+                    >“cuántas órdenes correctivas se abrieron por mecánico este
+                    trimestre, de mayor a menor”</i
+                  >.
+                </li>
+                <li>
+                  La IA traduce la pregunta a una especificación de reporte;
+                  <b>el sistema es quien consulta la base</b>, sobre un catálogo
+                  cerrado de fuentes y campos.
+                </li>
+                <li>
+                  Esa especificación se valida antes de ejecutarse: una respuesta
+                  inventada falla, no se convierte en un dato falso.
+                </li>
+                <li>
+                  Además hay reportes prediseñados de un clic, y todo sale en
+                  PDF, Excel o XML.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/reportes.png"
+                alt="Módulo de reportes: pedirle un reporte a la IA con lenguaje natural y reportes prediseñados"
+              />
+            </div>
+            <figcaption>
+              Reportes. Los ejemplos que aparecen como sugerencias son
+              <b>preguntas reales de operación</b>: pólizas por vencer, carga de
+              trabajo por mecánico, unidades que más entran al taller.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 13 -->
+        <article class="ventaja" id="agentes">
+          <div class="cabeza">
+            <span class="num">13</span>
+            <div>
+              <h3>Doce agentes de IA atendiendo por WhatsApp</h3>
+              <p class="sub">
+                La conversación con el chofer deja de ser una llamada que alguien
+                tiene que contestar, y se vuelve un registro.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  El chofer llamaba a la oficina. Si no contestaban,
+                  <b>el reporte se perdía</b>.
+                </li>
+                <li>
+                  El seguimiento dependía de quién tomó la llamada y de lo que
+                  alcanzó a apuntar.
+                </li>
+                <li>Fuera del horario de oficina, no había a quién reportarle.</li>
+                <li>
+                  Confirmar las citas de preventivo era el trabajo de una persona
+                  marcando teléfonos.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Doce agentes conversan por WhatsApp,
+                  <b>cada uno con su palabra clave</b> configurable, las 24
+                  horas.
+                </li>
+                <li>
+                  El agente hace las preguntas que faltan y
+                  <b>lo que se habla queda capturado en el sistema</b>, no en un
+                  cuaderno.
+                </li>
+                <li>
+                  Unos los inicia el chofer (rescate, correctivo, reportar);
+                  otros salen solos del sistema (confirmación de preventivo, de
+                  Servicio A/C, de Servicio Motor).
+                </li>
+                <li>
+                  Si la IA no está disponible, los avisos automáticos se mandan
+                  igual con el texto de siempre: el proceso no se detiene.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span><b>rescate</b> · Rescates en carretera</span>
+            <span><b>correctivo</b> · Citas de correctivo</span>
+            <span><b>info</b> · Información de unidad</span>
+            <span><b>reportar</b> · Reportes de operadores</span>
+            <span><b>codigo</b> · Mi gafete QR</span>
+            <span>Guía de uso del sistema</span>
+            <span>Confirmación de preventivo</span>
+            <span>Confirmación de Servicio A/C</span>
+            <span>Cita de Servicio Motor</span>
+            <span>Confirmación de cita</span>
+            <span>Tomar unidad por QR</span>
+            <span>Cierre de servicio</span>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/agentes.png"
+                alt="Configuración de palabras clave de WhatsApp que activan cada agente de IA"
+              />
+            </div>
+            <figcaption>
+              Las palabras clave son configurables desde el propio sistema:
+              <b>la empresa decide con qué palabra se activa cada agente</b>, sin
+              tocar código ni pedir un desarrollo.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 14 -->
+        <article class="ventaja" id="ejecutivo">
+          <div class="cabeza">
+            <span class="num">14</span>
+            <div>
+              <h3>Resumen ejecutivo semanal</h3>
+              <p class="sub">
+                La semana en una hoja, para quien no entra al sistema todos los
+                días.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  La dirección se enteraba en la junta,
+                  <b>con lo que cada área quería contar</b>.
+                </li>
+                <li>No había forma de comparar contra la semana pasada.</li>
+                <li>
+                  Lo que requería una decisión se mezclaba con lo que solo era
+                  información.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Una hoja con taller, operación, refaccionaria y mantenimiento
+                  predictivo, <b>comparada contra la semana anterior</b>.
+                </li>
+                <li>
+                  Un bloque aparte, arriba de todo:
+                  <b>“Requiere atención”</b> — solo lo que necesita una decisión.
+                </li>
+                <li>
+                  Se descarga en PDF o
+                  <b>llega solo por WhatsApp cada lunes</b>, sin que nadie lo
+                  prepare.
+                </li>
+                <li>
+                  Es el mismo dato que ve el taller: no hay dos versiones de la
+                  verdad.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <figure>
+            <div class="captura">
+              <img
+                src="img/ejecutivo.png"
+                alt="Resumen ejecutivo semanal con bloque de requiere atención y métricas por área"
+              />
+            </div>
+            <figcaption>
+              Resumen ejecutivo. Las cifras de esta captura corresponden a un
+              <b>ambiente de pruebas</b> y no representan la operación real.
+            </figcaption>
+          </figure>
+        </article>
+
+        <!-- 15 -->
+        <article class="ventaja" id="desempeno">
+          <div class="cabeza">
+            <span class="num">15</span>
+            <div>
+              <h3>Desempeño medido, no opinado</h3>
+              <p class="sub">
+                Choferes y mecánicos, con criterios escritos y visibles para
+                todos.
+              </p>
+            </div>
+          </div>
+
+          <div class="comparativa">
+            <div class="col antes">
+              <h4>Antes</h4>
+              <ul>
+                <li>
+                  “El que se porta bien” era <b>una opinión</b>, y cambiaba según
+                  quién opinara.
+                </li>
+                <li>
+                  El esfuerzo del que sí cumplía no se notaba en ningún lado.
+                </li>
+                <li>
+                  Un reconocimiento —o una llamada de atención— no tenía con qué
+                  sustentarse.
+                </li>
+              </ul>
+            </div>
+            <div class="col ahora">
+              <h4>Con el sistema</h4>
+              <ul>
+                <li>
+                  Puntuación mensual con <b>criterios configurables</b>:
+                  asistencia a preventivo, exámenes de salud, revisiones
+                  mecánicas registradas desde una orden.
+                </li>
+                <li>
+                  El chofer puede consultar su propio puntaje y el detalle de
+                  cómo se armó.
+                </li>
+                <li>
+                  Rangos visibles —Élite, Premier, Guía— que dan algo que
+                  perseguir.
+                </li>
+                <li>
+                  Se calcula del mismo dato operativo que ya se captura:
+                  <b>nadie tiene que llenar una evaluación aparte</b>.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="par">
+            <figure>
+              <div class="captura">
+                <img
+                  src="img/ranking-choferes.png"
+                  alt="Ranking mensual de choferes con puntos y rango"
+                />
+              </div>
+              <figcaption>
+                Ranking de choferes — <b>nombres difuminados</b>.
+              </figcaption>
+            </figure>
+            <figure>
+              <div class="captura">
+                <img
+                  src="img/ranking-mecanicos.png"
+                  alt="Ranking mensual de mecánicos por revisiones registradas"
+                />
+              </div>
+              <figcaption>
+                Ranking de mecánicos — <b>nombres difuminados</b>.
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+      </section>
+
+      <!-- ══════════ Cierre ══════════ -->
+      <section class="banda">
+        <div class="banda-cabeza">
+          <div class="etiqueta">En resumen</div>
+          <h2>Qué significa todo esto en la operación diaria</h2>
+        </div>
+
+        <div class="cierre">
+          <div>
+            <h4>Se acabó el “yo creía”</h4>
+            <p>
+              Cada dato tiene autor y hora. Las discusiones sobre qué pasó se
+              resuelven abriendo la pantalla, no levantando la voz.
+            </p>
+          </div>
+          <div>
+            <h4>Los problemas se ven antes de costar</h4>
+            <p>
+              Una póliza por vencer, una unidad que dejó de reportar o una carga
+              de combustible que no cuadra aparecen el mismo día, no en la
+              auditoría.
+            </p>
+          </div>
+          <div>
+            <h4>La información dejó de vivir en las cabezas</h4>
+            <p>
+              El historial de una unidad ya no se va con el encargado que
+              renuncia. Está en el expediente, completo y consultable.
+            </p>
+          </div>
+          <div>
+            <h4>La dirección no depende de que le reporten</h4>
+            <p>
+              El resumen ejecutivo llega solo cada lunes, y cualquier pregunta
+              fuera de ese resumen se responde escribiéndola en el módulo de
+              reportes.
+            </p>
+          </div>
+        </div>
+
+        <div class="aviso">
+          <h4>Y sigue afinándose</h4>
+          <p>
+            Los módulos de inteligencia mejoran conforme se captura: el
+            mantenimiento predictivo necesita lecturas de kilometraje para afinar
+            su proyección, y la coherencia de combustible mejora con cada carga
+            registrada. El sistema ya mide; entre más se alimenta, más fino
+            responde.
+          </p>
+        </div>
+
+        <!-- ══════════ Nota de privacidad ══════════ -->
+        <div class="privacidad">
+          <h3>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            Nota sobre los datos de estas capturas
+          </h3>
+          <p>
+            Las capturas de esta presentación se tomaron de un
+            <b>ambiente de demostración y pruebas</b>. Los nombres de personas
+            —choferes, mecánicos, guardias y socios—, así como las razones
+            sociales de clientes, sus contactos, teléfonos y direcciones,
+            <b>fueron difuminados a propósito</b> antes de publicar esta página.
+          </p>
+          <p>
+            Las cifras, importes, folios y kilometrajes que sí quedan visibles
+            corresponden a momentos sueltos de ese ambiente de pruebas:
+            <b
+              >no son datos reales de operación y no deben leerse como
+              indicadores</b
+            >
+            del desempeño de San Carlos Tour Plus ni de sus clientes.
+          </p>
+          <p>
+            Lo único que esta presentación afirma como real es
+            <b>el funcionamiento del sistema</b> que se muestra en pantalla.
+            Cualquier parecido de un nombre o de una cifra con una persona o una
+            operación real es casual.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <img src="img/logo-davinci.png" alt="Da Vinci" />
+      <p><b>Da Vinci</b> · Desarrollo de sistemas</p>
+      <p>San Carlos Tour Plus · Ventajas del sistema en operación</p>
+    </footer>
+
+    <!-- Visor de capturas a pantalla completa -->
+    <div class="visor" id="visor" role="dialog" aria-label="Captura ampliada">
+      <button class="cerrar" type="button" aria-label="Cerrar">&times;</button>
+      <img id="visorImg" src="" alt="" />
+    </div>
+
+    <script>
+      // Clic en cualquier captura para verla a pantalla completa.
+      (function () {
+        var visor = document.getElementById("visor");
+        var visorImg = document.getElementById("visorImg");
+
+        document.querySelectorAll(".captura").forEach(function (caja) {
+          caja.addEventListener("click", function () {
+            var img = caja.querySelector("img");
+            if (!img) return;
+            visorImg.src = img.currentSrc || img.src;
+            visorImg.alt = img.alt;
+            visor.classList.add("abierto");
+          });
+        });
+
+        function cerrar() {
+          visor.classList.remove("abierto");
+          visorImg.removeAttribute("src");
+        }
+        visor.addEventListener("click", cerrar);
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") cerrar();
+        });
+      })();
+    </script>
+  </body>
+</html>

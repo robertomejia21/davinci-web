@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>DaVinci · SAO — Ventajas: antes y ahora en BR Carrier</title>
+<!-- Página autocontenida: todas las imágenes viven en ./img y se cargan con
+     rutas relativas, así que la carpeta completa se puede mover o abrir con
+     doble clic (file://) sin servidor. -->
+<style>
+:root{
+  --orange:#F58634;
+  --orange-deep:#B95C0D;
+  --orange-soft:#FDF3EA;
+  --orange-line:#FAC8A4;
+  --charcoal:#373435;
+  --charcoal-2:#262324;
+  --grey:#6E6E74;
+  --grey-2:#9A9AA1;
+  --line:#E4E4E7;
+  --bg:#FFFFFF;
+  --bg-alt:#F5F5F7;
+  --red:#C2410C;
+  --red-soft:#FEF2F2;
+  --green:#15803D;
+  --green-soft:#F0FDF4;
+  --ai:#5B3FD6;
+  --ai-soft:#F3F0FF;
+  --ai-line:#D4CBFF;
+  --font:"Segoe UI",Inter,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg-alt);color:var(--charcoal);-webkit-font-smoothing:antialiased;line-height:1.55}
+img{max-width:100%;display:block}
+a{color:var(--orange-deep)}
+
+.wrap{max-width:1180px;margin:0 auto;padding-inline:24px}
+
+/* ---------- Barra superior ---------- */
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.brand img{width:38px;height:38px;object-fit:contain}
+.brand b{display:block;font-size:16px;letter-spacing:.4px}
+.brand span{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);font-weight:600}
+.toc{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.toc a{font-size:12.5px;color:var(--grey);text-decoration:none;padding:6px 10px;border-radius:2px}
+.toc a:hover{background:var(--orange-soft);color:var(--orange-deep)}
+.toc a.ai{color:var(--ai);font-weight:600}
+
+/* ---------- Portada ---------- */
+.hero{background:#fff;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::after{content:"";position:absolute;top:0;right:0;width:260px;height:260px;background:var(--orange);clip-path:polygon(100% 0,100% 100%,0 0)}
+.hero .wrap{padding-block:64px 56px;position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--orange-deep);margin-bottom:14px}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--orange)}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.12;letter-spacing:-.5px;max-width:24ch}
+h1 em{font-style:normal;color:var(--orange)}
+.rule{width:56px;height:3px;background:var(--orange);margin:20px 0}
+.lead{font-size:17px;color:var(--grey);max-width:68ch}
+
+.shift{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:36px}
+.shift div{border:1px solid var(--line);background:var(--bg-alt);padding:16px 18px}
+.shift s{display:block;text-decoration:none;font-size:13px;color:var(--grey-2)}
+.shift s::before{content:"Antes · ";font-weight:700;letter-spacing:.5px}
+.shift b{display:block;font-size:15px;margin-top:6px}
+.shift b::before{content:"→ ";color:var(--orange)}
+
+/* ---------- Secciones ---------- */
+section.block{padding-block:64px;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+section.block:nth-of-type(even){background:#fff}
+.num{display:inline-grid;place-items:center;width:30px;height:30px;background:var(--charcoal);color:#fff;font-size:12px;font-weight:700;transform:rotate(45deg);margin-right:14px;flex:0 0 auto}
+.num i{transform:rotate(-45deg);font-style:normal}
+h2{display:flex;align-items:center;font-size:clamp(22px,3vw,30px);line-height:1.2;letter-spacing:-.3px}
+.sub{color:var(--grey);margin:12px 0 28px;max-width:72ch;font-size:15.5px}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+.col{padding:18px 20px;border:1px solid var(--line);background:#fff}
+section.block:nth-of-type(even) .col{background:var(--bg-alt)}
+.col h3{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:10px}
+.col--before{border-top:3px solid var(--grey-2)}
+.col--before h3{color:var(--grey)}
+.col--after{border-top:3px solid var(--orange)}
+.col--after h3{color:var(--orange-deep)}
+.col ul{list-style:none;display:grid;gap:8px}
+.col li{padding-left:20px;position:relative;font-size:14.5px}
+.col--before li::before{content:"✕";position:absolute;left:0;color:var(--grey-2);font-size:12px;top:2px}
+.col--after li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+
+.shots{display:grid;gap:18px}
+.shots--2{grid-template-columns:1fr 1fr}
+.shots--3{grid-template-columns:1.4fr 1fr}
+figure{background:#fff;border:1px solid var(--line);box-shadow:0 10px 30px rgba(28,28,32,.07)}
+figure button{all:unset;cursor:zoom-in;display:block;width:100%}
+figure button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+figure img{width:100%;height:auto;max-height:460px;object-fit:contain;background:var(--bg-alt)}
+figcaption{font-size:13px;color:var(--grey);padding:10px 14px;border-top:1px solid var(--line)}
+figcaption b{color:var(--charcoal)}
+
+/* ---------- IA y análisis de datos ---------- */
+#ia{background:linear-gradient(180deg,var(--ai-soft),#fff 420px)!important}
+.badge-ai{display:inline-flex;align-items:center;gap:6px;background:var(--ai);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;margin-bottom:14px}
+#ia .num{background:var(--ai)}
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:32px}
+.ai-card{background:#fff;border:1px solid var(--ai-line);padding:20px 22px;position:relative}
+.ai-card .tag{font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--ai)}
+.ai-card .tag.data{color:var(--orange-deep)}
+.ai-card h3{font-size:17px;margin:6px 0 8px}
+.ai-card p{font-size:14px;color:var(--grey)}
+.ai-card .ba{margin-top:12px;font-size:13px;border-top:1px dashed var(--line);padding-top:10px;display:grid;gap:4px}
+.ai-card .ba span{color:var(--grey-2)}
+.ai-card .ba strong{font-weight:600}
+
+.ai-split{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);padding:20px 22px}
+.panel h3{font-size:15px;margin-bottom:12px}
+.panel p.note{font-size:12.5px;color:var(--grey-2);margin-top:12px}
+
+/* Maqueta de chat de WhatsApp */
+.chat{background:#EFE7DD;padding:16px;display:grid;gap:8px;font-size:13.5px}
+.msg{max-width:82%;padding:8px 11px 6px;border-radius:8px;box-shadow:0 1px 1px rgba(0,0,0,.08);line-height:1.4}
+.msg small{display:block;text-align:right;font-size:10.5px;color:#8a8a8a;margin-top:2px}
+.msg--in{background:#fff;justify-self:start}
+.msg--out{background:#D9FDD3;justify-self:end}
+.msg--sys{justify-self:center;background:#FFF6D6;color:#6b5a1e;font-size:12px;border-radius:6px;max-width:95%}
+.chat__head{background:#075E54;color:#fff;padding:10px 14px;font-size:13.5px;font-weight:600;display:flex;justify-content:space-between}
+.chat__head span{font-weight:400;opacity:.8;font-size:12px}
+
+/* Motor de asignación */
+.score{display:grid;gap:10px}
+.score__row{display:grid;grid-template-columns:150px 1fr 40px;align-items:center;gap:10px;font-size:13px}
+.bar{height:8px;background:var(--line);position:relative}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--orange)}
+.score__row b{text-align:right;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:11.5px;padding:2px 8px;border:1px solid var(--line);margin:3px 4px 0 0;background:var(--bg-alt)}
+.pill.ok{border-color:#BBF7D0;background:var(--green-soft);color:var(--green)}
+.pill.no{border-color:#FECACA;background:var(--red-soft);color:var(--red)}
+
+/* Flujo */
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;margin-top:6px}
+.flow span{background:var(--bg-alt);border:1px solid var(--line);padding:5px 9px}
+.flow em{font-style:normal;color:var(--orange)}
+
+/* ---------- Tabla resumen ---------- */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);background:#fff}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--grey);background:var(--bg-alt)}
+td:first-child{font-weight:600;white-space:nowrap}
+td:nth-child(2){color:var(--grey)}
+tr:last-child td{border-bottom:0}
+td .ia{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;color:#fff;background:var(--ai);padding:1px 6px;margin-left:6px;vertical-align:1px}
+
+/* ---------- Nota de privacidad y pie ---------- */
+.privacy{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-left:4px solid var(--orange);padding:20px 22px;margin-top:36px}
+.privacy svg{flex:0 0 26px;color:var(--orange-deep)}
+.privacy h3{font-size:15px;margin-bottom:6px}
+.privacy p{font-size:14px;color:var(--grey)}
+footer{background:var(--charcoal-2);color:#cfcfd4;font-size:13px}
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:#fff}
+
+/* ---------- Visor de imagen ---------- */
+dialog{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;margin:auto}
+dialog::backdrop{background:rgba(20,18,19,.82)}
+dialog img{max-width:96vw;max-height:88vh;width:auto;height:auto;background:#fff}
+dialog p{color:#fff;font-size:13px;text-align:center;padding-top:10px}
+dialog form{position:fixed;top:14px;right:18px}
+dialog form button{background:#fff;border:0;width:38px;height:38px;font-size:20px;cursor:pointer}
+
+@media (max-width:860px){
+  .compare,.shots--2,.shots--3,.ai-split{grid-template-columns:1fr}
+  .toc{display:none}
+  .hero::after{width:120px;height:120px}
+  .score__row{grid-template-columns:118px 1fr 34px}
+}
+@media print{
+  .top{position:static}
+  section.block{break-inside:avoid-page}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">
+      <img src="img/logo-davinci.png" alt="DaVinci">
+      <span><b>DaVinci</b><span>SAO · BR Carrier</span></span>
+    </a>
+    <nav class="toc" aria-label="Secciones">
+      <a href="#programacion">Programación</a>
+      <a href="#asignacion">Asignación</a>
+      <a href="#choferes">Choferes</a>
+      <a href="#incidentes">Incidentes</a>
+      <a href="#clientes">Clientes</a>
+      <a class="ai" href="#ia">IA y datos</a>
+      <a href="#resumen">Resumen</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ======================= PORTADA ======================= -->
+<div class="hero" id="inicio">
+  <div class="wrap">
+    <div class="eyebrow">Ventajas del sistema · Antes y ahora</div>
+    <h1>De una sábana en Excel a una operación <em>que se ve, se mide y se explica</em></h1>
+    <div class="rule"></div>
+    <p class="lead">
+      El SAO (Sistema de Automatización Operativa) no inventó un proceso nuevo para BR Carrier:
+      tomó la forma en que ya se trabajaba y la volvió datos, reglas y avisos automáticos.
+      Aquí se resume qué cambió en cada parte de la operación, con capturas del sistema,
+      y dónde entran la <b>inteligencia artificial</b> y el <b>análisis de datos</b>.
+    </p>
+
+    <div class="shift">
+      <div><s>Un Excel de ~20 hojas diarias editado por una sola persona</s><b>Sábana digital compartida, en vivo</b></div>
+      <div><s>Reglas de asignación “en la cabeza” del coordinador</s><b>Motor que valida y recomienda</b></div>
+      <div><s>Estatus por llamada, sin registro</s><b>WhatsApp con IA y bitácora</b></div>
+      <div><s>El cliente pide por teléfono o correo</s><b>Portal de clientes con seguimiento</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= 1. PROGRAMACIÓN ======================= -->
+<section class="block" id="programacion">
+  <div class="wrap">
+    <h2><span class="num"><i>01</i></span>Programación del día: la sábana digital</h2>
+    <p class="sub">Se conservó el formato que el equipo de tráfico ya conocía (columnas = unidades, filas = horario), pero ahora cada viaje es un registro con estado, dueño e historial.</p>
+
+    <div class="compare">
+      <div class="col col--before">
+        <h3>Antes</h3>
+        <ul>
+          <li>La programación completa vivía en un Excel manual con decenas de hojas.</li>
+          <li>Solo una persona lo editaba; si faltaba, la operación se frenaba.</li>
+          <li>Los movimientos fijos de cada semana se armaban de memoria.</li>
+          <li>No había forma de saber quién cambió qué ni cuándo.</li>
+        </ul>
+      </div>
+      <div class="col col--after">
+        <h3>Ahora</h3>
+        <ul>
+          <li>Sábana digital por unidad y horario, visible para todo el equipo a la vez.</li>
+          <li>Filtros por tipo, unidad, chofer, “en uso” / “libres” y viajes del portal.</li>
+          <li>Viajes recurrentes que se generan solos para los próximos días, ya con unidad y chofer.</li>
+          <li>Bitácora de auditoría: cada cambio queda registrado con usuario y hora.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shots shots--2">
+      <figure>
+        <button type="button" data-zoom><img src="img/sabana-digital.png" alt="Sábana digital con unidades en columnas y horario en filas" loading="lazy"></button>
+        <figcaption><b>Sábana digital.</b> Unidades en columnas, horas en filas; los viajes sin unidad aparecen arriba para no perderlos.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-zoom><img src="img/recurrentes.png" alt="Lista de viajes recurrentes con días, horario y asignación por defecto" loading="lazy"></button>
+        <figcaption><b>Viajes recurrentes.</b> Lo que antes se recordaba cada semana ahora se programa una vez y el sistema lo materializa.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2. ASIGNACIÓN ======================= -->
+<section class="block" id="asignacion">
+  <div class="wrap">
+    <h2><span class="num"><i>02</i></span>Asignación de unidad y chofer con reglas automáticas</h2>
+    <p class="sub">El conocimiento que antes era tácito (qué licencia exige cada unidad, qué documentos pide un cruce, qué chofer está de vacaciones) ahora son reglas que el sistema revisa antes de dejar asignar.</p>
+
+    <div class="compare">
+      <div class="col col--before">
+        <h3>Antes</h3>
+        <ul>
+          <li>El coordinador tenía que recordar licencias, FAST, APTO, I-94, pasaporte y placas vigentes.</li>
+          <li>Riesgo de doble asignación de la misma unidad o chofer.</li>
+          <li>Un error se descubría en la garita o en la planta del cliente.</li>
+        </ul>
+      </div>
+      <div class="col col--after">
+        <h3>Ahora</h3>
+        <ul>
+          <li>El tipo de unidad define la licencia requerida; HAZMAT exige licencia E automáticamente.</li>
+          <li>Los viajes de cruce marcan solos FAST, APTO, ANAM, I-94 y pasaporte, y solo muestran unidades con placas USA vigentes.</li>
+          <li>Choferes con incidencia (enfermedad, vacaciones, permiso) salen de la lista de disponibles.</li>
+          <li>El sistema detecta traslapes de horario antes de confirmar.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shots shots--2">
+      <figure>
+        <button type="button" data-zoom><img src="img/requisitos-cruce.png" alt="Formulario de nuevo viaje con requisitos de cruce marcados automáticamente" loading="lazy"></button>
+        <figcaption><b>Requisitos automáticos.</b> Al elegir un movimiento de cruce, el sistema marca los documentos que exige y filtra las unidades.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-zoom><img src="img/licencias-validacion.png" alt="Licencias requeridas según tipo de unidad y HAZMAT" loading="lazy"></button>
+        <figcaption><b>Licencias por tipo de unidad.</b> Un tractocamión exige licencia C; un viaje HAZMAT agrega la E. Sin ella, no se puede asignar.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 3. CHOFERES ======================= -->
+<section class="block" id="choferes">
+  <div class="wrap">
+    <h2><span class="num"><i>03</i></span>Comunicación con choferes</h2>
+    <p class="sub">El chofer se volvió el “sensor” de la operación: reporta por WhatsApp como siempre lo ha hecho, y cada mensaje actualiza el estado del viaje sin que nadie tenga que capturarlo.</p>
+
+    <div class="compare">
+      <div class="col col--before">
+        <h3>Antes</h3>
+        <ul>
+          <li>Llamadas y mensajes sueltos para avisar viajes y preguntar estatus.</li>
+          <li>Nada quedaba registrado; el historial dependía de revisar chats.</li>
+          <li>El chofer no tenía dónde consultar sus viajes de la semana.</li>
+        </ul>
+      </div>
+      <div class="col col--after">
+        <h3>Ahora</h3>
+        <ul>
+          <li>El viaje se notifica por WhatsApp y el chofer confirma de recibido.</li>
+          <li>Reporta “llegué”, “ya cargué”, “voy en ruta”, “entregué” en lenguaje normal; la IA lo interpreta (ver sección <a href="#ia">IA</a>).</li>
+          <li>Recordatorios automáticos si no confirma o si pasa mucho tiempo sin actualizar.</li>
+          <li>Torre de Control: consulta pública de viajes por unidad o chofer, sin necesidad de cuenta.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shots shots--3">
+      <figure>
+        <button type="button" data-zoom><img src="img/torre-de-control.png" alt="Torre de control con los viajes de una unidad en los próximos 7 días" loading="lazy"></button>
+        <figcaption><b>Torre de Control.</b> El chofer escribe su unidad y ve sus viajes de los próximos 7 días con su estatus.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-zoom><img src="img/incidencias-choferes.png" alt="Historial de incidencias de choferes" loading="lazy"></button>
+        <figcaption><b>Incidencias de choferes.</b> Permisos, vacaciones y enfermedades quedan registrados y bloquean la asignación automáticamente.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 4. INCIDENTES ======================= -->
+<section class="block" id="incidentes">
+  <div class="wrap">
+    <h2><span class="num"><i>04</i></span>Incidentes, taller y aduana</h2>
+    <p class="sub">Una falla, un warning de aduana o un documento por vencer dejaron de ser “una nota en una celda” y pasaron a ser registros con responsable, fecha y seguimiento.</p>
+
+    <div class="compare">
+      <div class="col col--before">
+        <h3>Antes</h3>
+        <ul>
+          <li>Las fallas se avisaban en un grupo de WhatsApp y alguien tenía que acordarse.</li>
+          <li>Una unidad en taller podía terminar asignada por error.</li>
+          <li>Warnings de aduana y vencimientos de documentos, sin trazabilidad.</li>
+        </ul>
+      </div>
+      <div class="col col--after">
+        <h3>Ahora</h3>
+        <ul>
+          <li>Una falla mecánica manda la unidad a mantenimiento sola y desaparece de lo asignable hasta que Taller la libere.</li>
+          <li>El incidente alerta por WhatsApp al grupo y a los responsables.</li>
+          <li>Flujo guiado de “rescate” por WhatsApp: foto + ubicación y sugerencia del proveedor más cercano.</li>
+          <li>Alertas de vencimiento de documentos a 30, 15 y 7 días.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shots shots--2">
+      <figure>
+        <button type="button" data-zoom><img src="img/incidente-taller.png" alt="Formulario de reporte de incidente mecánico" loading="lazy"></button>
+        <figcaption><b>Incidente mecánico.</b> Al registrarlo, la unidad sale de operación automáticamente y se abre la tarea de taller.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-zoom><img src="img/kpis-del-dia.png" alt="Indicadores del día: flota, viajes, aceptación, alertas y servicios negados" loading="lazy"></button>
+        <figcaption><b>Alertas en el tablero.</b> Incidentes abiertos, warnings pendientes y unidades en taller se cuentan solos.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 5. CLIENTES ======================= -->
+<section class="block" id="clientes">
+  <div class="wrap">
+    <h2><span class="num"><i>05</i></span>Atención a clientes: portal en línea</h2>
+    <p class="sub">El cliente ahora pide sus servicios directamente y ve en qué va cada uno, sin llamar para preguntar.</p>
+
+    <div class="compare">
+      <div class="col col--before">
+        <h3>Antes</h3>
+        <ul>
+          <li>Las solicitudes llegaban por teléfono, correo o mensaje, a veces a destiempo.</li>
+          <li>El cliente llamaba para saber si ya había unidad asignada.</li>
+          <li>Los cambios de horario se negociaban sin dejar constancia.</li>
+        </ul>
+      </div>
+      <div class="col col--after">
+        <h3>Ahora</h3>
+        <ul>
+          <li>Portal propio con cuentas por cliente: tipo de servicio, origen, destino, peso, HAZMAT.</li>
+          <li>La solicitud entra como borrador resaltado en Viajes y en la sábana, con aviso a tráfico.</li>
+          <li>Contrapropuesta de horario que el cliente acepta o rechaza desde el portal.</li>
+          <li>Avisos automáticos al cliente en cada cambio de estatus.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shots shots--2">
+      <figure>
+        <button type="button" data-zoom><img src="img/portal-solicitud.png" alt="Formulario del portal de clientes para solicitar un servicio" loading="lazy"></button>
+        <figcaption><b>Portal de clientes.</b> El cliente captura su solicitud; llega a BR Carrier lista para revisar y asignar.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-zoom><img src="img/solicitud-en-viajes.png" alt="Solicitud de cliente en el listado de viajes con botón Aceptar y asignar" loading="lazy"></button>
+        <figcaption><b>Del lado de BR Carrier.</b> La solicitud aparece marcada con “Aceptar y asignar”.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-zoom><img src="img/sabana-portal.png" alt="Sábana con filtro de viajes del portal" loading="lazy"></button>
+        <figcaption><b>En la sábana.</b> Filtro “Del portal” y viajes sin unidad resaltados.</figcaption>
+      </figure>
+      <figure>
+        <button type="button" data-zoom><img src="img/portal-avisos.png" alt="Avisos al cliente con contrapropuesta de horario y cambios de estatus" loading="lazy"></button>
+        <figcaption><b>Avisos al cliente.</b> Contrapropuesta, aceptación y asignación, en orden y con hora.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6. IA Y ANÁLISIS DE DATOS ======================= -->
+<section class="block" id="ia">
+  <div class="wrap">
+    <div class="badge-ai">Inteligencia artificial · Análisis de datos</div>
+    <h2><span class="num"><i>06</i></span>Dónde trabaja la IA y qué datos analiza el sistema</h2>
+    <p class="sub">
+      Sí, el SAO usa inteligencia artificial, y también analiza los datos de la operación para recomendar y medir.
+      La regla de diseño es clara: <b>la IA interpreta y sugiere, pero no se salta las reglas</b>.
+      Todo lo que hace pasa por las mismas validaciones y la misma bitácora que un clic en el panel.
+    </p>
+
+    <div class="ai-grid">
+      <div class="ai-card">
+        <div class="tag">IA · Lenguaje natural</div>
+        <h3>Agente conversacional por WhatsApp</h3>
+        <p>Un modelo de IA (Claude, de Anthropic) entiende lo que el chofer escribe con sus propias palabras —“ya llegué”, “ando en la garita”, “se me ponchó una llanta”— y lo convierte en la acción correcta: confirmar de recibido, actualizar estatus, reportar un incidente o consultar sus viajes del día. Recuerda los últimos mensajes de la plática para no perder el contexto.</p>
+        <div class="ba"><span>Antes: menú de números rígido o llamada a tráfico.</span><strong>Ahora: el chofer escribe normal y el viaje se actualiza.</strong></div>
+      </div>
+      <div class="ai-card">
+        <div class="tag">IA · Visión</div>
+        <h3>Lectura de la foto de evidencia de entrega</h3>
+        <p>Cuando el chofer manda la foto del comprobante, la IA la “lee”: extrae los números de sello, indica si el sello se ve íntegro y si hay daño visible en llantas. Queda como dato en el viaje, no solo como imagen. Si algo no se alcanza a leer, lo deja vacío en lugar de inventarlo.</p>
+        <div class="ba"><span>Antes: alguien abría cada foto para revisarla.</span><strong>Ahora: sello y observaciones quedan capturados solos.</strong></div>
+      </div>
+      <div class="ai-card">
+        <div class="tag data">Análisis de datos · Recomendación</div>
+        <h3>Motor de asignación con puntaje</h3>
+        <p>Para cada viaje, primero descarta combinaciones inválidas (licencia, documentos, traslapes, taller, incidencias) y luego ordena las válidas con un puntaje de 0 a 100 que pondera seis factores. Cada sugerencia viene con sus razones, para que el coordinador decida informado.</p>
+        <div class="ba"><span>Antes: elegir “a ojo” y de memoria.</span><strong>Ahora: sugerencias explicadas y ordenadas.</strong></div>
+      </div>
+      <div class="ai-card">
+        <div class="tag data">Análisis de datos · Indicadores</div>
+        <h3>Tablero de KPIs del día</h3>
+        <p>Utilización de la flota, viajes cerrados / en ruta / en aduana / sin asignar, tasa de aceptación al primer intento, servicios negados por falta de capacidad, incidentes abiertos y alertas de documentos por vencer. Cada indicador lleva directo a la lista filtrada.</p>
+        <div class="ba"><span>Antes: contar a mano en el Excel.</span><strong>Ahora: los números se calculan solos, en vivo.</strong></div>
+      </div>
+      <div class="ai-card">
+        <div class="tag data">Automatización · Monitoreo</div>
+        <h3>Recordatorios y escalamientos automáticos</h3>
+        <p>El sistema revisa cada pocos minutos: choferes que no confirmaron, viajes sin actualización por mucho tiempo, citas próximas sin llegada a origen, warnings de aduana por cumplir y documentos por vencer. Avisa a la persona correcta sin que nadie tenga que estar vigilando.</p>
+        <div class="ba"><span>Antes: depender de que alguien se acordara.</span><strong>Ahora: alertas a tiempo, a quien corresponde.</strong></div>
+      </div>
+      <div class="ai-card">
+        <div class="tag data">Datos · Trazabilidad</div>
+        <h3>Historial completo de cada viaje</h3>
+        <p>Cada cambio de estado, mensaje de WhatsApp, incidente y decisión del cliente queda guardado con fecha y responsable. Eso permite reconstruir cualquier viaje y es la base para medir tiempos, cumplimiento y patrones por cliente, unidad o chofer.</p>
+        <div class="ba"><span>Antes: la historia estaba en chats y memoria.</span><strong>Ahora: línea de tiempo auditable por viaje.</strong></div>
+      </div>
+    </div>
+
+    <div class="ai-split">
+      <div class="panel">
+        <h3>Así se ve una plática con el agente de IA</h3>
+        <div class="chat__head">BR Carrier · Operación <span>WhatsApp</span></div>
+        <div class="chat" role="img" aria-label="Ejemplo ilustrativo de conversación por WhatsApp entre un chofer y el agente de IA">
+          <div class="msg msg--in">🚚 Viaje SAO-2026-00046 asignado: Planta Cliente A → Patio de cruce, 09:00. Unidad DEMO-18.<small>07:42</small></div>
+          <div class="msg msg--out">enterado jefe<small>07:45</small></div>
+          <div class="msg msg--in">¡Gracias! Quedó registrado tu acuse de recibido. ✅<small>07:45</small></div>
+          <div class="msg msg--out">ya estoy en la planta, me dicen que en 20 min cargo<small>08:52</small></div>
+          <div class="msg msg--sys">Estatus actualizado: EN ORIGEN</div>
+          <div class="msg msg--out">listo ya voy saliendo pa la garita<small>09:31</small></div>
+          <div class="msg msg--sys">Estatus actualizado: CARGADO → EN RUTA</div>
+          <div class="msg msg--in">Anotado, buen viaje. Avísame cuando llegues a aduana.<small>09:31</small></div>
+        </div>
+        <p class="note">Ejemplo ilustrativo con datos ficticios. Si el chofer escribe “rescate”, entra un flujo guiado fijo (sin IA) para que la respuesta en una emergencia sea siempre la misma.</p>
+      </div>
+
+      <div class="panel">
+        <h3>Cómo decide el motor de asignación</h3>
+        <div class="flow" aria-label="Pasos del motor de asignación">
+          <span>1. Viaje nuevo</span><em>→</em>
+          <span>2. Filtro de reglas</span><em>→</em>
+          <span>3. Puntaje 0-100</span><em>→</em>
+          <span>4. Sugerencias con razones</span><em>→</em>
+          <span>5. Decide el coordinador</span>
+        </div>
+        <p style="font-size:13px;color:var(--grey);margin:16px 0 10px">Factores que pesan en el puntaje (peso relativo en el motor):</p>
+        <div class="score">
+          <div class="score__row"><span>Riesgo documental</span><div class="bar"><i style="width:100%"></i></div><b>15</b></div>
+          <div class="score__row"><span>Posicionamiento</span><div class="bar"><i style="width:66.7%"></i></div><b>10</b></div>
+          <div class="score__row"><span>Balance de carga</span><div class="bar"><i style="width:53.3%"></i></div><b>8</b></div>
+          <div class="score__row"><span>Sobrecalificación</span><div class="bar"><i style="width:40%"></i></div><b>6</b></div>
+          <div class="score__row"><span>Afinidad con cliente</span><div class="bar"><i style="width:33.3%"></i></div><b>5</b></div>
+          <div class="score__row"><span>Tiempo muerto</span><div class="bar"><i style="width:26.7%"></i></div><b>÷15</b></div>
+        </div>
+        <p style="font-size:13px;color:var(--grey);margin-top:16px">Ejemplo de cómo explica una sugerencia:</p>
+        <div>
+          <span class="pill ok">Cumple IN BOND</span><span class="pill ok">Chofer con FAST</span><span class="pill ok">Unidad libre 12:00–16:00</span><span class="pill ok">2 viajes hoy (balanceado)</span>
+          <span class="pill no">Descartado: licencia vencida</span><span class="pill no">Descartado: unidad en taller</span>
+        </div>
+        <p class="note">“Tiempo muerto” resta 1 punto por cada 15 minutos que la unidad o el chofer quedarían parados; la barra es aproximada para comparar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 7. RESUMEN ======================= -->
+<section class="block" id="resumen">
+  <div class="wrap">
+    <h2><span class="num"><i>07</i></span>Resumen: antes y ahora</h2>
+    <p class="sub">Las mejoras en una sola vista.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Área</th><th>Antes</th><th>Con el SAO</th></tr></thead>
+        <tbody>
+          <tr><td>Programación</td><td>Excel manual, una sola persona</td><td>Sábana digital compartida, en vivo y con bitácora</td></tr>
+          <tr><td>Viajes fijos</td><td>Se armaban de memoria cada semana</td><td>Recurrencias que se generan solas</td></tr>
+          <tr><td>Asignación</td><td>Reglas en la cabeza del coordinador</td><td>Validación automática + sugerencias con puntaje <span class="ia">DATOS</span></td></tr>
+          <tr><td>Estatus del viaje</td><td>Llamadas sin registro</td><td>WhatsApp en lenguaje natural que actualiza el viaje <span class="ia">IA</span></td></tr>
+          <tr><td>Evidencia de entrega</td><td>Foto que alguien debía abrir y revisar</td><td>Sello y daños leídos de la foto y guardados <span class="ia">IA</span></td></tr>
+          <tr><td>Fallas y taller</td><td>Aviso en grupo; riesgo de asignar unidad dañada</td><td>Incidente que saca la unidad de operación sola</td></tr>
+          <tr><td>Disponibilidad de choferes</td><td>Permisos y vacaciones de palabra</td><td>Incidencias registradas que bloquean la asignación</td></tr>
+          <tr><td>Documentos y aduana</td><td>Vencimientos y warnings sin seguimiento</td><td>Alertas a 30/15/7 días y recordatorios automáticos</td></tr>
+          <tr><td>Clientes</td><td>Solicitudes por teléfono y correo</td><td>Portal con solicitud, contrapropuesta y avisos</td></tr>
+          <tr><td>Indicadores</td><td>Conteos manuales</td><td>Tablero de KPIs del día calculado en vivo <span class="ia">DATOS</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="privacy" role="note">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <div>
+        <h3>Nota de privacidad</h3>
+        <p>Para proteger la información de nuestros clientes, todos los nombres de personas y empresas, folios, números de unidad, direcciones, teléfonos y cifras que aparecen en las capturas y ejemplos de esta página son <b>ficticios o de demostración</b> y no corresponden a datos reales de la operación.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>DaVinci</b> · SAO para BR Carrier</span>
+    <span>Ventajas del sistema: antes y ahora</span>
+  </div>
+</footer>
+
+<dialog id="viewer" aria-label="Captura ampliada">
+  <form method="dialog"><button aria-label="Cerrar">×</button></form>
+  <img alt="">
+  <p></p>
+</dialog>
+
+<script>
+(function () {
+  var dlg = document.getElementById("viewer");
+  if (!dlg || typeof dlg.showModal !== "function") return;
+  var big = dlg.querySelector("img"), cap = dlg.querySelector("p");
+  document.querySelectorAll("[data-zoom]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var img = btn.querySelector("img");
+      var fc = btn.closest("figure").querySelector("figcaption");
+      big.src = img.src; big.alt = img.alt;
+      cap.textContent = fc ? fc.textContent : "";
+      dlg.showModal();
+    });
+  });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+})();
+</script>
+</body>
+</html>

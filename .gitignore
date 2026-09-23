@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+.DS_Store
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+
+# variables de entorno (la plantilla sí se sube)
+.env*
+!.env.example

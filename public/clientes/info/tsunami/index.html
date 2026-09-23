@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ventajas del sistema · Tsunami Sushi 2Go — DaVinci</title>
+    <meta name="description" content="Qué cambió en la operación de Tsunami Sushi 2Go con el sistema: antes y ahora, y el análisis de datos que hace por dentro." />
+    <link rel="icon" href="img/logo-davinci.png" />
+    <link rel="stylesheet" href="estilo.css" />
+    <style>
+      /* ── Antes / Ahora ─────────────────────────────────────────────── */
+      .contraste {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 14px;
+        align-items: stretch;
+        margin-top: 24px;
+      }
+      .contraste .lado {
+        border-radius: 15px;
+        padding: 18px 20px;
+        border: 1px solid var(--linea);
+      }
+      .contraste .antes {
+        background: rgba(226, 87, 76, 0.06);
+        border-color: rgba(226, 87, 76, 0.25);
+      }
+      .contraste .ahora {
+        background: rgba(63, 191, 148, 0.07);
+        border-color: rgba(63, 191, 148, 0.3);
+      }
+      .contraste .etiqueta {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .contraste .antes .etiqueta {
+        color: var(--rojo);
+      }
+      .contraste .ahora .etiqueta {
+        color: var(--verde);
+      }
+      .contraste p {
+        font-size: 14.5px;
+        line-height: 1.58;
+        color: var(--texto-suave);
+      }
+      .contraste p b {
+        color: var(--texto);
+        font-weight: 650;
+      }
+      .contraste .flecha {
+        display: grid;
+        place-items: center;
+        color: var(--naranja);
+      }
+      .contraste .flecha svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      /* ── Tabla resumen ─────────────────────────────────────────────── */
+      .resumen td:first-child {
+        white-space: nowrap;
+      }
+      .resumen td.antes-t {
+        color: #d9a39d;
+      }
+      .resumen td.ahora-t {
+        color: #a9e3cf;
+      }
+      .resumen th.antes-t {
+        color: var(--rojo);
+      }
+      .resumen th.ahora-t {
+        color: var(--verde);
+      }
+      .tabla-ancha {
+        overflow-x: auto;
+      }
+
+      /* ── Sello de análisis ─────────────────────────────────────────── */
+      .sello {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        margin: 0 0 14px 10px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--azul);
+        background: rgba(107, 143, 212, 0.13);
+        border: 1px solid rgba(107, 143, 212, 0.35);
+        vertical-align: middle;
+      }
+      .sello svg {
+        width: 13px;
+        height: 13px;
+      }
+      .sello.propuesta {
+        color: var(--naranja-claro);
+        background: rgba(245, 134, 52, 0.12);
+        border-color: rgba(245, 134, 52, 0.35);
+      }
+
+      /* ── Respuesta directa sobre IA ────────────────────────────────── */
+      .veredicto {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .veredicto .tarjeta h3 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .veredicto .marca-no,
+      .veredicto .marca-si {
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 800;
+      }
+      .veredicto .marca-no {
+        background: rgba(226, 87, 76, 0.16);
+        color: var(--rojo);
+      }
+      .veredicto .marca-si {
+        background: rgba(63, 191, 148, 0.16);
+        color: var(--verde);
+      }
+
+      .tarjeta .formula {
+        margin-top: 12px;
+        padding: 9px 12px;
+        border-radius: 9px;
+        background: rgba(0, 0, 0, 0.35);
+        border-left: 3px solid var(--azul);
+        font-family: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: #d7d1ce;
+      }
+
+      /* ── Nota de privacidad ────────────────────────────────────────── */
+      .privacidad {
+        margin: 34px auto 0;
+        max-width: 760px;
+        text-align: left;
+        display: flex;
+        gap: 14px;
+        padding: 16px 20px;
+        border-radius: 14px;
+        border: 1px dashed var(--linea-fuerte);
+        background: rgba(255, 255, 255, 0.035);
+        font-size: 13.5px;
+        line-height: 1.6;
+        color: var(--texto-suave);
+      }
+      .privacidad svg {
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        color: var(--naranja);
+        margin-top: 2px;
+      }
+      .privacidad b {
+        color: var(--texto);
+      }
+      .aviso-portada {
+        margin-top: 18px;
+        font-size: 12.5px;
+        color: var(--texto-suave);
+        opacity: 0.8;
+      }
+
+      @media (max-width: 1080px) {
+        .contraste {
+          grid-template-columns: 1fr;
+        }
+        .contraste .flecha {
+          transform: rotate(90deg);
+        }
+        .veredicto {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="fondo" aria-hidden="true"></div>
+
+    <main class="escenario" id="escenario">
+      <!-- ═══ 1 · Portada ═══════════════════════════════════════════ -->
+      <section class="lamina activa" data-titulo="Portada" data-sub="Antes y ahora">
+        <div class="caja portada">
+          <div>
+            <img class="marca" src="img/logo-davinci.png" alt="DaVinci" />
+            <h1>Lo que cambió en <em class="acento">Tsunami Sushi 2Go</em> con el sistema</h1>
+            <p class="bajada">
+              Cómo se trabajaba antes, cómo se trabaja ahora y qué decisiones se toman hoy con
+              datos. También aclaramos qué análisis hace el sistema por dentro y qué no hace.
+            </p>
+            <div class="firma">
+              <img src="img/logo-davinci.png" alt="" />
+              <span>Desarrollado por <b>DaVinci</b> · Mexicali, Baja California</span>
+            </div>
+            <p class="aviso-portada">Las capturas usan nombres y cifras ficticias · ver nota al final</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 2 · Resumen ═══════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Resumen" data-sub="Antes → ahora, de un vistazo">
+        <div class="caja">
+          <span class="rotulo">En una lámina</span>
+          <h2>De cuatro sucursales sueltas a una sola operación</h2>
+          <p class="entrada">
+            La venta se registraba en un lado, el inventario en otro y la nómina en una hoja de
+            cálculo. Esto es lo que cambió, área por área.
+          </p>
+
+          <div class="tabla-ancha">
+            <table class="resumen">
+              <thead>
+                <tr><th>Área</th><th class="antes-t">Antes</th><th class="ahora-t">Ahora</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><b>Venta de la cadena</b></td><td class="antes-t">Media mañana juntando cifras; corte a mano</td><td class="ahora-t">En pantalla al momento, comparada contra el periodo anterior</td></tr>
+                <tr><td><b>Plataformas</b></td><td class="antes-t">Sin un reporte de cuánto se quedaba cada app</td><td class="ahora-t">Comisión en pesos por canal y venta neta real</td></tr>
+                <tr><td><b>Cocina</b></td><td class="antes-t">Un límite fijo de 15 min para todo; nadie lo veía</td><td class="ahora-t">Semáforo por fase, día y sucursal, calibrado con tiempos reales</td></tr>
+                <tr><td><b>Inventario</b></td><td class="antes-t">Excel sin existencias; precios sin historial</td><td class="ahora-t">Punto de reorden, pedido sugerido y alertas automáticas</td></tr>
+                <tr><td><b>Meseros</b></td><td class="antes-t">Sin medir quién vende, qué tan rápido y cómo atiende</td><td class="ahora-t">Productividad, calificación del cliente e incentivos</td></tr>
+                <tr><td><b>Cancelaciones</b></td><td class="antes-t">El ticket equivocado se quedaba cobrado; el corte se corregía a mano</td><td class="ahora-t">Cancelación con motivo, responsable y reporte</td></tr>
+                <tr><td><b>Descuentos</b></td><td class="antes-t">Se daban sin motivo registrado</td><td class="ahora-t">Convenios autorizados y auditables</td></tr>
+                <tr><td><b>Nómina</b></td><td class="antes-t">Hoja de cálculo</td><td class="ahora-t">Sale del checador: retardos, tiempo extra, finiquitos de ley</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 3 · Venta ═════════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Venta de la cadena" data-sub="De media mañana a un vistazo">
+        <div class="caja">
+          <span class="rotulo">Ventaja 1</span>
+          <h2>Saber cuánto se vendió ya no cuesta media mañana</h2>
+
+          <div class="contraste">
+            <div class="lado antes">
+              <span class="etiqueta">Antes</span>
+              <p>Juntar la venta de las cuatro sucursales era <b>trabajo manual</b>, y el corte del día se sacaba a mano. Comparar contra la semana pasada era otra hoja más.</p>
+            </div>
+            <div class="flecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="lado ahora">
+              <span class="etiqueta">Ahora</span>
+              <p>Al entrar se ve la venta de <b>las 4 sucursales y los 6 canales</b>, ya comparada contra el periodo anterior. Los cortes se generan solos.</p>
+            </div>
+          </div>
+
+          <figure class="captura" style="margin-top: 24px" data-pie="Dashboard de la cadena">
+            <img src="img/dashboard.jpg" alt="Dashboard con la venta de las 4 sucursales" loading="lazy" />
+            <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+            <figcaption>Dashboard · venta, tickets, ticket promedio y venta neta contra el periodo anterior</figcaption>
+          </figure>
+
+          <ul class="puntos">
+            <li><b>Comparación automática:</b> cada indicador trae su variación contra un periodo de la misma duración inmediatamente anterior.</li>
+            <li><b>Curva horaria:</b> a qué hora entra la venta, que es lo que decide los turnos.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ═══ 4 · ¿Tiene IA? ════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Análisis de datos" data-sub="Análisis de datos, explicado">
+        <div class="caja">
+          <span class="rotulo">Análisis</span>
+          <h2>El sistema usa análisis de datos</h2>
+          <p class="entrada">
+            El sistema realiza <strong>análisis de datos</strong> sobre la operación real
+            de las cuatro sucursales: estadística, comparaciones y reglas de decisión que corren
+            solas todos los días.
+          </p>
+
+          <div class="veredicto">
+            <div class="tarjeta">
+              <h3><span class="marca-si">✓</span> Lo que sí hace</h3>
+              <ul class="puntos" style="margin-top: 14px">
+                <li><b>Comparación entre periodos</b> en todos los indicadores.</li>
+                <li><b>Mediana y percentil 90</b> de los tiempos reales de cocina.</li>
+                <li><b>Reglas de decisión</b> con umbrales explícitos: separar barras, alertas de insumos.</li>
+                <li><b>Penetración por categoría</b> y rentabilidad por canal.</li>
+                <li><b>Cálculos de ley</b>: tiempo extra, finiquitos y proporcionales.</li>
+              </ul>
+            </div>
+            <div class="tarjeta">
+              <h3><span class="marca-no">✕</span> Por qué así y no con IA</h3>
+              <ul class="puntos" style="margin-top: 14px">
+                <li><b>Cada número se puede explicar:</b> se sabe exactamente de dónde sale.</li>
+                <li><b>Es auditable:</b> un contador o un gerente puede rehacer la cuenta.</li>
+                <li><b>No hay caja negra:</b> la persona decide y el sistema le da el dato.</li>
+                <li><b>Es la base para IA:</b> con meses de datos limpios y ordenados, un modelo de pronóstico sí tiene con qué trabajar (ver la lámina “Lo que sigue”).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="nota">
+            <b>Sobre el checador:</b> el reconocimiento facial lo hace el dispositivo checador de cada
+            sucursal. El sistema recibe la entrada, la salida y la confianza del reconocimiento, y con
+            eso calcula retardos y tiempo extra.
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 5 · Mapa del análisis ════════════════════════════════ -->
+      <section class="lamina" data-titulo="Qué analiza el sistema" data-sub="Seis análisis automáticos">
+        <div class="caja">
+          <span class="rotulo">Análisis de datos</span>
+          <h2>Seis análisis que corren solos, con su fórmula a la vista</h2>
+          <p class="entrada">
+            Ninguno necesita que alguien arme una hoja de cálculo. Se recalculan con cada venta,
+            cada comanda y cada movimiento de inventario.
+          </p>
+
+          <div class="rejilla r3">
+            <div class="tarjeta">
+              <h3>Periodo contra periodo</h3>
+              <p>Cada indicador contra una ventana de la misma duración justo antes.</p>
+              <div class="formula">Δ% = (actual − previo) ÷ previo</div>
+            </div>
+            <div class="tarjeta">
+              <h3>Semáforo de cocina</h3>
+              <p>Los umbrales salen de los tiempos reales de cada fase y cada tipo de día.</p>
+              <div class="formula">ámbar = mediana · rojo = p90</div>
+            </div>
+            <div class="tarjeta">
+              <h3>¿Separar barras?</h3>
+              <p>Recomienda dividir la cocina sólo si la carga se reparte y los tiempos son muy distintos.</p>
+              <div class="formula">carga &lt; 70 % y lenta ÷ rápida ≥ 3×</div>
+            </div>
+            <div class="tarjeta">
+              <h3>Alertas de insumos</h3>
+              <p>Aumentos de costo, lotes por caducar y mercancía estancada.</p>
+              <div class="formula">alza ≥ 10 % · caduca ≤ 7 días · sin salida 30 días</div>
+            </div>
+            <div class="tarjeta">
+              <h3>Rentabilidad por canal</h3>
+              <p>Lo que queda de cada venta después de la comisión de cada plataforma.</p>
+              <div class="formula">neta = bruta − comisión</div>
+            </div>
+            <div class="tarjeta">
+              <h3>Penetración por categoría</h3>
+              <p>En qué proporción de tickets aparece cada categoría del menú.</p>
+              <div class="formula">tickets con la categoría ÷ tickets totales</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 6 · Canales ═══════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Plataformas y comisiones" data-sub="Cuánto se queda cada app">
+        <div class="caja">
+          <span class="rotulo">Ventaja 2</span>
+          <span class="sello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18M7 15l4-4 4 3 5-6"/></svg>Análisis de datos</span>
+          <h2>Por fin se ve cuánto se lleva cada plataforma</h2>
+
+          <div class="partida ancha">
+            <div>
+              <div class="contraste" style="grid-template-columns: 1fr; margin-top: 0">
+                <div class="lado antes">
+                  <span class="etiqueta">Antes</span>
+                  <p>La venta de DiDi, Rappi y Uber Eats se veía <b>en bruto</b>, sin un reporte que restara la comisión de cada plataforma.</p>
+                </div>
+                <div class="lado ahora">
+                  <span class="etiqueta">Ahora</span>
+                  <p>Cada canal muestra su <b>venta bruta, la comisión en pesos y la venta neta</b>. Los canales propios se comparan contra las plataformas.</p>
+                </div>
+              </div>
+              <ul class="puntos">
+                <li>La comisión de cada plataforma (26 %, 28 % o 30 %) se configura una vez y se descuenta sola.</li>
+                <li>La decisión de <b>empujar el canal propio</b> se toma con el dato en la mano.</li>
+                <li>Todo se exporta a CSV.</li>
+              </ul>
+            </div>
+            <figure class="captura" data-pie="Reportes · por canal">
+              <img src="img/reportes-canales.jpg" alt="Reporte de canales y comisiones" loading="lazy" />
+              <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+              <figcaption>Canales y comisiones · propio contra plataforma</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 7 · Menú ══════════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="El menú con datos" data-sub="Qué se vende y qué no">
+        <div class="caja">
+          <span class="rotulo">Ventaja 3</span>
+          <span class="sello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18M7 15l4-4 4 3 5-6"/></svg>Análisis de datos</span>
+          <h2>La carta se decide con lo que de verdad se vende</h2>
+
+          <div class="contraste">
+            <div class="lado antes">
+              <span class="etiqueta">Antes</span>
+              <p>Qué platillo quitar o qué precio subir se decidía <b>sin un reporte por artículo</b> a la mano.</p>
+            </div>
+            <div class="flecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="lado ahora">
+              <span class="etiqueta">Ahora</span>
+              <p>Top del periodo, venta por categoría, <b>artículos sin movimiento</b> y el alza promedio de precios 2025 → 2026.</p>
+            </div>
+          </div>
+
+          <figure class="captura" style="margin-top: 24px" data-pie="Menú con desempeño">
+            <img src="img/menu.jpg" alt="Catálogo del menú con su desempeño" loading="lazy" />
+            <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+            <figcaption>Menú · top del periodo, venta por categoría y artículos sin movimiento</figcaption>
+          </figure>
+
+          <ul class="puntos">
+            <li><b>Frecuencia además de importe:</b> en cuántos tickets aparece cada artículo, no sólo cuánto facturó.</li>
+            <li><b>Penetración por categoría</b> contra el periodo anterior: si los rollos pierden presencia en los tickets, se nota.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ═══ 8 · Cocina ════════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Cocina" data-sub="Semáforo calibrado con datos">
+        <div class="caja">
+          <span class="rotulo">Ventaja 4</span>
+          <span class="sello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18M7 15l4-4 4 3 5-6"/></svg>Análisis de datos</span>
+          <h2>El semáforo de cocina aprende de los tiempos reales</h2>
+
+          <div class="partida">
+            <div>
+              <div class="contraste" style="grid-template-columns: 1fr; margin-top: 0">
+                <div class="lado antes">
+                  <span class="etiqueta">Antes</span>
+                  <p>Un solo límite fijo de <b>15 minutos</b> para todas las fases y todos los días. Al no reflejar la realidad de la cocina, nadie lo veía.</p>
+                </div>
+                <div class="lado ahora">
+                  <span class="etiqueta">Ahora</span>
+                  <p>Cada fase tiene su verde, ámbar y rojo, <b>distinto entre semana y fin de semana</b> y por sucursal.</p>
+                </div>
+              </div>
+<pre><span class="c">// Botón "calibrar" en Ajustes</span>
+<span class="n">ámbar</span> = mediana de los minutos reales de esa fase
+<span class="n">rojo</span>  = percentil 90  <span class="c">// sólo 1 de cada 10 comandas tarda más</span></pre>
+              <p class="entrada" style="margin-top: 14px; font-size: 15px">
+                El sistema propone los umbrales y <strong>una persona los revisa y los guarda</strong>.
+              </p>
+            </div>
+            <figure class="captura" data-pie="Cola de cocina">
+              <img src="img/cocina.jpg" alt="Cola de cocina con comandas en preparación" loading="lazy" />
+              <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+              <figcaption>Cocina · comandas de todos los canales con su tiempo</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 9 · Separar barras ════════════════════════════════════ -->
+      <section class="lamina" data-titulo="¿Separar barras?" data-sub="Una decisión con datos">
+        <div class="caja">
+          <span class="rotulo">Ventaja 4 · estaciones</span>
+          <span class="sello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18M7 15l4-4 4 3 5-6"/></svg>Análisis de datos</span>
+          <h2>¿Vale la pena dividir la cocina en estaciones? El sistema lo mide</h2>
+          <p class="entrada">
+            Antes todo entraba a una sola cola: una bebida esperaba detrás de los rollos. Dividir la
+            cocina en estaciones (barra fría, caliente, bebidas) cuesta gente y espacio, así que la
+            decisión quedaba en el aire. Ahora el sistema <strong>mide la carga real de cada
+            estación</strong> y da una recomendación con reglas explícitas.
+          </p>
+
+          <div class="rejilla r3">
+            <div class="tarjeta">
+              <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+              <h3>1 · ¿La carga se reparte?</h3>
+              <p>Si una sola estación se lleva el <b>70 % o más</b> de los platillos, separar no ayuda: el cuello de botella sigue ahí.</p>
+            </div>
+            <div class="tarjeta">
+              <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg></div>
+              <h3>2 · ¿Los tiempos son muy distintos?</h3>
+              <p>Se compara la mediana de la estación más lenta contra la más rápida. Si hay <b>3× o más</b> de diferencia, lo rápido está esperando a lo lento.</p>
+            </div>
+            <div class="tarjeta">
+              <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <h3>3 · Recomendación</h3>
+              <p>Separar <b>sólo si se cumplen las dos</b>. Si no, el sistema dice por qué no conviene todavía.</p>
+            </div>
+          </div>
+
+          <div class="nota">
+            <b>Por qué importa:</b> la función de estaciones viene apagada. Se enciende cuando los datos
+            de la sucursal lo justifican, no antes.
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 10 · Inventario ═══════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Inventario" data-sub="Reorden y alertas">
+        <div class="caja">
+          <span class="rotulo">Ventaja 5</span>
+          <span class="sello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18M7 15l4-4 4 3 5-6"/></svg>Análisis de datos</span>
+          <h2>El inventario avisa antes de que haya un problema</h2>
+
+          <div class="partida ancha">
+            <div>
+              <div class="contraste" style="grid-template-columns: 1fr; margin-top: 0">
+                <div class="lado antes">
+                  <span class="etiqueta">Antes</span>
+                  <p>Un Excel con la <b>columna de existencias vacía</b>. El precio nuevo de un insumo borraba el anterior y la caducidad no se registraba.</p>
+                </div>
+                <div class="lado ahora">
+                  <span class="etiqueta">Ahora</span>
+                  <p>Existencia por sucursal, <b>punto de reorden y cuánto pedir</b> para el resurtido semanal, con su costo.</p>
+                </div>
+              </div>
+              <ul class="puntos">
+                <li><b>Alerta de costo:</b> un insumo que subió 10 % o más en los últimos 60 días.</li>
+                <li><b>Alerta de caducidad:</b> lotes que vencen en 7 días o menos.</li>
+                <li><b>Mercancía estancada:</b> 30 días sin salida con dinero parado.</li>
+              </ul>
+            </div>
+            <figure class="captura" data-pie="Inventario">
+              <img src="img/inventario.jpg" alt="Inventario con lo que hay que pedir" loading="lazy" />
+              <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+              <figcaption>Inventario · lo que hay que pedir ya, ordenado por urgencia</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 11 · Meseros ══════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Meseros" data-sub="Desempeño medido">
+        <div class="caja">
+          <span class="rotulo">Ventaja 6</span>
+          <span class="sello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 3v18h18M7 15l4-4 4 3 5-6"/></svg>Análisis de datos</span>
+          <h2>Quién vende, qué tan rápido y cómo lo califica el cliente</h2>
+
+          <div class="contraste">
+            <div class="lado antes">
+              <span class="etiqueta">Antes</span>
+              <p>No había un registro por persona de <b>cuánta venta movía cada mesero</b> ni de qué tan rápido recogía los platillos.</p>
+            </div>
+            <div class="flecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="lado ahora">
+              <span class="etiqueta">Ahora</span>
+              <p>Mesas, venta, ticket promedio, propina, rotación y <b>tiempo de la cocina a la mesa</b> por persona.</p>
+            </div>
+          </div>
+
+          <figure class="captura" style="margin-top: 24px" data-pie="Productividad por mesero">
+            <img src="img/meseros.jpg" alt="Tablero de productividad de meseros" loading="lazy" />
+            <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+            <figcaption>Meseros · productividad del periodo (nombres ficticios)</figcaption>
+          </figure>
+
+          <div class="rejilla r2">
+            <div class="tarjeta">
+              <h3>Calificación del cliente</h3>
+              <p>El ticket imprime un código QR de un solo uso. El cliente califica de 1 a 5 estrellas y la calificación se suma al tablero del mesero.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>Incentivos sobre lo que el mesero controla</h3>
+              <p>Metas de ticket promedio, propina, rapidez o calificación, con su avance al día. El bono lo autoriza una persona.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 12 · Servicio en piso ═════════════════════════════════ -->
+      <section class="lamina" data-titulo="Servicio en piso" data-sub="Avisos, monitor y recomendados">
+        <div class="caja">
+          <span class="rotulo">Ventaja 7</span>
+          <h2>Menos vueltas a la cocina, menos clientes preguntando</h2>
+          <p class="entrada">
+            Cuando un platillo está listo, <strong>el aviso llega solo</strong>: al mesero en su
+            tableta y al cliente en la pantalla del comedor. Nadie tiene que ir a la cocina a
+            preguntar.
+          </p>
+
+          <div class="rejilla r2" style="margin-top: 24px">
+            <figure class="captura" data-pie="Avisos del mesero">
+              <img src="img/mesero-avisos.jpg" alt="Avisos de platillos listos para el mesero" loading="lazy" />
+              <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+              <figcaption>Tableta del mesero · “tu platillo está listo”</figcaption>
+            </figure>
+            <figure class="captura" data-pie="Monitor del comedor">
+              <img src="img/monitor.jpg" alt="Monitor público del comedor" loading="lazy" />
+              <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+              <figcaption>Monitor del comedor · el cliente ve su número</figcaption>
+            </figure>
+          </div>
+
+          <ul class="puntos">
+            <li><b>Recomendados:</b> la dirección marca con estrella los platillos que quiere empujar y salen primero en la tableta y en el punto de venta. Si se agotan, se esconden solos.</li>
+            <li>Los <b>repartidores de plataforma</b> tienen su propia columna en el monitor.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ═══ 13 · Dinero ═══════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="El dinero, cuadrado" data-sub="Cancelaciones, descuentos y cortes">
+        <div class="caja">
+          <span class="rotulo">Ventaja 8</span>
+          <h2>Cada peso tiene explicación</h2>
+
+          <div class="partida ancha">
+            <div>
+              <table>
+                <thead>
+                  <tr><th></th><th style="color: var(--rojo)">Antes</th><th style="color: var(--verde)">Ahora</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><b>Cancelar</b></td><td class="no">El ticket equivocado se quedaba cobrado y el corte se corregía a mano</td><td class="no">Con motivo y responsable, hasta 24 h después</td></tr>
+                  <tr><td><b>Descuentos</b></td><td class="no">Sin motivo registrado</td><td class="no">Sólo por convenio autorizado</td></tr>
+                  <tr><td><b>Cortes</b></td><td class="no">A mano</td><td class="no">Se generan solos</td></tr>
+                </tbody>
+              </table>
+              <div class="nota">
+                <b>Reporte de cancelaciones:</b> agrupa por motivo y por área (mostrador, cocina,
+                cliente, plataforma) para ver <b>dónde se pierde dinero</b> y corregirlo en su origen.
+              </div>
+            </div>
+            <figure class="captura" data-pie="Contabilidad">
+              <img src="img/contabilidad.jpg" alt="Módulo de contabilidad" loading="lazy" />
+              <span class="lupa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
+              <figcaption>Contabilidad · efectivo, tarjeta, plataformas y Ventas X</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 14 · RH ═══════════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Personal y nómina" data-sub="De la hoja de cálculo al checador">
+        <div class="caja">
+          <span class="rotulo">Ventaja 9</span>
+          <h2>La nómina sale del checador, no de una hoja de cálculo</h2>
+
+          <div class="contraste">
+            <div class="lado antes">
+              <span class="etiqueta">Antes</span>
+              <p>La nómina se armaba en <b>hoja de cálculo</b>, con retardos, horas extra y finiquitos capturados a mano.</p>
+            </div>
+            <div class="flecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="lado ahora">
+              <span class="etiqueta">Ahora</span>
+              <p>Las entradas y salidas del checador alimentan <b>retardos, tiempo extra y descuentos</b> de forma automática.</p>
+            </div>
+          </div>
+
+          <div class="rejilla r3">
+            <div class="tarjeta">
+              <h3>Tiempo extra al doble</h3>
+              <p>Como marca la Ley Federal del Trabajo, calculado del registro real de cada día.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>Finiquitos de ley</h3>
+              <p>Aguinaldo y vacaciones proporcionales con la tabla reformada en 2023 y prima vacacional del 25 %.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>Aviso al IMSS</h3>
+              <p>Un cambio de salario genera solo el aviso de modificación, que la ley pide en 5 días hábiles.</p>
+            </div>
+          </div>
+          <p class="entrada" style="margin-top: 18px; font-size: 14px">
+            Por privacidad del personal, esta lámina no lleva capturas del módulo de recursos humanos.
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══ 15 · Lo que sigue ═════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Lo que sigue" data-sub="Dónde entraría la IA">
+        <div class="caja">
+          <span class="rotulo">Siguiente etapa</span>
+          <span class="sello propuesta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>Propuesta · aún no está en el sistema</span>
+          <h2>Con los datos ya ordenados, la IA tiene con qué trabajar</h2>
+          <p class="entrada">
+            Lo más difícil de un proyecto de inteligencia artificial es tener datos limpios y
+            confiables. Eso ya existe: cada ticket, comanda y movimiento de inventario queda
+            registrado con su sucursal, su canal y su hora. Estos son los usos que tienen más sentido
+            sobre esa base.
+          </p>
+
+          <div class="rejilla r2">
+            <div class="tarjeta">
+              <h3>Pronóstico de demanda</h3>
+              <p>Estimar la venta de la próxima semana por sucursal y platillo para que el resurtido deje de ser “hasta el máximo” y sea “lo que se va a usar”.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>Detección de anomalías</h3>
+              <p>Señalar solo un día con cancelaciones, descuentos o mermas fuera de lo normal para esa sucursal y ese día de la semana.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>Turnos según la curva horaria</h3>
+              <p>Sugerir cuánta gente poner en piso y en cocina por hora, a partir de la venta esperada.</p>
+            </div>
+            <div class="tarjeta">
+              <h3>Preguntas en lenguaje natural</h3>
+              <p>Que la dirección pregunte “¿cómo nos fue en Condesa el fin de semana contra el anterior?” y reciba la respuesta con sus números.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ 16 · Cierre ═══════════════════════════════════════════ -->
+      <section class="lamina" data-titulo="Cierre" data-sub="Nota de privacidad">
+        <div class="caja portada">
+          <div>
+            <img class="marca" src="img/logo-davinci.png" alt="DaVinci" />
+            <h1>Menos trabajo a mano, más decisiones con datos</h1>
+            <p class="bajada">
+              Un solo sistema para las cuatro sucursales, con el análisis corriendo solo todos los
+              días y cada número explicable.
+            </p>
+
+            <div class="privacidad">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              <div>
+                <b>Nota de privacidad.</b> Para proteger la información de nuestro cliente, los
+                nombres de personas y las cifras de venta, costos, comisiones y propinas que aparecen
+                en las capturas <b>son ficticios o fueron difuminados</b>. No corresponden a la
+                operación real de Tsunami Sushi 2Go.
+              </div>
+            </div>
+
+            <div class="firma">
+              <img src="img/logo-davinci.png" alt="" />
+              <span>Gracias · <b>DaVinci</b></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══ Ayuda de teclado ════════════════════════════════════════ -->
+    <div class="teclas" id="teclas">
+      <kbd>←</kbd><kbd>→</kbd><span style="align-self: center">para navegar</span>
+      <kbd>I</kbd><span style="align-self: center">índice</span>
+    </div>
+
+    <!-- ═══ Barra ═══════════════════════════════════════════════════ -->
+    <footer class="barra">
+      <span class="logo">
+        <img src="img/logo-davinci.png" alt="DaVinci" />
+        <b>DaVinci</b><span>&nbsp;· Tsunami Sushi 2Go · Ventajas</span>
+      </span>
+
+      <div class="avance"><i id="avance"></i></div>
+
+      <div class="mandos">
+        <button class="btn ancho" id="btnIndice" title="Índice (I)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          </svg>
+          
+        </button>
+        <button class="btn" id="btnAtras" title="Anterior (←)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <span class="conteo"><b id="actual">1</b> / <span id="total">16</span></span>
+        <button class="btn" id="btnAdelante" title="Siguiente (→)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+    </footer>
+
+    <!-- ═══ Índice ══════════════════════════════════════════════════ -->
+    <div class="indice" id="indice">
+      <h2>Índice</h2>
+      <div class="lista" id="listaIndice"></div>
+    </div>
+
+    <!-- ═══ Visor ═══════════════════════════════════════════════════ -->
+    <div class="visor" id="visor">
+      <img id="visorImg" alt="" />
+      <p>Toque en cualquier lado para cerrar</p>
+    </div>
+
+    <script src="guion.js"></script>
+  </body>
+</html>

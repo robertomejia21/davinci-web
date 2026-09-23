@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ventajas del Sistema · Taxi Sendero</title>
+<meta name="description" content="Antes y después: cómo el sistema TaxiPlus cambió la operación de Taxi Sendero, con IA y análisis de datos.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f7fb;
+    --surface: #ffffff;
+    --ink: #14142b;
+    --muted: #5b5b76;
+    --line: #e6e6f0;
+    --accent: #ff654a;
+    --accent-soft: #efeaff;
+    --green: #16a34a;
+    --green-soft: #e8f7ee;
+    --red: #dc2626;
+    --red-soft: #fdeeee;
+    --dark: #120f2b;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  /* Hero */
+  header.hero {
+    background:
+      radial-gradient(900px 400px at 85% -10%, rgba(109, 74, 255, .18), transparent 60%),
+      radial-gradient(700px 360px at 0% 0%, rgba(22, 163, 74, .10), transparent 60%),
+      var(--surface);
+    border-bottom: 1px solid var(--line);
+    padding: 36px 0 56px;
+  }
+  .brand { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand img { height: 46px; width: auto; }
+  .tag {
+    font-size: 13px; font-weight: 600; color: var(--accent);
+    background: var(--accent-soft); padding: 6px 12px; border-radius: 999px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 54px); line-height: 1.08; letter-spacing: -.02em;
+    margin: 48px 0 16px; max-width: 820px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p.lead { font-size: 19px; color: var(--muted); max-width: 720px; margin: 0; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+  .stat {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+  .stat b { display: block; font-size: 30px; letter-spacing: -.02em; }
+  .stat small { color: var(--muted); font-size: 14px; }
+
+  /* Sections */
+  section { padding: 72px 0; }
+  .eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 10px;
+  }
+  h2 { font-size: clamp(26px, 3.4vw, 38px); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 14px; }
+  .sub { color: var(--muted); font-size: 17px; max-width: 720px; margin: 0 0 36px; }
+
+  /* Before / after */
+  .compare { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .row { display: grid; grid-template-columns: 200px 1fr 1fr; border-top: 1px solid var(--line); }
+  .row:first-child { border-top: 0; }
+  .row > div { padding: 16px 20px; font-size: 15px; }
+  .row .area { font-weight: 700; }
+  .row.head > div { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 14px 20px; }
+  .row.head .b { color: var(--red); background: var(--red-soft); }
+  .row.head .a { color: var(--green); background: var(--green-soft); }
+  .row .b { color: var(--muted); }
+  .row .a { background: #fbfffc; }
+  .row .a::before { content: "✓ "; color: var(--green); font-weight: 800; }
+
+  /* AI band */
+  .ai { background: var(--dark); color: #ecebff; }
+  .ai h2 { color: #fff; }
+  .ai .sub { color: #b9b6dd; }
+  .ai .eyebrow { color: #f29f79; }
+  .ai-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ai-card {
+    background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .10);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .ai-card h3 { margin: 12px 0 8px; font-size: 19px; color: #fff; }
+  .ai-card p { margin: 0 0 12px; color: #c9c6ea; font-size: 15px; }
+  .ai-card ul { margin: 0; padding-left: 18px; color: #c9c6ea; font-size: 14.5px; }
+  .ai-card li { margin: 4px 0; }
+  .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+  .pill.live { background: rgba(22, 163, 74, .18); color: #6ee7a0; }
+  .pill.soon { background: rgba(245, 158, 11, .16); color: #fcd34d; }
+  .pill.data { background: rgba(255, 125, 74, 0.25); color: #c8bbff; }
+  .ai-shot { margin-top: 28px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: center; }
+  .ai-shot h3 { color: #fff; font-size: 22px; margin: 0 0 10px; }
+  .ai-shot p { color: #c9c6ea; margin: 0 0 10px; }
+  .clarify {
+    margin-top: 28px; padding: 16px 20px; border-radius: 14px; font-size: 14.5px;
+    background: rgba(255, 255, 255, .04); border: 1px dashed rgba(255, 255, 255, .18); color: #b9b6dd;
+  }
+
+  /* Feature rows */
+  .feature { display: grid; grid-template-columns: 1fr 1.35fr; gap: 44px; align-items: center; padding: 40px 0; }
+  .feature + .feature { border-top: 1px solid var(--line); }
+  .feature.flip { grid-template-columns: 1.35fr 1fr; }
+  .feature.flip .text { order: 2; }
+  .feature h3 { font-size: 24px; letter-spacing: -.01em; margin: 0 0 10px; line-height: 1.25; }
+  .feature p { color: var(--muted); margin: 0 0 14px; }
+  .ba { display: grid; gap: 8px; margin-top: 6px; }
+  .ba div { font-size: 14.5px; padding: 10px 14px; border-radius: 12px; }
+  .ba .before { background: var(--red-soft); color: #7f1d1d; }
+  .ba .after { background: var(--green-soft); color: #14532d; }
+  .ba b { font-weight: 700; }
+
+  figure.shot { margin: 0; }
+  figure.shot button {
+    all: unset; cursor: zoom-in; display: block; border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--line); box-shadow: 0 18px 50px -20px rgba(20, 20, 43, .35); background: #fff;
+    transition: transform .2s ease;
+  }
+  figure.shot button:hover { transform: translateY(-3px); }
+  figure.shot button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  figure.shot figcaption { font-size: 13px; color: var(--muted); margin-top: 10px; text-align: center; }
+  .ai figure.shot button { border-color: rgba(255, 255, 255, .12); }
+  .ai figure.shot figcaption { color: #9b98c4; }
+
+  /* Extra cards */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+  .card .ico { font-size: 24px; }
+  .card h4 { margin: 10px 0 6px; font-size: 17px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* Privacy note */
+  .privacy {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--accent-soft); border: 1px solid #ddd3ff; border-radius: var(--radius);
+    padding: 22px 24px; font-size: 15px;
+  }
+  .privacy .ico { font-size: 26px; line-height: 1; }
+  .privacy p { margin: 0; }
+  footer { padding: 28px 0 48px; color: var(--muted); font-size: 13px; text-align: center; }
+
+  /* Lightbox */
+  .lb {
+    position: fixed; inset: 0; background: rgba(10, 8, 30, .88); display: none;
+    align-items: center; justify-content: center; padding: 24px; z-index: 50; cursor: zoom-out;
+  }
+  .lb.open { display: flex; }
+  .lb img { max-height: 92vh; width: auto; border-radius: 10px; box-shadow: 0 30px 80px rgba(0, 0, 0, .5); }
+
+  @media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .ai-grid, .cards { grid-template-columns: 1fr; }
+    .ai-shot, .feature, .feature.flip { grid-template-columns: 1fr; gap: 24px; }
+    .feature.flip .text { order: 0; }
+    .row { grid-template-columns: 1fr; }
+    .row.head { display: none; }
+    .row .area { background: var(--bg); padding-bottom: 8px; }
+    .row .b::before { content: "Antes: "; font-weight: 700; color: var(--red); }
+    .row .a::before { content: "Ahora: "; }
+  }
+  @media (max-width: 480px) {
+    section { padding: 52px 0; }
+    .wrap { padding: 0 16px; }
+    .stat b { font-size: 24px; }
+    .hero p.lead { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">
+      
+      <span class="tag">Resultados del sistema</span>
+    </div>
+    <h1>De la libreta y el teléfono a una operación <span>automatizada, medible y con IA</span></h1>
+    <p class="lead">Así cambió el día a día de la central de Taxi Sendero desde que opera con el sistema: qué se hacía antes, qué se hace ahora y qué ganamos con eso.</p>
+    <div class="stats">
+      <div class="stat"><b>24/7</b><small>El bot de WhatsApp toma pedidos aunque no haya operador</small></div>
+      <div class="stat"><b>45 s</b><small>Tiempo máximo que espera una oferta antes de pasar al siguiente taxista</small></div>
+      <div class="stat"><b>8 s</b><small>Cada cuánto se actualiza el mapa de la flota en vivo</small></div>
+      <div class="stat"><b>2 IA</b><small>Asistentes con inteligencia artificial para conductores y pasajeros</small></div>
+    </div>
+  </div>
+</header>
+
+<!-- Antes vs ahora -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Antes vs. ahora</p>
+    <h2>El cambio en una sola tabla</h2>
+    <p class="sub">Cada renglón es un proceso de la operación diaria. A la izquierda, cómo se resolvía antes; a la derecha, cómo lo resuelve hoy el sistema.</p>
+
+    <div class="compare">
+      <div class="row head"><div>Proceso</div><div class="b">Antes</div><div class="a">Ahora con el sistema</div></div>
+      <div class="row"><div class="area">Recibir pedidos</div><div class="b">Llamadas y WhatsApp personal, uno por uno. Si nadie contestaba, se perdía el viaje.</div><div class="a">Un bot de WhatsApp atiende al cliente a cualquier hora, le cotiza y registra el viaje solo.</div></div>
+      <div class="row"><div class="area">Asignar taxista</div><div class="b">El operador buscaba a quién llamar y esperaba respuesta por radio o mensaje.</div><div class="a">El sistema ofrece el viaje al taxista disponible más cercano. Si no acepta en 45 s, pasa al siguiente, hasta 5 intentos.</div></div>
+      <div class="row"><div class="area">Saber dónde está la flota</div><div class="b">Preguntar a cada conductor dónde estaba y si estaba libre.</div><div class="a">Mapa en vivo con ubicación, estatus (libre, ocupado o fuera de turno) y batería de cada unidad.</div></div>
+      <div class="row"><div class="area">Cotizar</div><div class="b">Precio "a ojo" o con tabla de papel, distinto según quién contestara.</div><div class="a">Cálculo automático con distancia y tiempo reales de Google Maps, tarifa base, por km y por minuto, y cargo extra en zonas especiales.</div></div>
+      <div class="row"><div class="area">Viajes agendados</div><div class="b">Anotados en libreta o de memoria; había olvidos.</div><div class="a">Se asignan desde el panel y el taxista recibe recordatorios automáticos 30 y 15 minutos antes.</div></div>
+      <div class="row"><div class="area">Datos del cliente</div><div class="b">Había que preguntarle la dirección cada vez.</div><div class="a">Directorio de contactos que guarda sus direcciones habituales (casa, trabajo) para capturar más rápido.</div></div>
+      <div class="row"><div class="area">Avisar al cliente</div><div class="b">Mensaje manual cuando se acordaban.</div><div class="a">El cliente recibe por WhatsApp la unidad y la placa del taxi asignado. Si no hay taxista, también se le avisa.</div></div>
+      <div class="row"><div class="area">Reportes</div><div class="b">Contar viajes a mano al final del mes.</div><div class="a">Métricas en tiempo real por periodo, top de conductores, días de más demanda y reportes en PDF.</div></div>
+      <div class="row"><div class="area">Acceso y control</div><div class="b">Todos veían y movían todo.</div><div class="a">Roles: superadmin, admin y lector (solo consulta, sin poder modificar nada).</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- IA y datos -->
+<section class="ai" id="ia">
+  <div class="wrap">
+    <p class="eyebrow">Inteligencia artificial y análisis de datos</p>
+    <h2>Dónde trabaja la IA dentro del sistema</h2>
+    <p class="sub">El sistema usa modelos de lenguaje de Anthropic (familia Claude) para conversar en español, y además convierte cada viaje en datos para tomar decisiones.</p>
+
+    <div class="ai-grid">
+      <div class="ai-card">
+        <span class="pill live">● En operación</span>
+        <h3>Asistente IA para conductores</h3>
+        <p>Dentro de la app del taxista hay un asistente que responde dudas de uso en lenguaje muy sencillo, pensado para conductores adultos mayores.</p>
+        <ul>
+          <li>Explica paso a paso: entrar en turno, aceptar un viaje, cambiar el PIN, ver ganancias.</li>
+          <li>Frases cortas, tono paciente y sin tecnicismos.</li>
+          <li>Si el problema es de pagos o de la cuenta, manda al conductor con la base.</li>
+          <li>Menos llamadas de soporte a la central.</li>
+        </ul>
+      </div>
+      <div class="ai-card">
+        <span class="pill soon">◐ En integración</span>
+        <h3>Agente IA para pasajeros</h3>
+        <p>Un agente que entiende mensajes libres de WhatsApp, como "mándame un taxi de la plaza al aeropuerto", sin que el cliente navegue un menú.</p>
+        <ul>
+          <li>Detecta la intención: pedir, preguntar estatus, cancelar o una duda general.</li>
+          <li>Extrae el origen y el destino del texto.</li>
+          <li>Pide lo que falta de forma amable antes de confirmar.</li>
+          <li>Ya está desarrollado y se está conectando al flujo de WhatsApp.</li>
+        </ul>
+      </div>
+      <div class="ai-card">
+        <span class="pill data">◆ Análisis de datos</span>
+        <h3>Cada viaje se vuelve información</h3>
+        <p>Todo viaje queda registrado con su estatus, tipo, origen, destino, costo, duración, conductor y canal (bot o manual).</p>
+        <ul>
+          <li>Promedio de viajes por día, costo y duración promedio.</li>
+          <li>Qué días de la semana hay más demanda, para planear turnos.</li>
+          <li>Ranking de conductores más productivos.</li>
+          <li>Cuántos viajes entran por el bot frente a los capturados a mano.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ai-shot">
+      <figure class="shot">
+        <button type="button" data-full="img/metricas.webp" aria-label="Ampliar captura de Métricas">
+          <img src="img/metricas.webp" alt="Pantalla de Métricas con KPIs, top 5 conductores y viajes por día de la semana" loading="lazy">
+        </button>
+        <figcaption>Módulo de Métricas: KPIs del periodo, top de conductores y demanda por día.</figcaption>
+      </figure>
+      <div>
+        <h3>Decisiones con datos, no con intuición</h3>
+        <p>Antes, saber cuántos viajes hubo en el mes o qué taxista trabajó más requería contar a mano. Hoy basta con elegir un periodo (hoy, semana, mes, año o un rango de fechas) para verlo al instante.</p>
+        <p>Con los viajes por día de la semana se puede reforzar la flota los días de más demanda, y la proporción bot/manual indica cuánto trabajo ya absorbe la automatización.</p>
+      </div>
+    </div>
+
+    <p class="clarify"><b>Para ser precisos:</b> la asignación del taxista más cercano, la cotización y los recordatorios son <b>automatizaciones con reglas y datos de ubicación</b>, no IA generativa. La IA (modelos de lenguaje) está en los asistentes conversacionales descritos arriba.</p>
+  </div>
+</section>
+
+<!-- Recorrido por módulos -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Recorrido por el sistema</p>
+    <h2>Qué hace cada módulo</h2>
+    <p class="sub">Capturas reales del panel de operación, con los datos personales reemplazados por datos ficticios.</p>
+
+    <div class="feature">
+      <div class="text">
+        <h3>WhatsApp centralizado con bot</h3>
+        <p>Todas las conversaciones de clientes llegan a una sola bandeja. El bot atiende de forma automática y el operador puede tomar el control de cualquier chat con un clic.</p>
+        <div class="ba">
+          <div class="before"><b>Antes:</b> chats repartidos en varios celulares y mensajes sin contestar.</div>
+          <div class="after"><b>Ahora:</b> una bandeja con contador de no leídos, ficha del cliente y estado del bot por conversación.</div>
+        </div>
+      </div>
+      <figure class="shot">
+        <button type="button" data-full="img/inbox.webp" aria-label="Ampliar captura de WhatsApp">
+          <img src="img/inbox.webp" alt="Bandeja de conversaciones de WhatsApp con detalles del cliente y control del bot" loading="lazy">
+        </button>
+        <figcaption>Bandeja de WhatsApp con control Bot/Humano por cliente.</figcaption>
+      </figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <h3>Control total de los viajes</h3>
+        <p>Cada viaje queda registrado con cliente, conductor, origen, destino, costo y estatus. Se filtra por estado, fecha u hora y se exporta a PDF.</p>
+        <div class="ba">
+          <div class="before"><b>Antes:</b> registros sueltos o inexistentes, imposible auditar un viaje.</div>
+          <div class="after"><b>Ahora:</b> historial completo, con pestañas para pendientes, en progreso, cancelados y "sin taxista".</div>
+        </div>
+      </div>
+      <figure class="shot">
+        <button type="button" data-full="img/viajes.webp" aria-label="Ampliar captura de Viajes">
+          <img src="img/viajes.webp" alt="Tabla de viajes con filtros por estatus y exportación a PDF" loading="lazy">
+        </button>
+        <figcaption>Módulo de Viajes con filtros y exportación a PDF.</figcaption>
+      </figure>
+    </div>
+
+    <div class="feature">
+      <div class="text">
+        <h3>Crear un viaje en segundos</h3>
+        <p>El operador busca al cliente por nombre o teléfono y escribe las direcciones con autocompletado. El sistema calcula la distancia, el tiempo y el costo, y puede asignar al conductor automáticamente.</p>
+        <div class="ba">
+          <div class="before"><b>Antes:</b> anotar a mano, cotizar de memoria y llamar a los taxistas.</div>
+          <div class="after"><b>Ahora:</b> estimación automática con Google Maps y asignación inmediata o agendada.</div>
+        </div>
+      </div>
+      <figure class="shot">
+        <button type="button" data-full="img/crear-viaje.webp" aria-label="Ampliar captura de Crear Viaje">
+          <img src="img/crear-viaje.webp" alt="Formulario para crear viaje con cálculo automático y asignación de conductor" loading="lazy">
+        </button>
+        <figcaption>Formulario de nuevo viaje con estimación y asignación automática.</figcaption>
+      </figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <h3>Flota en vivo en un solo mapa</h3>
+        <p>Cada taxi aparece en el mapa con su nombre y unidad. El panel lateral muestra si está disponible, ocupado o desconectado, cuándo reportó por última vez y su nivel de batería.</p>
+        <div class="ba">
+          <div class="before"><b>Antes:</b> "¿quién está cerca de tal colonia?" por radio.</div>
+          <div class="after"><b>Ahora:</b> se ve en el mapa y se actualiza cada 8 segundos. Los conductores inactivos salen de turno solos y se reactivan al volver a reportar.</div>
+        </div>
+      </div>
+      <figure class="shot">
+        <button type="button" data-full="img/flota.webp" aria-label="Ampliar captura de Flota en vivo">
+          <img src="img/flota.webp" alt="Mapa con la ubicación en tiempo real de los taxis" loading="lazy">
+        </button>
+        <figcaption>Flota en vivo: ubicación, estatus y batería de cada unidad.</figcaption>
+      </figure>
+    </div>
+
+    <div class="feature">
+      <div class="text">
+        <h3>Gestión de conductores</h3>
+        <p>Alta, edición y bloqueo de conductores desde el panel, con su GPS, teléfono, batería y la hora de su último cambio de estado.</p>
+        <div class="ba">
+          <div class="before"><b>Antes:</b> lista en papel y sin saber quién estaba realmente activo.</div>
+          <div class="after"><b>Ahora:</b> filtros por activos, ocupados e inactivos, y enlace directo a su ubicación en el mapa.</div>
+        </div>
+      </div>
+      <figure class="shot">
+        <button type="button" data-full="img/conductores.webp" aria-label="Ampliar captura de Conductores">
+          <img src="img/conductores.webp" alt="Tabla de conductores con estado, batería, teléfono y ubicación GPS" loading="lazy">
+        </button>
+        <figcaption>Módulo de Conductores.</figcaption>
+      </figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <h3>Clientes que el sistema recuerda</h3>
+        <p>Cada persona que escribe por WhatsApp queda en el directorio. Se le pueden guardar atributos como "casa" o "trabajo" para pedir su taxi sin repetir la dirección.</p>
+        <div class="ba">
+          <div class="before"><b>Antes:</b> preguntar la dirección completa en cada pedido.</div>
+          <div class="after"><b>Ahora:</b> búsqueda por nombre, teléfono o atributo, con direcciones guardadas.</div>
+        </div>
+      </div>
+      <figure class="shot">
+        <button type="button" data-full="img/contactos.webp" aria-label="Ampliar captura de Contactos">
+          <img src="img/contactos.webp" alt="Directorio de contactos con atributos de casa y trabajo" loading="lazy">
+        </button>
+        <figcaption>Directorio de contactos con direcciones guardadas.</figcaption>
+      </figure>
+    </div>
+
+    <div class="feature">
+      <div class="text">
+        <h3>Tarifas y reglas en un solo lugar</h3>
+        <p>La tarifa (base, por km y por minuto), las zonas con cargo extra (por ejemplo, el aeropuerto) y las direcciones frecuentes se configuran una vez y el sistema las aplica siempre igual.</p>
+        <div class="ba">
+          <div class="before"><b>Antes:</b> cada operador cobraba distinto.</div>
+          <div class="after"><b>Ahora:</b> precios consistentes y un cambio de tarifa se aplica en todo el sistema al momento.</div>
+        </div>
+      </div>
+      <figure class="shot">
+        <button type="button" data-full="img/configuracion.webp" aria-label="Ampliar captura de Configuración">
+          <img src="img/configuracion.webp" alt="Configuración de tarifas, zonas extralimitantes y direcciones frecuentes" loading="lazy">
+        </button>
+        <figcaption>Configuración de tarifas, zonas y direcciones frecuentes.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Beneficios extra -->
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <p class="eyebrow">Además</p>
+    <h2>Beneficios que no se ven en una captura</h2>
+    <div class="cards" style="margin-top: 28px;">
+      <div class="card"><div class="ico">📱</div><h4>App propia para el taxista</h4><p>El conductor recibe el viaje con notificación y tono propio. La app lee el viaje en voz alta, y para confirmar llegada, inicio y fin se desliza un botón, lo que evita toques por error.</p></div>
+      <div class="card"><div class="ico">⏰</div><h4>Agendados sin olvidos</h4><p>Los viajes programados viven en su propia pestaña y el taxista recibe recordatorios 30 y 15 minutos antes de la hora.</p></div>
+      <div class="card"><div class="ico">🔁</div><h4>Nadie se queda sin respuesta</h4><p>Si un taxista no acepta, el viaje pasa solo al siguiente. Si nadie está disponible, el cliente y la base reciben aviso.</p></div>
+      <div class="card"><div class="ico">🔒</div><h4>Roles y permisos</h4><p>Hay perfiles de solo lectura para socios o supervisores: pueden ver toda la operación sin riesgo de modificar nada.</p></div>
+      <div class="card"><div class="ico">☁️</div><h4>En la nube</h4><p>Se accede desde cualquier navegador, sin instalar nada en la central, y los datos están respaldados.</p></div>
+      <div class="card"><div class="ico">💬</div><h4>Respaldo por WhatsApp</h4><p>El taxista que aún no usa la app recibe los viajes por WhatsApp, así la transición es gradual.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Privacidad -->
+<section style="padding-top: 0;">
+  <div class="wrap">
+    <div class="privacy">
+      <div class="ico">🛡️</div>
+      <p><b>Nota de privacidad.</b> Para proteger a nuestros clientes y conductores, en todas las capturas de esta presentación los <b>nombres, teléfonos, direcciones, placas, ubicaciones y cifras de operación fueron reemplazados por datos ficticios</b>. No corresponden a personas ni a viajes reales. La interfaz y las funciones mostradas sí son las del sistema en operación.</p>
+    </div>
+  </div>
+</section>
+
+<footer>Taxi Sendero · "Justo a tiempo" · Sistema de gestión de taxis</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Captura ampliada"><img alt=""></div>
+
+<script>
+  const lb = document.getElementById('lb');
+  const lbImg = lb.querySelector('img');
+  document.querySelectorAll('[data-full]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      lbImg.src = btn.dataset.full;
+      lbImg.alt = btn.querySelector('img').alt;
+      lb.classList.add('open');
+    });
+  });
+  const close = () => lb.classList.remove('open');
+  lb.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+</script>
+</body>
+</html>

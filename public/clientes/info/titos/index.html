@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>DaVinci · Ventajas del sistema · Mercados Titos</title>
+    <link rel="icon" href="img/logo-davinci.png" />
+    <style>
+      /* ── Paleta tomada del logo DaVinci ─────────────────────────────── */
+      :root {
+        --naranja: #f58634;
+        --naranja-claro: #ffa365;
+        --naranja-suave: #fff1e6;
+        --carbon: #373435;
+        --carbon-medio: #575253;
+        --carbon-suave: #f4f2f2;
+        --blanco: #ffffff;
+        --gris-linea: rgba(55, 52, 53, 0.12);
+        --gris-texto: rgba(55, 52, 53, 0.62);
+        --verde: #2f9e5f;
+        --verde-suave: #e8f5ee;
+        --sombra: 0 18px 50px rgba(55, 52, 53, 0.16);
+        --radio: 18px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        color: var(--carbon);
+        background: var(--blanco);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1, h2, h3, h4 { line-height: 1.2; margin: 0; letter-spacing: -0.02em; }
+      p { margin: 0; }
+      img { max-width: 100%; }
+
+      /* ── Barra de progreso ──────────────────────────────────────────── */
+      .progreso {
+        position: fixed;
+        inset: 0 auto auto 0;
+        height: 4px;
+        width: 0;
+        background: linear-gradient(90deg, var(--naranja), var(--naranja-claro));
+        z-index: 100;
+      }
+
+      /* ── Navegación ─────────────────────────────────────────────────── */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 90;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 14px 32px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--gris-linea);
+      }
+      .nav-marca { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+      .nav-marca img { height: 34px; width: auto; display: block; }
+      .nav-marca span { font-weight: 700; font-size: 15px; }
+      .nav-marca small {
+        display: block;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--gris-texto);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .nav-links { margin-left: auto; display: flex; gap: 4px; flex-wrap: wrap; }
+      .nav-links a {
+        padding: 7px 13px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--carbon-medio);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background 0.18s, color 0.18s;
+      }
+      .nav-links a:hover { background: var(--naranja-suave); color: var(--naranja); }
+      .nav-links a.destacado { background: var(--naranja); color: #fff; }
+
+      /* ── Portada ────────────────────────────────────────────────────── */
+      .portada {
+        position: relative;
+        overflow: hidden;
+        padding: 90px 32px 80px;
+        background: var(--carbon);
+        color: #fff;
+        text-align: center;
+      }
+      .portada::before,
+      .portada::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .portada::before {
+        width: 460px; height: 460px;
+        top: -220px; right: -140px;
+        background: radial-gradient(circle, rgba(245, 134, 52, 0.42), transparent 68%);
+      }
+      .portada::after {
+        width: 380px; height: 380px;
+        bottom: -200px; left: -120px;
+        background: radial-gradient(circle, rgba(245, 134, 52, 0.26), transparent 68%);
+      }
+      .portada > * { position: relative; z-index: 1; }
+      .portada .escudo {
+        display: inline-grid;
+        place-items: center;
+        width: 96px; height: 96px;
+        border-radius: 26px;
+        background: #fff;
+        box-shadow: var(--sombra);
+        margin-bottom: 26px;
+      }
+      .portada .escudo img { width: 60px; height: auto; display: block; }
+      .portada h1 { font-size: clamp(32px, 5.2vw, 54px); font-weight: 800; }
+      .portada h1 em { font-style: normal; color: var(--naranja-claro); }
+      .portada .bajada {
+        max-width: 660px;
+        margin: 18px auto 0;
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.76);
+      }
+      .etiqueta {
+        display: inline-block;
+        padding: 6px 15px;
+        border-radius: 999px;
+        background: rgba(245, 134, 52, 0.18);
+        border: 1px solid rgba(245, 134, 52, 0.42);
+        color: var(--naranja-claro);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 22px;
+      }
+      .metricas {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 14px;
+        max-width: 900px;
+        margin: 44px auto 0;
+      }
+      .metrica {
+        padding: 20px 16px;
+        border-radius: var(--radio);
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      .metrica strong {
+        display: block;
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--naranja-claro);
+        line-height: 1.15;
+      }
+      .metrica span {
+        display: block;
+        margin-top: 6px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.66);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* ── Secciones ──────────────────────────────────────────────────── */
+      .seccion { padding: 76px 32px; scroll-margin-top: 70px; }
+      .seccion > .interior { max-width: 1180px; margin: 0 auto; }
+      .seccion.alterna { background: var(--carbon-suave); }
+      .seccion.oscura { background: var(--carbon); color: #fff; }
+
+      .encabezado { margin-bottom: 38px; max-width: 760px; }
+      .numero {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        color: var(--naranja);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .encabezado h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 800; }
+      .encabezado p { margin-top: 12px; font-size: 16px; color: var(--gris-texto); }
+      .oscura .encabezado p { color: rgba(255, 255, 255, 0.72); }
+      .oscura .numero { color: var(--naranja-claro); }
+
+      /* ── Resumen antes / ahora (tabla) ─────────────────────────────── */
+      .tabla-scroll { overflow-x: auto; border-radius: var(--radio); border: 1px solid var(--gris-linea); }
+      .resumen {
+        width: 100%;
+        min-width: 680px;
+        border-collapse: collapse;
+        font-size: 14.5px;
+        background: #fff;
+      }
+      .resumen th, .resumen td { padding: 15px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--gris-linea); }
+      .resumen thead th {
+        background: var(--carbon);
+        color: #fff;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .resumen thead th:last-child { background: var(--naranja); }
+      .resumen tbody th { font-weight: 700; width: 20%; }
+      .resumen td.antes { color: var(--gris-texto); width: 38%; }
+      .resumen td.ahora { width: 42%; }
+      .resumen tbody tr:last-child > * { border-bottom: 0; }
+      .resumen a { color: var(--naranja); font-weight: 700; text-decoration: none; }
+
+      /* ── Bloque de IA ──────────────────────────────────────────────── */
+      .ia-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+        gap: 34px;
+        align-items: center;
+      }
+      .ia-pasos { display: grid; gap: 14px; margin-top: 22px; }
+      .ia-paso {
+        display: flex;
+        gap: 14px;
+        padding: 16px 18px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .ia-paso .orden {
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        background: var(--naranja);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 800;
+      }
+      .ia-paso h4 { font-size: 15px; margin-bottom: 3px; }
+      .ia-paso p { font-size: 14px; color: rgba(255, 255, 255, 0.72); }
+      .insignia-ia {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 5px 13px;
+        border-radius: 999px;
+        background: var(--naranja);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .garantias {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 14px;
+        margin-top: 34px;
+      }
+      .garantia {
+        padding: 18px 20px;
+        border-radius: 14px;
+        border-left: 4px solid var(--naranja);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .garantia h4 { font-size: 15px; margin-bottom: 5px; color: var(--naranja-claro); }
+      .garantia p { font-size: 14px; color: rgba(255, 255, 255, 0.74); }
+
+      /* ── Capturas ──────────────────────────────────────────────────── */
+      .captura { margin: 0; }
+      .captura img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 14px;
+        border: 1px solid var(--gris-linea);
+        box-shadow: var(--sombra);
+        cursor: zoom-in;
+        background: #fff;
+      }
+      .oscura .captura img { border-color: rgba(255, 255, 255, 0.16); }
+      .captura figcaption { margin-top: 12px; font-size: 13.5px; color: var(--gris-texto); }
+      .oscura .captura figcaption { color: rgba(255, 255, 255, 0.62); }
+
+      /* ── Tarjetas de análisis ──────────────────────────────────────── */
+      .analisis {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+      .analisis-tarjeta {
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--radio);
+        background: #fff;
+        border: 1px solid var(--gris-linea);
+        overflow: hidden;
+      }
+      .analisis-tarjeta img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        object-position: top left;
+        border-bottom: 1px solid var(--gris-linea);
+        cursor: zoom-in;
+      }
+      .analisis-tarjeta .cuerpo { padding: 22px 24px 24px; }
+      .analisis-tarjeta .tecnica {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: var(--naranja-suave);
+        color: var(--naranja);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .analisis-tarjeta h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+      .analisis-tarjeta p { font-size: 14.5px; color: var(--gris-texto); }
+      .analisis-tarjeta p + p { margin-top: 8px; }
+      .analisis-tarjeta strong { color: var(--carbon); }
+
+      .aclaracion {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        margin-top: 30px;
+        padding: 18px 22px;
+        border-radius: 14px;
+        background: var(--naranja-suave);
+        border-left: 4px solid var(--naranja);
+        font-size: 14.5px;
+      }
+      .aclaracion svg { flex: 0 0 auto; margin-top: 2px; color: var(--naranja); }
+
+      /* ── Ventajas operativas (filas antes/ahora + captura) ─────────── */
+      .ventaja {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+        gap: 40px;
+        align-items: center;
+        padding: 46px 0;
+        border-top: 1px solid var(--gris-linea);
+      }
+      .ventaja:first-of-type { border-top: 0; padding-top: 0; }
+      .ventaja:nth-of-type(even) .texto { order: 2; }
+      .ventaja h3 { font-size: clamp(21px, 2.6vw, 27px); font-weight: 800; margin-bottom: 18px; }
+      .ventaja .indice {
+        display: block;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: var(--naranja);
+        margin-bottom: 8px;
+      }
+      .caso {
+        padding: 16px 18px;
+        border-radius: 14px;
+        font-size: 14.5px;
+      }
+      .caso + .caso { margin-top: 10px; }
+      .caso .rotulo {
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .caso.antes { background: var(--carbon-suave); color: var(--gris-texto); }
+      .caso.antes .rotulo { color: var(--carbon-medio); }
+      .caso.ahora { background: var(--verde-suave); }
+      .caso.ahora .rotulo { color: var(--verde); }
+      .caso.ahora ul { margin: 6px 0 0; padding-left: 18px; }
+      .caso.ahora li { margin-bottom: 3px; }
+
+      /* ── Nota de privacidad ────────────────────────────────────────── */
+      .privacidad {
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 26px 28px;
+        border-radius: var(--radio);
+        background: #fff;
+        border: 1px dashed rgba(55, 52, 53, 0.3);
+      }
+      .privacidad svg { flex: 0 0 auto; color: var(--naranja); }
+      .privacidad h3 { font-size: 17px; margin-bottom: 6px; }
+      .privacidad p { font-size: 14.5px; color: var(--gris-texto); }
+      .privacidad p + p { margin-top: 8px; }
+
+      .aviso-corto {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 26px;
+        padding: 7px 15px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.72);
+        text-decoration: none;
+      }
+      .aviso-corto:hover { color: #fff; border-color: var(--naranja); }
+
+      /* ── Cierre ────────────────────────────────────────────────────── */
+      .cierre {
+        padding: 70px 32px;
+        background: var(--carbon);
+        color: #fff;
+        text-align: center;
+      }
+      .cierre h2 { font-size: clamp(24px, 3.4vw, 34px); font-weight: 800; }
+      .cierre p { margin: 14px auto 0; max-width: 640px; color: rgba(255, 255, 255, 0.7); }
+      .cierre img { height: 44px; width: auto; margin-bottom: 24px; filter: brightness(0) invert(1); }
+      .pie {
+        padding: 22px 32px;
+        text-align: center;
+        font-size: 12.5px;
+        color: var(--gris-texto);
+        border-top: 1px solid var(--gris-linea);
+      }
+
+      /* ── Lightbox ──────────────────────────────────────────────────── */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 28px;
+        background: rgba(55, 52, 53, 0.93);
+        cursor: zoom-out;
+      }
+      .lightbox.abierto { display: flex; }
+      .lightbox img { max-width: 100%; max-height: 100%; border-radius: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); }
+      .lightbox .cerrar {
+        position: absolute;
+        top: 20px; right: 26px;
+        width: 42px; height: 42px;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        font-size: 22px;
+        cursor: pointer;
+      }
+      .lightbox .cerrar:hover { background: var(--naranja); }
+
+      .revelar { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+      .revelar.visible { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .ia-grid, .ventaja { grid-template-columns: 1fr; gap: 26px; }
+        .ventaja:nth-of-type(even) .texto { order: 0; }
+      }
+      @media (max-width: 720px) {
+        .nav { padding: 12px 18px; flex-wrap: wrap; gap: 10px; }
+        .nav-links { width: 100%; margin-left: 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .seccion { padding: 52px 18px; }
+        .portada { padding: 60px 18px 56px; }
+        .privacidad { flex-direction: column; padding: 22px 20px; }
+        .analisis { grid-template-columns: 1fr; }
+        /* En teléfono la tabla se apila: cada tarea queda como tarjeta con su antes y su ahora. */
+        .resumen { min-width: 0; }
+        .resumen thead { display: none; }
+        .resumen tbody, .resumen tr, .resumen th, .resumen td { display: block; width: auto !important; }
+        .resumen tr { border-bottom: 1px solid var(--gris-linea); padding: 6px 0; }
+        .resumen tbody tr:last-child { border-bottom: 0; }
+        .resumen th, .resumen td { border-bottom: 0; padding: 6px 16px; }
+        .resumen tbody th { padding-top: 12px; font-size: 15.5px; }
+        .resumen td::before {
+          display: block;
+          font-size: 10.5px;
+          font-weight: 800;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+        .resumen td.antes::before { content: "Antes"; color: var(--carbon-medio); }
+        .resumen td.ahora::before { content: "Ahora"; color: var(--naranja); }
+        .resumen td.ahora { padding-bottom: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .revelar { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="progreso" id="progreso"></div>
+
+    <nav class="nav">
+      <a class="nav-marca" href="#" title="Ir al inicio">
+        <img src="img/logo-davinci.png" alt="DaVinci" />
+        <span>DaVinci<small>Ventajas para Mercados Titos</small></span>
+      </a>
+      <div class="nav-links">
+        <a href="#resumen">Antes / ahora</a>
+        <a class="destacado" href="#ia">Inteligencia artificial</a>
+        <a href="#datos">Análisis de datos</a>
+        <a href="#operacion">Operación diaria</a>
+        <a href="#privacidad">Privacidad</a>
+      </div>
+    </nav>
+
+    <header class="portada">
+      <span class="escudo"><img src="img/logo-davinci.png" alt="DaVinci" /></span>
+      <div><span class="etiqueta">Balance del proyecto</span></div>
+      <h1>Qué cambió en <em>Mercados Titos</em><br />desde que opera con el sistema</h1>
+      <p class="bajada">
+        Un recorrido por las tareas que antes se resolvían con llamadas, papel, hojas de cálculo y
+        memoria, y cómo se resuelven hoy: desde la caja de cada sucursal hasta los reportes de
+        matriz, incluida la inteligencia artificial que lee documentos fiscales y el análisis de
+        datos que ayuda a decidir qué comprar y dónde.
+      </p>
+
+      <div class="metricas">
+        <div class="metrica"><strong>1 sistema</strong><span>Matriz y todas las sucursales</span></div>
+        <div class="metrica"><strong>IA</strong><span>Lee constancias fiscales, incluso escaneadas</span></div>
+        <div class="metrica"><strong>Tiempo real</strong><span>Ventas, inventario y cortes</span></div>
+        <div class="metrica"><strong>Cada hora</strong><span>Revisión automática de pedidos atorados</span></div>
+      </div>
+
+      <a class="aviso-corto" href="#privacidad">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l8 4v5c0 4.5-3.2 8.3-8 9-4.8-.7-8-4.5-8-9V7z"/></svg>
+        Las capturas usan datos de prueba: nombres, folios y montos no son reales
+      </a>
+    </header>
+
+    <!-- ── 01 · Resumen antes / ahora ─────────────────────────────── -->
+    <section class="seccion" id="resumen">
+      <div class="interior">
+        <div class="encabezado revelar">
+          <span class="numero">01 · En una mirada</span>
+          <h2>Antes y ahora, tarea por tarea</h2>
+          <p>
+            El resumen completo. Más abajo explicamos cada punto con capturas del sistema; los que
+            usan inteligencia artificial o análisis de datos tienen su propia sección.
+          </p>
+        </div>
+
+        <div class="tabla-scroll revelar">
+          <table class="resumen">
+            <thead>
+              <tr><th>Tarea</th><th>Antes</th><th>Ahora, con el sistema</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Dar de alta datos fiscales</th>
+                <td class="antes">Se copiaban a mano RFC, razón social, régimen y código postal desde la constancia. Un dígito mal y la factura se rechazaba.</td>
+                <td class="ahora">Se sube el PDF de la constancia y la <strong>IA</strong> llena los campos sola, aunque venga escaneada o fotografiada. <a href="#ia">Ver →</a></td>
+              </tr>
+              <tr>
+                <th>Saber cómo van las ventas</th>
+                <td class="antes">Esperar a juntar los cortes de cada tienda y sumarlos en una hoja de cálculo.</td>
+                <td class="ahora">Tablero con ventas por periodo, comparación con el periodo anterior y <strong>tendencia calculada</strong>. <a href="#datos">Ver →</a></td>
+              </tr>
+              <tr>
+                <th>Comparar sucursales</th>
+                <td class="antes">Pedir a cada tienda su reporte y cruzarlos a mano.</td>
+                <td class="ahora"><strong>Kardex Global</strong>: un producto, todas las sucursales lado a lado, en piezas, kilos o pesos.</td>
+              </tr>
+              <tr>
+                <th>Qué y cuánto comprar</th>
+                <td class="antes">Recorrer anaqueles o depender de que alguien avisara que algo se acabó.</td>
+                <td class="ahora">Alertas de stock bajo con <strong>cantidad sugerida a pedir</strong> y aviso a compras en cuanto una venta deja un producto en cero.</td>
+              </tr>
+              <tr>
+                <th>Repartir mercancía escasa</th>
+                <td class="antes">Decidir “a ojo” qué sucursal recibía y cuánto.</td>
+                <td class="ahora">El <strong>nivelador</strong> reparte en proporción a lo que pidió cada tienda, sin desperdiciar una sola pieza.</td>
+              </tr>
+              <tr>
+                <th>Cobrar en caja</th>
+                <td class="antes">Precios de memoria o en lista, cambio en dólares calculado a mano, ofertas que había que acordarse de aplicar.</td>
+                <td class="ahora">Escáner, atajos de teclado, dólares con tipo de cambio, pagos mixtos, vales y <strong>promociones automáticas</strong>.</td>
+              </tr>
+              <tr>
+                <th>Encontrar mercancía en otra tienda</th>
+                <td class="antes">Llamar por teléfono a cada sucursal para preguntar quién tenía.</td>
+                <td class="ahora">Consulta de existencias en todas las sucursales y <strong>préstamo registrado</strong> hasta su devolución.</td>
+              </tr>
+              <tr>
+                <th>Cortes y arqueos</th>
+                <td class="antes">Contar al cierre; si había diferencia, era imposible reconstruir el día.</td>
+                <td class="ahora">Arqueo a medio turno sin cerrar la caja y tablero de <strong>faltantes y sobrantes</strong> por turno.</td>
+              </tr>
+              <tr>
+                <th>Facturar</th>
+                <td class="antes">Rehacer la venta en otro programa, capturando todo de nuevo.</td>
+                <td class="ahora">La venta del punto de venta se convierte en <strong>factura CFDI 4.0</strong> con sus impuestos ya desglosados.</td>
+              </tr>
+              <tr>
+                <th>Control y seguridad</th>
+                <td class="antes">Cancelaciones y retiros sin rastro claro de quién los hizo ni por qué.</td>
+                <td class="ahora">Permisos por puesto, <strong>NIP de supervisor</strong> y bitácora de cada acción crítica.</td>
+              </tr>
+              <tr>
+                <th>Pedidos atorados</th>
+                <td class="antes">Se descubrían cuando la sucursal reclamaba que no le llegó mercancía.</td>
+                <td class="ahora">El sistema revisa <strong>cada hora</strong> y avisa por WhatsApp de lo que no se surtió o no se confirmó.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02 · Inteligencia artificial ───────────────────────────── -->
+    <section class="seccion oscura" id="ia">
+      <div class="interior">
+        <div class="ia-grid">
+          <div class="revelar">
+            <span class="insignia-ia">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+              Inteligencia artificial
+            </span>
+            <span class="numero">02 · IA aplicada</span>
+            <h2 style="font-size: clamp(26px, 3.4vw, 36px); font-weight: 800;">La constancia fiscal se lee sola</h2>
+            <p style="margin-top: 14px; color: rgba(255,255,255,0.74);">
+              Dar de alta a un cliente para facturarle exigía copiar, letra por letra, los datos de su
+              Constancia de Situación Fiscal del SAT. Es tedioso y es la causa número uno de facturas
+              rechazadas: un RFC con una letra cambiada o un código postal equivocado.
+            </p>
+            <p style="margin-top: 12px; color: rgba(255,255,255,0.74);">
+              Ahora el sistema usa un modelo de <strong style="color:#fff">inteligencia artificial (Claude, de Anthropic)</strong>
+              que lee el documento <em>como lo leería una persona</em>, incluso cuando el cliente
+              manda una constancia escaneada o una foto tomada con el celular, que no trae texto
+              que una computadora pueda copiar.
+            </p>
+
+            <div class="ia-pasos">
+              <div class="ia-paso">
+                <span class="orden">1</span>
+                <div><h4>Se sube el PDF</h4><p>Desde el alta del cliente, con el botón “Subir PDF”.</p></div>
+              </div>
+              <div class="ia-paso">
+                <span class="orden">2</span>
+                <div><h4>Primero, lectura directa</h4><p>Si el PDF es el original del SAT, sus datos se extraen en el momento.</p></div>
+              </div>
+              <div class="ia-paso">
+                <span class="orden">3</span>
+                <div><h4>Si viene escaneado, entra la IA</h4><p>Lee la página como imagen y devuelve RFC, razón social, régimen, código postal y domicilio.</p></div>
+              </div>
+              <div class="ia-paso">
+                <span class="orden">4</span>
+                <div><h4>La persona revisa y guarda</h4><p>Los campos quedan llenos para confirmar; nadie teclea el RFC.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <figure class="captura revelar">
+            <img src="img/s7-cliente-constancia.png" alt="Alta de cliente con el botón para subir la constancia fiscal" loading="lazy" />
+            <figcaption>Alta de cliente: el recuadro verde recibe la constancia y llena los datos de facturación.</figcaption>
+          </figure>
+        </div>
+
+        <div class="garantias revelar">
+          <div class="garantia">
+            <h4>No inventa datos</h4>
+            <p>Tiene instrucción estricta de copiar lo impreso. Si un dato no aparece, deja el campo vacío en lugar de adivinar.</p>
+          </div>
+          <div class="garantia">
+            <h4>Respuestas acotadas al SAT</h4>
+            <p>El régimen fiscal solo puede ser una de las claves oficiales del catálogo del SAT, y el RFC se valida antes de aceptarse.</p>
+          </div>
+          <div class="garantia">
+            <h4>La última palabra es humana</h4>
+            <p>La IA prellena; la persona que da de alta al cliente confirma antes de guardar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 · Análisis de datos ─────────────────────────────────── -->
+    <section class="seccion alterna" id="datos">
+      <div class="interior">
+        <div class="encabezado revelar">
+          <span class="numero">03 · Análisis de datos</span>
+          <h2>Las decisiones ya se toman con números</h2>
+          <p>
+            Cada venta, pedido y movimiento de inventario queda registrado en un mismo lugar. Eso
+            permite que el sistema haga los cálculos que antes requerían juntar reportes a mano, y
+            los presente listos para decidir.
+          </p>
+        </div>
+
+        <div class="analisis">
+          <article class="analisis-tarjeta revelar">
+            <img src="img/matriz-dashboard.png" alt="Tablero de matriz con gráfica de ventas y tendencia" loading="lazy" />
+            <div class="cuerpo">
+              <span class="tecnica">Tendencia · regresión lineal</span>
+              <h3>Ventas por periodo con tendencia</h3>
+              <p>
+                El tablero compara el periodo actual contra el anterior (diario, semanal o mensual)
+                y traza una <strong>línea de tendencia</strong> calculada por mínimos cuadrados que dice si
+                las ventas van al alza o a la baja, y en qué porcentaje.
+              </p>
+              <p><strong>Antes:</strong> la tendencia se intuía; no había con qué medirla.</p>
+            </div>
+          </article>
+
+          <article class="analisis-tarjeta revelar">
+            <img src="img/s10-kardex-global.png" alt="Kardex Global comparando productos entre sucursales" loading="lazy" />
+            <div class="cuerpo">
+              <span class="tecnica">Comparativo entre sucursales</span>
+              <h3>Kardex Global</h3>
+              <p>
+                Un producto, todas las sucursales, en una sola tabla: qué se vende más y dónde, en
+                piezas, kilos o pesos, para el periodo que se elija. Ayuda a mover mercancía hacia
+                donde sí rota.
+              </p>
+              <p><strong>Antes:</strong> pedir el reporte de cada tienda y cruzarlos en Excel.</p>
+            </div>
+          </article>
+
+          <article class="analisis-tarjeta revelar">
+            <img src="img/s6-reporte-ventas.png" alt="Reporte de ventas por sucursal y forma de pago" loading="lazy" />
+            <div class="cuerpo">
+              <span class="tecnica">Indicadores de venta</span>
+              <h3>Ticket promedio, formas de pago y mejor día</h3>
+              <p>
+                El historial calcula total vendido, número de ventas, <strong>ticket promedio</strong>,
+                participación de cada sucursal, cobro por forma de pago y el mejor día del periodo.
+                Se exporta a PDF o Excel.
+              </p>
+              <p><strong>Antes:</strong> sumar tickets y cortes al final del mes.</p>
+            </div>
+          </article>
+
+          <article class="analisis-tarjeta revelar">
+            <img src="img/s9-dashboard-agotados.png" alt="Alertas de stock bajo con cantidad sugerida a pedir" loading="lazy" />
+            <div class="cuerpo">
+              <span class="tecnica">Reabastecimiento sugerido</span>
+              <h3>Stock bajo y cantidad sugerida</h3>
+              <p>
+                Cada producto tiene mínimo y máximo. Cuando baja del mínimo aparece en alertas con la
+                <strong>cantidad sugerida a pedir</strong> y un botón para mandarlo directo a orden de compra.
+                Si una venta deja algo en cero, compras recibe aviso el mismo día.
+              </p>
+              <p><strong>Antes:</strong> el faltante se notaba cuando el cliente ya no lo encontraba.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="aclaracion revelar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5M4 19h16"/><path d="M8 16V9M12 16v-4M16 16v-7M20 16v-3"/></svg>
+          <p>
+            <strong>Reparto justo de mercancía escasa.</strong> Cuando varias sucursales piden un
+            producto y la existencia no alcanza para todas, el nivelador de matriz la reparte en
+            proporción a lo que pidió cada una (método de residuo mayor), de modo que se usa el 100%
+            de lo disponible y ninguna tienda queda relegada por quién pidió primero.
+          </p>
+        </div>
+
+        <div class="aclaracion revelar" style="background:#fff;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+          <p>
+            <strong>¿Qué es IA y qué es análisis?</strong> Para ser claros: la inteligencia artificial
+            se usa en la lectura de constancias fiscales. Los tableros, tendencias, sugerencias de
+            compra y el nivelador son <strong>cálculos estadísticos exactos</strong>: siempre dan el mismo
+            resultado con los mismos datos y se pueden auditar. Así es como debe ser cuando se trata
+            de dinero e inventario.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 · Operación diaria ──────────────────────────────────── -->
+    <section class="seccion" id="operacion">
+      <div class="interior">
+        <div class="encabezado revelar">
+          <span class="numero">04 · Operación diaria</span>
+          <h2>Lo que cambió en caja, en bodega y en matriz</h2>
+          <p>Cada ventaja con la forma en que se hacía antes y cómo se hace ahora.</p>
+        </div>
+
+        <div class="ventajas">
+
+        <div class="ventaja revelar">
+          <div class="texto">
+            <span class="indice">CAJA</span>
+            <h3>Un punto de venta que no deja ir al cliente</h3>
+            <div class="caso antes">
+              <span class="rotulo">Antes</span>
+              Precios de memoria, cambio de dólares calculado a mano y, si se iba el internet o el
+              inventario decía cero, la venta se perdía.
+            </div>
+            <div class="caso ahora">
+              <span class="rotulo">Ahora</span>
+              <ul>
+                <li>Escáner y búsqueda por nombre, con atajos de teclado.</li>
+                <li>Cobro en pesos, dólares, tarjeta, vales y pagos mixtos.</li>
+                <li>Si se cae el internet, sigue cobrando y sincroniza al volver.</li>
+                <li>Si el sistema dice “sin existencia” pero el producto está ahí, cobra y avisa a compras.</li>
+              </ul>
+            </div>
+          </div>
+          <figure class="captura">
+            <img src="img/s9-pos-sin-stock.png" alt="Punto de venta cobrando un producto sin existencia registrada" loading="lazy" />
+            <figcaption>El producto marca “Stock disponible: 0”, pero la venta sigue adelante.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ventaja revelar">
+          <div class="texto">
+            <span class="indice">PROMOCIONES</span>
+            <h3>Ofertas que se aplican solas</h3>
+            <div class="caso antes">
+              <span class="rotulo">Antes</span>
+              Para una oferta había que cambiar el precio y acordarse de regresarlo. Un 2x1 dependía
+              de que el cajero lo aplicara a mano.
+            </div>
+            <div class="caso ahora">
+              <span class="rotulo">Ahora</span>
+              Matriz arma la promoción (porcentaje, pesos, 2x1, 3x2, segundo a mitad) con fechas y
+              sucursales. La caja la aplica sola y la imprime desglosada en el ticket.
+            </div>
+          </div>
+          <figure class="captura">
+            <img src="img/s10-promocion-combinacion.png" alt="Formulario para crear una promoción 3x2" loading="lazy" />
+            <figcaption>Una promoción se prepara una vez y aplica en todas las sucursales elegidas.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ventaja revelar">
+          <div class="texto">
+            <span class="indice">SUCURSALES</span>
+            <h3>Las tiendas se apoyan entre ellas</h3>
+            <div class="caso antes">
+              <span class="rotulo">Antes</span>
+              Para saber quién tenía un producto había que llamar sucursal por sucursal, y los
+              préstamos se quedaban en acuerdos de palabra.
+            </div>
+            <div class="caso ahora">
+              <span class="rotulo">Ahora</span>
+              Cada tienda consulta la existencia de las demás, pide prestado y el préstamo queda
+              registrado hasta su devolución. Los pedidos a matriz también viajan por el sistema.
+            </div>
+          </div>
+          <figure class="captura">
+            <img src="img/sucursal-prestamos.png" alt="Pantalla de préstamos entre sucursales" loading="lazy" />
+            <figcaption>Consulta de existencias en otras sucursales y control de lo prestado.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ventaja revelar">
+          <div class="texto">
+            <span class="indice">DINERO</span>
+            <h3>Cortes y arqueos sin sorpresas</h3>
+            <div class="caso antes">
+              <span class="rotulo">Antes</span>
+              El cuadre se hacía al cierre. Si faltaba dinero, el cajero ya iba de salida y el día era
+              imposible de reconstruir.
+            </div>
+            <div class="caso ahora">
+              <span class="rotulo">Ahora</span>
+              El supervisor arquea a medio turno sin cerrar la caja. Matriz ve en un tablero qué
+              turnos tuvieron faltante o sobrante, quién contó y quién autorizó, y puede imprimir el
+              corte de cualquier día.
+            </div>
+          </div>
+          <figure class="captura">
+            <img src="img/s10-arqueos-diferencias.png" alt="Tablero de diferencias en arqueos por turno" loading="lazy" />
+            <figcaption>Diferencias de arqueo en pesos y dólares, por sucursal y periodo.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ventaja revelar">
+          <div class="texto">
+            <span class="indice">FACTURACIÓN</span>
+            <h3>De la venta a la factura, sin recapturar</h3>
+            <div class="caso antes">
+              <span class="rotulo">Antes</span>
+              La venta se volvía a capturar completa en otro programa para poder facturarla.
+            </div>
+            <div class="caso ahora">
+              <span class="rotulo">Ahora</span>
+              Cualquier venta del punto de venta se convierte en factura CFDI 4.0: los productos,
+              sus claves del SAT y los impuestos ya vienen de la venta. Solo se eligen los datos del
+              cliente, que la IA ya pudo haber leído de su constancia.
+            </div>
+          </div>
+          <figure class="captura">
+            <img src="img/s6-facturas-modal.png" alt="Ventana para facturar una venta del punto de venta" loading="lazy" />
+            <figcaption>Facturar una venta existente: el detalle ya está, solo falta el receptor.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ventaja revelar">
+          <div class="texto">
+            <span class="indice">CONTROL</span>
+            <h3>Cada acción crítica tiene nombre y motivo</h3>
+            <div class="caso antes">
+              <span class="rotulo">Antes</span>
+              Una cancelación o un retiro de efectivo no dejaba rastro claro de quién lo hizo ni por qué.
+            </div>
+            <div class="caso ahora">
+              <span class="rotulo">Ahora</span>
+              Cada puesto tiene solo los permisos que necesita. Cancelar o retirar pide NIP de
+              supervisor, se elige un motivo de un catálogo común y todo queda en la bitácora con hora,
+              persona, sucursal e importe.
+            </div>
+          </div>
+          <figure class="captura">
+            <img src="img/s9-bitacora.png" alt="Bitácora con cancelaciones y devoluciones" loading="lazy" />
+            <figcaption>Bitácora: quién hizo qué, dónde, cuándo y por cuánto.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ventaja revelar">
+          <div class="texto">
+            <span class="indice">AUTOMATIZACIÓN</span>
+            <h3>El sistema avisa antes de que alguien reclame</h3>
+            <div class="caso antes">
+              <span class="rotulo">Antes</span>
+              Un pedido atorado se descubría cuando la sucursal llamaba porque no le había llegado la
+              mercancía.
+            </div>
+            <div class="caso ahora">
+              <span class="rotulo">Ahora</span>
+              Cada hora el sistema revisa los pedidos que matriz no surtió a tiempo y los que la
+              sucursal no confirmó, y manda un solo WhatsApp consolidado a los responsables. Las
+              órdenes de compra también se envían en PDF por WhatsApp.
+            </div>
+          </div>
+          <figure class="captura">
+            <img src="img/s8-configuracion-alertas.png" alt="Configuración de WhatsApp y alertas" loading="lazy" />
+            <figcaption>Conexión de WhatsApp y horarios de operación, configurables desde matriz.</figcaption>
+          </figure>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 05 · Privacidad ────────────────────────────────────────── -->
+    <section class="seccion alterna" id="privacidad">
+      <div class="interior">
+        <div class="privacidad revelar">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l8 4v5c0 4.5-3.2 8.3-8 9-4.8-.7-8-4.5-8-9V7z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg>
+          <div>
+            <h3>Nota sobre los datos de las capturas</h3>
+            <p>
+              Para cuidar la privacidad de Mercados Titos y de sus clientes, todas las capturas de
+              esta presentación se tomaron en un ambiente de prueba. <strong>Los nombres de personas,
+              folios, montos, cantidades y demás cifras que aparecen no son reales</strong> ni
+              corresponden a ventas, clientes o empleados de la operación.
+            </p>
+            <p>
+              Ninguna captura muestra datos fiscales, teléfonos ni correos de clientes reales. Las
+              pantallas se ven igual que en la operación diaria; solo cambia la información de ejemplo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cierre">
+      <img src="img/logo-davinci.png" alt="DaVinci" />
+      <h2>Menos captura, menos llamadas, mejores decisiones</h2>
+      <p>
+        El valor del sistema no está en una pantalla, sino en que todo queda registrado una sola vez
+        y a partir de ahí se analiza, se avisa y se controla solo.
+      </p>
+    </section>
+
+    <footer class="pie">DaVinci · Ventajas del sistema para Mercados Titos · Datos de las capturas ficticios</footer>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Captura ampliada">
+      <button class="cerrar" type="button" aria-label="Cerrar">×</button>
+      <img alt="" />
+    </div>
+
+    <script>
+      // Barra de progreso de lectura
+      const barra = document.getElementById("progreso");
+      addEventListener("scroll", () => {
+        const total = document.documentElement.scrollHeight - innerHeight;
+        barra.style.width = (total > 0 ? (scrollY / total) * 100 : 0) + "%";
+      }, { passive: true });
+
+      // Aparición suave al hacer scroll
+      const observador = new IntersectionObserver((entradas) => {
+        for (const e of entradas) {
+          if (e.isIntersecting) { e.target.classList.add("visible"); observador.unobserve(e.target); }
+        }
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".revelar").forEach((el) => observador.observe(el));
+
+      // Capturas ampliadas
+      const caja = document.getElementById("lightbox");
+      const ampliada = caja.querySelector("img");
+      document.querySelectorAll(".captura img, .analisis-tarjeta img").forEach((img) => {
+        img.addEventListener("click", () => {
+          ampliada.src = img.src;
+          ampliada.alt = img.alt;
+          caja.classList.add("abierto");
+        });
+      });
+      const cerrar = () => caja.classList.remove("abierto");
+      caja.addEventListener("click", cerrar);
+      addEventListener("keydown", (e) => { if (e.key === "Escape") cerrar(); });
+    </script>
+  </body>
+</html>

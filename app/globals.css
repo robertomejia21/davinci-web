@@ -1616,12 +1616,20 @@ table.tech td b { color: var(--naranja); font-weight: 500; }
 .barra-sticky .cerrar { color: var(--sobre-oscuro-2); font-size: 1.05rem; padding: 0.2rem 0.5rem; }
 .barra-sticky .cerrar:hover { color: #fff; }
 @media (max-width: 700px) {
+  /* en mobile solo queda el botón: el texto ocupaba media pantalla */
   .barra-sticky {
-    left: 12px; right: 84px; width: auto; bottom: 16px;
-    transform: translateY(160%); padding-left: 1rem; gap: 0.6rem;
+    left: 16px; width: auto; bottom: 20px;
+    transform: translateY(160%); padding: 0; gap: 0.4rem;
+    background: none; border: 0; box-shadow: none;
   }
   .barra-sticky[data-visible="true"] { transform: translateY(0); }
-  .barra-sticky p { font-size: 0.74rem; line-height: 1.35; }
+  .barra-sticky p { display: none; }
+  .barra-sticky .btn { box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.55); }
+  .barra-sticky .cerrar {
+    display: grid; place-items: center; width: 28px; height: 28px; padding: 0;
+    font-size: 0.8rem; border-radius: 50%;
+    background: var(--negro-2); border: 1px solid var(--linea-osc-2);
+  }
 }
 
 .modal {
